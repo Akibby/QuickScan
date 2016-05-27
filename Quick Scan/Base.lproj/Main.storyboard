@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="Lh4-G0-eFU">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaggedAssetCell" rowHeight="90" id="Lh4-G0-eFU">
                                 <rect key="frame" x="0.0" y="92" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lh4-G0-eFU" id="pGb-LR-oKU">
@@ -58,25 +58,14 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="q7Q-Wq-p3R">
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="7zo-Vg-mhL"/>
+                                    <segue destination="mmf-3C-dQt" kind="show" id="7zo-Vg-mhL"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="action" id="7lg-26-dkK"/>
                         </rightBarButtonItems>
                     </navigationItem>
-                    <connections>
-                        <outlet property="searchDisplayController" destination="SZg-gO-AX1" id="E4V-Rc-oJS"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EcW-B9-15l" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="SZg-gO-AX1">
-                    <connections>
-                        <outlet property="delegate" destination="aHu-Jd-Bj9" id="JHC-Qe-dvn"/>
-                        <outlet property="searchContentsController" destination="aHu-Jd-Bj9" id="dUE-cL-rpv"/>
-                        <outlet property="searchResultsDataSource" destination="aHu-Jd-Bj9" id="6TU-Oi-vcV"/>
-                        <outlet property="searchResultsDelegate" destination="aHu-Jd-Bj9" id="J2d-5b-9uW"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="756" y="451"/>
         </scene>
@@ -164,10 +153,23 @@
                             <constraint firstItem="QlC-NZ-iFh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="gr3-0e-tn5"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="m47-tQ-5OD">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="W01-Tp-rLi">
+                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="ucm-4o-BU0"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Se9-2N-BhQ"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="assetField" destination="Fyy-zm-VMf" id="8Az-b3-BrG"/>
+                        <outlet property="serialField" destination="c3t-ed-rah" id="0cU-ai-Yr5"/>
+                        <outlet property="typeField" destination="B1j-iQ-9fk" id="eBe-1H-G9u"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1761" y="451"/>
+            <point key="canvasLocation" x="2573" y="451"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FY8-Q5-vyK">
@@ -186,6 +188,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6XS-WE-Rkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-56" y="451"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="WdD-BH-tTp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mmf-3C-dQt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Dw-3v-zLb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4td-pF-5hW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6ev-mU-poh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1761" y="451"/>
         </scene>
     </scenes>
 </document>
