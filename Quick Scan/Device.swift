@@ -16,8 +16,6 @@ class Device: NSObject {
     var serialNum: String
     var type: String
     
-    // ======================================================
-    
     
     // MARK: Initialization
     
@@ -30,11 +28,8 @@ class Device: NSObject {
         
         super.init()
         
-        if assetTag.isEmpty || serialNum.isEmpty || type.isEmpty{
+        if  assetTag.isEmpty || serialNum.isEmpty || type.isEmpty{
             return nil
         }
     }
-    
-    // ======================================================
-
 }

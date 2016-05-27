@@ -8,18 +8,27 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
+    
     
     // MARK: Properties
     
     @IBOutlet weak var assetField: UITextField!
     @IBOutlet weak var serialField: UITextField!
     @IBOutlet weak var typeField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    var device: Device?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Handle the text field's inputs
+        assetField.delegate = self
+        serialField.delegate = self
+        typeField.delegate = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,10 +36,35 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    // MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        // Hide the keyboard.
+        textField.resignFirstResponder()
+        return true
+    }
+ 
+    /*
+    func textFieldDidBeginEditing(textField: UITextField) {
+        saveButton.enabled = false
+    }
+    */
+    
     // MARK: Navigation
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if saveButton === sender{
+            let asset = assetField.text ?? ""
+            let serial = serialField.text ?? ""
+            let type = typeField.text ?? ""
+            
+            device = Device(assetTag: asset, serialNum: serial, type: type)
+        }
     }
     
 }
