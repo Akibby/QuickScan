@@ -64,8 +64,19 @@
                             <barButtonItem systemItem="action" id="7lg-26-dkK"/>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="SZg-gO-AX1" id="E4V-Rc-oJS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EcW-B9-15l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="SZg-gO-AX1">
+                    <connections>
+                        <outlet property="delegate" destination="aHu-Jd-Bj9" id="JHC-Qe-dvn"/>
+                        <outlet property="searchContentsController" destination="aHu-Jd-Bj9" id="dUE-cL-rpv"/>
+                        <outlet property="searchResultsDataSource" destination="aHu-Jd-Bj9" id="6TU-Oi-vcV"/>
+                        <outlet property="searchResultsDelegate" destination="aHu-Jd-Bj9" id="J2d-5b-9uW"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="756" y="451"/>
         </scene>
