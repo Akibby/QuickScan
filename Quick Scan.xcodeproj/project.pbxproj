@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9D4C9A31CFCCA2E000591D5 /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */; };
 		D9FA84EF1CF8A616009C5ECC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */; };
 		D9FA84F11CF8A616009C5ECC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA84F01CF8A616009C5ECC /* ViewController.swift */; };
 		D9FA84F41CF8A616009C5ECC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9FA84F21CF8A616009C5ECC /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceInfoViewController.swift; path = ../DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D9FA84EB1CF8A616009C5ECC /* Quick Scan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quick Scan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9FA84F01CF8A616009C5ECC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,15 +85,16 @@
 		D9FA84ED1CF8A616009C5ECC /* Quick Scan */ = {
 			isa = PBXGroup;
 			children = (
+				D9FA84FA1CF8A616009C5ECC /* Info.plist */,
 				D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */,
-				D9FA84F01CF8A616009C5ECC /* ViewController.swift */,
-				D9FA84F21CF8A616009C5ECC /* Main.storyboard */,
+				D9FA850E1CF8CE4E009C5ECC /* Device.swift */,
+				D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */,
 				D9FA85141CF8F584009C5ECC /* DeviceTableViewCell.swift */,
+				D9FA85121CF8ECAB009C5ECC /* DeviceTableViewController.swift */,
+				D9FA84F01CF8A616009C5ECC /* ViewController.swift */,
 				D9FA84F51CF8A616009C5ECC /* Assets.xcassets */,
 				D9FA84F71CF8A616009C5ECC /* LaunchScreen.storyboard */,
-				D9FA84FA1CF8A616009C5ECC /* Info.plist */,
-				D9FA850E1CF8CE4E009C5ECC /* Device.swift */,
-				D9FA85121CF8ECAB009C5ECC /* DeviceTableViewController.swift */,
+				D9FA84F21CF8A616009C5ECC /* Main.storyboard */,
 			);
 			path = "Quick Scan";
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			files = (
 				D9FA85151CF8F584009C5ECC /* DeviceTableViewCell.swift in Sources */,
 				D9FA850F1CF8CE4E009C5ECC /* Device.swift in Sources */,
+				D9D4C9A31CFCCA2E000591D5 /* DeviceInfoViewController.swift in Sources */,
 				D9FA85131CF8ECAB009C5ECC /* DeviceTableViewController.swift in Sources */,
 				D9FA84F11CF8A616009C5ECC /* ViewController.swift in Sources */,
 				D9FA84EF1CF8A616009C5ECC /* AppDelegate.swift in Sources */,
@@ -407,6 +411,7 @@
 				D9FA850A1CF8A616009C5ECC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D9FA850B1CF8A616009C5ECC /* Build configuration list for PBXNativeTarget "Quick ScanTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +420,7 @@
 				D9FA850D1CF8A616009C5ECC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
