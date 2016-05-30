@@ -28,9 +28,10 @@ class DeviceTableViewController: UITableViewController {
     }
     
     func loadSampleDevices(){
-        let device1 = Device(assetTag: "123456789", serialNum: "lolwutaguy", type: "PC")!
-        let device2 = Device(assetTag: "987654321", serialNum: "bestitemna", type: "PC")!
-        let device3 = Device(assetTag: "123454321", serialNum: "10/10wouldbuyagain", type: "PC")!
+        let defaultPhoto = UIImage(named: "No Photo Selected")!
+        let device1 = Device(assetTag: "123456789", serialNum: "lolwutaguy", type: "PC", photo: defaultPhoto)!
+        let device2 = Device(assetTag: "987654321", serialNum: "bestitemna", type: "PC", photo: defaultPhoto)!
+        let device3 = Device(assetTag: "123454321", serialNum: "10/10wouldbuyagain", type: "PC", photo: defaultPhoto)!
         
         devices += [device1, device2, device3]
     }
@@ -59,6 +60,7 @@ class DeviceTableViewController: UITableViewController {
         cell.assetLabel.text = device.assetTag
         cell.serialLabel.text = device.serialNum
         cell.typeLabel.text = device.type
+        cell.photoImageView.image = device.photo
         
         return cell
     }
@@ -104,12 +106,12 @@ class DeviceTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail"{
-            let assetDetailViewController = segue.destinationViewController as! ViewController
-            // if let selectedViewCell = sender as? DeviceTableViewCell{
-            //    let indexPath = tableView.indexPathForCell(selectedDeviceCell)!
-            //    let selectedDevice = devices[indexPath.row]
-            //    deviceDetailViewController.device = selectedDevice
-            //}
+            let deviceDetailViewController = segue.destinationViewController as! ViewController
+             if let selectedViewCell = sender as? DeviceTableViewCell{
+                let indexPath = tableView.indexPathForCell(selectedViewCell)!
+                let selectedDevice = devices[indexPath.row]
+                deviceDetailViewController.device = selectedDevice
+            }
         }
         else if segue.identifier == "AddItem"{
             print("Adding new device")

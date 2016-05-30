@@ -16,11 +16,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaggedAssetCell" rowHeight="90" id="Lh4-G0-eFU" customClass="DeviceTableViewCell" customModule="Quick_Scan" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeviceTableViewCell" rowHeight="90" id="Lh4-G0-eFU" customClass="DeviceTableViewCell" customModule="Quick_Scan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lh4-G0-eFU" id="pGb-LR-oKU">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K2K-iG-8Dg">
@@ -35,19 +35,21 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FXM-ro-dX1">
-                                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Serial Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fb5-Em-Eor">
                                             <rect key="frame" x="98" y="34" width="494" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="No Photo Selected" translatesAutoresizingMaskIntoConstraints="NO" id="2zU-TY-YCu">
+                                            <rect key="frame" x="0.0" y="0.0" width="89" height="89"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="assetLabel" destination="DLX-s5-UaE" id="yXU-rs-f4P"/>
+                                    <outlet property="imageView" destination="2zU-TY-YCu" id="Ah7-b5-9iz"/>
+                                    <outlet property="photoImageView" destination="2zU-TY-YCu" id="Tnm-GG-NTy"/>
                                     <outlet property="serialLabel" destination="fb5-Em-Eor" id="CGD-GU-hgL"/>
                                     <outlet property="typeLabel" destination="K2K-iG-8Dg" id="bEw-gC-oVs"/>
                                 </connections>
@@ -213,4 +215,7 @@
             <point key="canvasLocation" x="1521" y="451"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="No Photo Selected" width="540" height="540"/>
+    </resources>
 </document>

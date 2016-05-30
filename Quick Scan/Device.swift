@@ -15,16 +15,17 @@ class Device: NSObject {
     var assetTag: String
     var serialNum: String
     var type: String
-    
+    var photo: UIImage?
     
     // MARK: Initialization
     
-    init?(assetTag: String, serialNum: String, type: String){
+    init?(assetTag: String, serialNum: String, type: String, photo: UIImage?){
         
         // Initialize stored properties
         self.assetTag = assetTag
         self.serialNum = serialNum
         self.type = type
+        self.photo = photo
         
         super.init()
         

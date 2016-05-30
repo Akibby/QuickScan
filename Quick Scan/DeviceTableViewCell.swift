@@ -15,7 +15,7 @@ class DeviceTableViewCell: UITableViewCell {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var serialLabel: UILabel!
     @IBOutlet weak var assetLabel: UILabel!
-    
+    @IBOutlet weak var photoImageView: UIImageView!
     
 
     override func awakeFromNib() {

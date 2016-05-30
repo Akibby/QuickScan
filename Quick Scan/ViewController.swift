@@ -62,8 +62,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let asset = assetField.text ?? ""
             let serial = serialField.text ?? ""
             let type = typeField.text ?? ""
+            let photo = UIImage(named: "No Photo Selected")
             
-            device = Device(assetTag: asset, serialNum: serial, type: type)
+            device = Device(assetTag: asset, serialNum: serial, type: type, photo: photo)
         }
     }
     
