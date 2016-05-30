@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D9D4C9A31CFCCA2E000591D5 /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */; };
+		D9D4C9A71CFCDB92000591D5 /* Captuvo in Resources */ = {isa = PBXBuildFile; fileRef = D9D4C9A61CFCDB92000591D5 /* Captuvo */; };
+		D9D4C9A81CFCDB92000591D5 /* Captuvo in Resources */ = {isa = PBXBuildFile; fileRef = D9D4C9A61CFCDB92000591D5 /* Captuvo */; };
+		D9D4C9AA1CFCDEB1000591D5 /* libCaptuvoSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */; };
+		D9D4C9AC1CFCDF45000591D5 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D4C9AB1CFCDF45000591D5 /* ExternalAccessory.framework */; };
 		D9FA84EF1CF8A616009C5ECC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */; };
 		D9FA84F11CF8A616009C5ECC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA84F01CF8A616009C5ECC /* ViewController.swift */; };
 		D9FA84F41CF8A616009C5ECC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9FA84F21CF8A616009C5ECC /* Main.storyboard */; };
@@ -31,6 +35,9 @@
 
 /* Begin PBXFileReference section */
 		D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceInfoViewController.swift; path = ../DeviceInfoViewController.swift; sourceTree = "<group>"; };
+		D9D4C9A61CFCDB92000591D5 /* Captuvo */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Captuvo; sourceTree = "<group>"; };
+		D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCaptuvoSDK.a; path = Captuvo/libCaptuvoSDK.a; sourceTree = "<group>"; };
+		D9D4C9AB1CFCDF45000591D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		D9FA84EB1CF8A616009C5ECC /* Quick Scan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quick Scan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9FA84F01CF8A616009C5ECC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9D4C9AC1CFCDF45000591D5 /* ExternalAccessory.framework in Frameworks */,
+				D9D4C9AA1CFCDEB1000591D5 /* libCaptuvoSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +76,9 @@
 		D9FA84E21CF8A616009C5ECC = {
 			isa = PBXGroup;
 			children = (
+				D9D4C9AB1CFCDF45000591D5 /* ExternalAccessory.framework */,
+				D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */,
+				D9D4C9A61CFCDB92000591D5 /* Captuvo */,
 				D9FA84ED1CF8A616009C5ECC /* Quick Scan */,
 				D9FA85021CF8A616009C5ECC /* Quick ScanTests */,
 				D9FA84EC1CF8A616009C5ECC /* Products */,
@@ -191,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9FA84F91CF8A616009C5ECC /* LaunchScreen.storyboard in Resources */,
+				D9D4C9A71CFCDB92000591D5 /* Captuvo in Resources */,
 				D9FA84F61CF8A616009C5ECC /* Assets.xcassets in Resources */,
 				D9FA84F41CF8A616009C5ECC /* Main.storyboard in Resources */,
 			);
@@ -200,6 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9D4C9A81CFCDB92000591D5 /* Captuvo in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +362,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Quick Scan/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Captuvo",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "FMOLHS.Quick-Scan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -362,6 +380,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Quick Scan/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Captuvo",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "FMOLHS.Quick-Scan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
