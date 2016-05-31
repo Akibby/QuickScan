@@ -29,9 +29,9 @@ class DeviceTableViewController: UITableViewController {
     
     func loadSampleDevices(){
         let defaultPhoto = UIImage(named: "No Photo Selected")!
-        let device1 = Device(assetTag: "123456789", serialNum: "lolwutaguy", type: "PC", photo: defaultPhoto)!
-        let device2 = Device(assetTag: "987654321", serialNum: "bestitemna", type: "PC", photo: defaultPhoto)!
-        let device3 = Device(assetTag: "123454321", serialNum: "10/10wouldbuyagain", type: "PC", photo: defaultPhoto)!
+        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", type: "PC", photo: defaultPhoto)!
+        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", type: "PC", photo: defaultPhoto)!
+        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", type: "PC", photo: defaultPhoto)!
         
         devices += [device1, device2, device3]
     }
