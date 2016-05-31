@@ -124,20 +124,12 @@ class DeviceTableViewController: UITableViewController {
     
     @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? ViewController, device = sourceViewController.device{
-            if let selectedIndexPath = tableView.indexPathForSelectedRow{
-                // Update an existing device
-                devices[selectedIndexPath.row] = device
-            }
-            else{
-                // Add new device
-                let newIndexPath = NSIndexPath(forRow: devices.count, inSection: 0)
-                devices.append(device)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-            }
-            
+            // Add new device
+            let newIndexPath = NSIndexPath(forRow: devices.count, inSection: 0)
+            devices.append(device)
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
     }
-    
 }
 
 

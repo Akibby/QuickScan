@@ -7,6 +7,7 @@
 //
 
 import UIKit
+// #import "Captuvo.h"
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -44,7 +45,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
- 
+    
+    func checkValidAsset(){
+        // Disable the save button while the field is empty
+        let text = assetField.text ?? ""
+        saveButton.enabled = !text.isEmpty
+    }
+    
+    func checkValidSerial(){
+        // Disable the save button while the field is empty
+        let text = serialField.text ?? ""
+        saveButton.enabled = !text.isEmpty
+    }
+    
+    func checkValidType(){
+        // Disable the save button while the field is empty
+        let text = typeField.text ?? ""
+        saveButton.enabled = !text.isEmpty
+    }
+    
     /*
     func textFieldDidBeginEditing(textField: UITextField) {
         saveButton.enabled = false
@@ -69,4 +88,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
