@@ -7,9 +7,8 @@
 //
 
 import UIKit
-// #import "Captuvo.h"
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     
     // MARK: Properties
@@ -18,6 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var serialField: UITextField!
     @IBOutlet weak var typeField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var batteryLabel: UILabel!
     
     var device: Device?
     
@@ -29,6 +29,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         assetField.delegate = self
         serialField.delegate = self
         typeField.delegate = self
+        
+        Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
+        Captuvo.sharedCaptuvoDevice().startDecoderHardware()
         
     }
 
@@ -64,6 +67,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
         saveButton.enabled = !text.isEmpty
     }
     
+    func captuvoConnected(){
+        
+        Captuvo.sharedCaptuvoDevice().startDecoderHardware()
+        Captuvo.sharedCaptuvoDevice().startMSRHardware()
+        Captuvo.sharedCaptuvoDevice().startPMHardware()
+        
+        batteryLabel.text = "Scanner connected!"
+    }
+    
+    func captuvoDisconnected()
+    {
+        Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
+        Captuvo.sharedCaptuvoDevice().stopMSRHardware();
+        Captuvo.sharedCaptuvoDevice().stopPMHardware()
+    }
+    
     /*
     func textFieldDidBeginEditing(textField: UITextField) {
         saveButton.enabled = false
@@ -85,6 +104,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             device = Device(assetTag: asset, serialNum: serial, type: type, photo: photo)
         }
+    }
+    
+    // MARK: Captuvo
+    
+    func decoderDataReceived(data: String!) {
+        assetField.text = data
+    }
+    
+    func pmReady(){
+        batteryLabel.text = "Battery is Ready"
+    }
+    
+    func responseBatteryDetailInformation(batteryInfo: cupertinoBatteryDetailInfo!) {
+        batteryLabel.text = "Battery: \(batteryInfo.percentage) %"
     }
     
 }
