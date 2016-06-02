@@ -19,17 +19,23 @@ class Device: NSObject {
     
     // MARK: Initialization
     
-    init?(assetTag: String, serialNum: String, type: String, photo: UIImage?){
+    init?(assetTag: String, serialNum: String, type: String?, photo: UIImage?){
         
         // Initialize stored properties
         self.assetTag = assetTag
         self.serialNum = serialNum
-        self.type = type
+        // self.type = type!
         self.photo = photo
+        if type == ""{
+            self.type = "Unknown"
+        }
+        else{
+            self.type = type!
+        }
         
         super.init()
         
-        if  assetTag.isEmpty || serialNum.isEmpty || type.isEmpty{
+        if  assetTag.isEmpty || serialNum.isEmpty {
             return nil
         }
     }
