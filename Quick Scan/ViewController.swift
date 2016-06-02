@@ -106,6 +106,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     func captuvoDisconnected()
     {
         Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
+        batteryLabel.text = "Searching for Scanner"
     }
     
     func decoderDataReceived(data: String!) {

@@ -61,7 +61,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tagged Devices" id="bw5-Ib-W3i">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="jQH-BI-Djc"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="q7Q-Wq-p3R">
                                 <connections>
