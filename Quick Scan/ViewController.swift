@@ -101,15 +101,11 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     func captuvoConnected(){
         
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
-        Captuvo.sharedCaptuvoDevice().startMSRHardware()
-        Captuvo.sharedCaptuvoDevice().startPMHardware()
     }
     
     func captuvoDisconnected()
     {
         Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
-        Captuvo.sharedCaptuvoDevice().stopMSRHardware();
-        Captuvo.sharedCaptuvoDevice().stopPMHardware()
     }
     
     func decoderDataReceived(data: String!) {

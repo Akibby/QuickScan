@@ -17,9 +17,15 @@ class DeviceTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadSampleDevices()
 
+        if let savedDevices = loadDevices(){
+            devices += savedDevices
+        }
+        
+        else {
+            loadSampleDevices()
+        }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -129,6 +135,20 @@ class DeviceTableViewController: UITableViewController {
             devices.append(device)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
+        saveDevices()
+    }
+    
+    // MARK: NSCoding
+    
+    func saveDevices(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(devices, toFile: Device.ArchiveURL.path!)
+        if !isSuccessfulSave{
+            print("Failed to save devices!")
+        }
+    }
+    
+    func loadDevices() -> [Device]?{
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(Device.ArchiveURL.path!) as? [Device]
     }
 }
 
