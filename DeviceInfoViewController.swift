@@ -9,11 +9,23 @@
 import UIKit
 
 class DeviceInfoViewController: UIViewController {
+    
+    // MARK: Attributes
+    
+    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var assetTagLabel: UILabel!
+    @IBOutlet weak var serialNumLabel: UILabel!
+    
+    var device: Device?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if let device = device {
+            typeLabel.text = device.type
+            assetTagLabel.text = device.assetTag
+            serialNumLabel.text = device.serialNum
+        }
     }
 
     override func didReceiveMemoryWarning() {

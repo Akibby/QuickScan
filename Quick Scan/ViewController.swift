@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     @IBOutlet weak var typeField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var batteryLabel: UILabel!
+    var lawNum: String!
     
     var device: Device?
     
@@ -92,7 +93,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
             let type = typeField.text ?? ""
             let photo = UIImage(named: "No Photo Selected")
             
-            device = Device(assetTag: asset, serialNum: serial, type: type, photo: photo)
+            device = Device(assetTag: asset, serialNum: serial, type: type, photo: photo, law: lawNum)
         }
     }
     

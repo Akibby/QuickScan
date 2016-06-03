@@ -13,10 +13,12 @@ class DeviceTableViewController: UITableViewController {
     // MARK: Properties
     
     var devices = [Device]()
-    
+    var lawNum: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = lawNum
         
         navigationItem.leftBarButtonItem = editButtonItem()
         if let savedDevices = loadDevices(){
@@ -36,9 +38,9 @@ class DeviceTableViewController: UITableViewController {
     
     func loadSampleDevices(){
         let defaultPhoto = UIImage(named: "No Photo Selected")!
-        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", type: "PC", photo: defaultPhoto)!
-        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", type: "PC", photo: defaultPhoto)!
-        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", type: "PC", photo: defaultPhoto)!
+        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", type: "PC", photo: defaultPhoto, law: lawNum)!
+        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", type: "PC", photo: defaultPhoto, law: lawNum)!
+        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", type: "PC", photo: defaultPhoto, law: lawNum)!
         
         devices += [device1, device2, device3]
     }
@@ -111,18 +113,20 @@ class DeviceTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail"{
-            let deviceDetailViewController = segue.destinationViewController as! ViewController
+            let deviceInfoViewController = segue.destinationViewController as! UINavigationController
+            let deviceInfo = deviceInfoViewController.topViewController as! DeviceInfoViewController
              if let selectedViewCell = sender as? DeviceTableViewCell{
                 let indexPath = tableView.indexPathForCell(selectedViewCell)!
                 let selectedDevice = devices[indexPath.row]
-                deviceDetailViewController.device = selectedDevice
+                deviceInfo.device = selectedDevice
             }
         }
-        else if segue.identifier == "AddItem"{
-            print("Adding new device")
+        else if segue.identifier == "AddNew"{
+            let nav = segue.destinationViewController as! UINavigationController
+            let svc = nav.topViewController as! ViewController
+            svc.lawNum = lawNum
         }
     }
-    
     
     
     // MARK: Actions
@@ -133,6 +137,7 @@ class DeviceTableViewController: UITableViewController {
             let newIndexPath = NSIndexPath(forRow: devices.count, inSection: 0)
             devices.append(device)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            print("LAW Num = \(device.law)")
         }
         saveDevices()
     }
