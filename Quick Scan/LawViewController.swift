@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LawViewController: UIViewController, UITextFieldDelegate {
+class LawViewController: UIViewController {
     
     // MARK: Properties
     
