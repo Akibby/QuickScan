@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D91653A01D00BDCC002C7587 /* LawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916539F1D00BDCC002C7587 /* LawViewController.swift */; };
+		D9208CE21D075029009E4C6F /* CompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9208CE11D075029009E4C6F /* CompanyTableViewController.swift */; };
+		D9208CE41D075511009E4C6F /* BuildingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9208CE31D075511009E4C6F /* BuildingTableViewController.swift */; };
+		D9208CE61D07551D009E4C6F /* DepartmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9208CE51D07551D009E4C6F /* DepartmentTableViewController.swift */; };
 		D937FAD11D061127008598DC /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D937FAD01D061127008598DC /* LocationTableViewController.swift */; };
 		D937FAD31D061BDD008598DC /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */; };
 		D937FAD51D070500008598DC /* CityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D937FAD41D070500008598DC /* CityTableViewController.swift */; };
@@ -40,6 +43,9 @@
 
 /* Begin PBXFileReference section */
 		D916539F1D00BDCC002C7587 /* LawViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawViewController.swift; sourceTree = "<group>"; };
+		D9208CE11D075029009E4C6F /* CompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableViewController.swift; sourceTree = "<group>"; };
+		D9208CE31D075511009E4C6F /* BuildingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildingTableViewController.swift; sourceTree = "<group>"; };
+		D9208CE51D07551D009E4C6F /* DepartmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartmentTableViewController.swift; sourceTree = "<group>"; };
 		D924F08D1CFDFBE600D0BB6D /* Captuvo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Captuvo.h; sourceTree = "<group>"; };
 		D937FAD01D061127008598DC /* LocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
@@ -114,6 +120,9 @@
 				D9FA84FA1CF8A616009C5ECC /* Info.plist */,
 				D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */,
 				D937FAD41D070500008598DC /* CityTableViewController.swift */,
+				D9208CE11D075029009E4C6F /* CompanyTableViewController.swift */,
+				D9208CE31D075511009E4C6F /* BuildingTableViewController.swift */,
+				D9208CE51D07551D009E4C6F /* DepartmentTableViewController.swift */,
 				D9FA850E1CF8CE4E009C5ECC /* Device.swift */,
 				D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */,
 				D9FA85141CF8F584009C5ECC /* DeviceTableViewCell.swift */,
@@ -245,6 +254,9 @@
 			files = (
 				D91653A01D00BDCC002C7587 /* LawViewController.swift in Sources */,
 				D9FA85151CF8F584009C5ECC /* DeviceTableViewCell.swift in Sources */,
+				D9208CE41D075511009E4C6F /* BuildingTableViewController.swift in Sources */,
+				D9208CE61D07551D009E4C6F /* DepartmentTableViewController.swift in Sources */,
+				D9208CE21D075029009E4C6F /* CompanyTableViewController.swift in Sources */,
 				D937FAD11D061127008598DC /* LocationTableViewController.swift in Sources */,
 				D956E6F21D01DF3900F2016A /* PO.swift in Sources */,
 				D9FA850F1CF8CE4E009C5ECC /* Device.swift in Sources */,

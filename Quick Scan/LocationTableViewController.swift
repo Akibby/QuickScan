@@ -12,10 +12,10 @@ class LocationTableViewController: UITableViewController {
     
     // MARK: Properties
     
-    var titles = ["City", "Building", "Department", "Company"]
+    // var titles = ["City", "Building", "Department", "Company"]
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,7 +31,7 @@ class LocationTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -39,10 +39,10 @@ class LocationTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return titles.count
+        return 4
     }
-    
-    
+    */
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "LocationTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
@@ -51,7 +51,7 @@ class LocationTableViewController: UITableViewController {
         
         return cell
     }
-    
+    */
     
     /*
     // Override to support conditional editing of the table view.

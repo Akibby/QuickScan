@@ -1,5 +1,5 @@
 //
-//  CityTableViewController.swift
+//  CompanyTableViewController.swift
 //  Quick Scan
 //
 //  Created by Austin Kibler on 6/7/16.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class CityTableViewController: UITableViewController {
+class CompanyTableViewController: UITableViewController {
     
-    var cityTitles = ["Baton Rouge, La", "Carencro, La","Crowley, La","Denham Springs, La","Donaldsville, La","Dutchtown, La","Gamercy, La","Gonzales, La","Lafayette, La","Monroe, La","Napoleonville, La","New Orleans, La","New Roads, La","Praireville, La","West Monroe, La"]
+    var companyTitles = ["Assisi Village","Assumption","Calais Health","Calais Health LLC","Calais House","Chateau Louise","FMOL Health System","Franciscan Legal","Heart Hospital of Acadiana","Monroe Health Services","Monroe MRI","Ollie Steele","OLOL College","OLOL Foundation","Our Lady of Lourdes","Our Lady of the Lake RMC","PACE","Specialty Hospital","St Francis Ambulatory","St Francis Ins Agency","St Francis PET Imaging","St Patricks","St. Bernard","St. Elizabeth","St. Elizabeth Physicians","St. Francis Medical Center","St. Francis North","Vendor Computer","Villa St. Francis"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +36,16 @@ class CityTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return cityTitles.count
+        return companyTitles.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "LocationTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-
-        cell.textLabel?.text = cityTitles[indexPath.row]
         
+        cell.textLabel?.text = companyTitles[indexPath.row]
+
         return cell
     }
     
@@ -96,36 +96,3 @@ class CityTableViewController: UITableViewController {
     */
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
