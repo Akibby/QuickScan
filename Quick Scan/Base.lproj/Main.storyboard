@@ -329,16 +329,16 @@
         <scene sceneID="qwP-cY-rCC">
             <objects>
                 <tableViewController id="H7i-RB-O1n" userLabel="Lawson View Controller" customClass="LawsonTableViewController" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="118-Nv-iDc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="118-Nv-iDc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="R1U-B0-rpm">
-                            <rect key="frame" x="0.0" y="417" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="417" width="600" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Start Session"/>
                             <connections>
-                                <segue destination="Hab-vF-Tu6" kind="show" id="ykC-qQ-bOc"/>
+                                <segue destination="Hab-vF-Tu6" kind="show" identifier="POEntered" id="ykC-qQ-bOc"/>
                             </connections>
                         </button>
                         <sections>
@@ -369,7 +369,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-VR-eZ4">
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -386,7 +386,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTd-WE-gCQ">
-                                                    <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -394,7 +394,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="7dB-Lf-FBR" kind="show" id="Gld-aH-Fcr"/>
+                                            <segue destination="7dB-Lf-FBR" kind="show" identifier="SelectCity" id="Gld-aH-Fcr"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="Odl-OP-Edf">
@@ -405,7 +405,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Building" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfh-2X-lhH">
-                                                    <rect key="frame" x="8" y="11" width="66" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -413,7 +413,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="AYs-5X-Cen" kind="show" id="RcI-lw-z1u"/>
+                                            <segue destination="AYs-5X-Cen" kind="show" identifier="SelectBuilding" id="RcI-lw-z1u"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="c3c-me-IMx">
@@ -424,7 +424,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRf-bq-2ve">
-                                                    <rect key="frame" x="8" y="11" width="102" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -432,7 +432,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="f7v-pT-aYn" kind="show" id="W48-sk-fTB"/>
+                                            <segue destination="f7v-pT-aYn" kind="show" identifier="SelectDeptartment" id="W48-sk-fTB"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="utt-JM-JRI">
@@ -443,7 +443,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Company" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEF-LW-4Lh">
-                                                    <rect key="frame" x="8" y="11" width="85" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -451,7 +451,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="f61-x6-ogj" kind="show" id="8UN-dt-t7t"/>
+                                            <segue destination="f61-x6-ogj" kind="show" identifier="SelectCompany" id="8UN-dt-t7t"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -462,9 +462,12 @@
                             <outlet property="delegate" destination="H7i-RB-O1n" id="L81-k2-n9f"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Lawson Information" id="3yv-Cb-bvF"/>
+                    <navigationItem key="navigationItem" title="Lawson Info" id="3yv-Cb-bvF"/>
                     <connections>
-                        <outlet property="city" destination="twS-3F-330" id="3nC-pm-RaZ"/>
+                        <outlet property="buildingLabel" destination="vfh-2X-lhH" id="HDE-h5-Whc"/>
+                        <outlet property="cityLabel" destination="hTd-WE-gCQ" id="EOd-mI-BZq"/>
+                        <outlet property="companyLabel" destination="xEF-LW-4Lh" id="viP-bE-S6u"/>
+                        <outlet property="departmentLabel" destination="aRf-bq-2ve" id="snc-HJ-cfw"/>
                         <outlet property="lawNum" destination="fYu-R1-YGG" id="42Q-QS-N0b"/>
                         <outlet property="notes" destination="OjJ-VR-eZ4" id="vZG-AH-F8d"/>
                     </connections>
@@ -581,10 +584,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Department" id="62R-70-VlR">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Lwc-bQ-AXr"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Lwc-bQ-AXr">
+                            <connections>
+                                <segue destination="GXY-Fc-AsA" kind="unwind" unwindAction="unwindToLawsonTable:" id="0wo-K4-37d"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="Lwc-bQ-AXr" id="ife-iA-ec1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aki-uk-vRR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GXY-Fc-AsA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1562" y="1240"/>
         </scene>
@@ -612,10 +623,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Company" id="L8J-9D-deH">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="IWX-aU-b3V"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="IWX-aU-b3V">
+                            <connections>
+                                <segue destination="sNc-gP-ngd" kind="unwind" unwindAction="unwindToLawsonTable:" id="WeQ-7w-Clq"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="IWX-aU-b3V" id="H65-YS-m2c"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gav-Ge-7gp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="sNc-gP-ngd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2349" y="1240"/>
         </scene>
@@ -643,10 +662,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Building" id="pf6-g5-pfS">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="H8t-rK-eMx"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="H8t-rK-eMx">
+                            <connections>
+                                <segue destination="spX-xs-3EC" kind="unwind" unwindAction="unwindToLawsonTable:" id="QlV-DY-HgM"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="H8t-rK-eMx" id="fDc-jT-eCc"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="upi-4e-mEn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="spX-xs-3EC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="812" y="1240"/>
         </scene>
@@ -686,10 +713,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="City" id="5a1-1l-lLx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="mFZ-eu-SLE"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="ndt-Fh-qOz">
+                            <connections>
+                                <segue destination="6dV-4w-igb" kind="unwind" unwindAction="unwindToLawsonTable:" id="tkj-JV-Mw4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="ndt-Fh-qOz" id="UQN-9e-wpn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQ1-s9-tK1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="6dV-4w-igb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="22" y="1240"/>
         </scene>

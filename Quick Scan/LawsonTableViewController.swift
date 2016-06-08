@@ -14,12 +14,20 @@ class LawsonTableViewController: UITableViewController {
     
     var labels = [["Law","Notes"],["City","Building","Department","Company"]]
     
-    
-    
     @IBOutlet weak var lawNum: UITextField!
     @IBOutlet weak var notes: UITextField!
-    @IBOutlet weak var city: UITableViewCell!
     
+    
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var buildingLabel: UILabel!
+    @IBOutlet weak var departmentLabel: UILabel!
+    @IBOutlet weak var companyLabel: UILabel!
+    
+    
+    var city: String!
+    var building: String!
+    var department: String!
+    var company: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,13 +104,44 @@ class LawsonTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let nav = segue.destinationViewController as! UINavigationController
-        let svc = nav.topViewController as! DeviceTableViewController
-        svc.lawNum = lawNum.text
-        
+        if segue.identifier == "POEntered"{
+            let nav = segue.destinationViewController as! UINavigationController
+            let svc = nav.topViewController as! DeviceTableViewController
+            svc.lawNum = lawNum.text
+            svc.notes = notes.text
+            svc.city = city
+            svc.building = building
+            svc.department = department
+            svc.company = company
+        }
     }
+    
+    // MARK: Actions
+    
+    @IBAction func unwindToLawsonTable(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.sourceViewController as? CityTableViewController{
+            city = sourceViewController.city
+            cityLabel.text = city
+            print(city)
+        }
+        if let sourceViewController = sender.sourceViewController as? BuildingTableViewController{
+            building = sourceViewController.building
+            buildingLabel.text = building
+            print(building)
+        }
+        if let sourceViewController = sender.sourceViewController as? DepartmentTableViewController{
+            department = sourceViewController.department
+            departmentLabel.text = department
+            print(department)
+        }
+        if let sourceViewController = sender.sourceViewController as? CompanyTableViewController{
+            company = sourceViewController.company
+            companyLabel.text = company
+            print(company)
+        }
+    }
+    
 }
 
 

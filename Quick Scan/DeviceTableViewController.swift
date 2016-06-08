@@ -14,11 +14,22 @@ class DeviceTableViewController: UITableViewController {
     
     var devices = [Device]()
     var lawNum: String!
-
+    var notes: String!
+    var city: String!
+    var building: String!
+    var department: String!
+    var company: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = lawNum
+        print(lawNum)
+        print(notes)
+        print(city)
+        print(building)
+        print(department)
+        print(company)
         
         navigationItem.leftBarButtonItem = editButtonItem()
         if let savedDevices = loadDevices(){

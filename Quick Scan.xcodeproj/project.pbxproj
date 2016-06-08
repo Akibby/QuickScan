@@ -92,13 +92,13 @@
 		D9FA84E21CF8A616009C5ECC = {
 			isa = PBXGroup;
 			children = (
-				D924F08D1CFDFBE600D0BB6D /* Captuvo.h */,
-				D9D4C9AB1CFCDF45000591D5 /* ExternalAccessory.framework */,
-				D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */,
 				D9D4C9A61CFCDB92000591D5 /* Captuvo */,
+				D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */,
+				D9D4C9AB1CFCDF45000591D5 /* ExternalAccessory.framework */,
+				D924F08D1CFDFBE600D0BB6D /* Captuvo.h */,
+				D9FA84EC1CF8A616009C5ECC /* Products */,
 				D9FA84ED1CF8A616009C5ECC /* Quick Scan */,
 				D9FA85021CF8A616009C5ECC /* Quick ScanTests */,
-				D9FA84EC1CF8A616009C5ECC /* Products */,
 			);
 			sourceTree = "<group>";
 		};

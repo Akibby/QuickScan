@@ -11,12 +11,16 @@ import UIKit
 class CompanyTableViewController: UITableViewController {
     
     var companyTitles = ["Assisi Village","Assumption","Calais Health","Calais Health LLC","Calais House","Chateau Louise","FMOL Health System","Franciscan Legal","Heart Hospital of Acadiana","Monroe Health Services","Monroe MRI","Ollie Steele","OLOL College","OLOL Foundation","Our Lady of Lourdes","Our Lady of the Lake RMC","PACE","Specialty Hospital","St Francis Ambulatory","St Francis Ins Agency","St Francis PET Imaging","St Patricks","St. Bernard","St. Elizabeth","St. Elizabeth Physicians","St. Francis Medical Center","St. Francis North","Vendor Computer","Villa St. Francis"]
+    
+    @IBOutlet weak var doneButton: UIBarButtonItem!
+    var company: String!
+    var oldIndex: NSIndexPath!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -45,54 +49,49 @@ class CompanyTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         
         cell.textLabel?.text = companyTitles[indexPath.row]
+        if oldIndex == nil{
+            doneButton.enabled = false
+        }
 
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    // MARK: Actions
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if oldIndex != nil{
+            tableView.cellForRowAtIndexPath(oldIndex)?.accessoryType = UITableViewCellAccessoryType.None
+        }
+        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        doneButton.enabled = true
+        oldIndex = indexPath
     }
-    */
+    
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if doneButton === sender{
+            let selectedIndexPath = tableView.indexPathForSelectedRow
+            company = companyTitles[(selectedIndexPath?.row)!]
+        }
     }
-    */
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
