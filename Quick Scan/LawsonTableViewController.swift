@@ -1,28 +1,34 @@
 //
-//  LocationTableViewController.swift
+//  LawsonTableViewController.swift
 //  Quick Scan
 //
-//  Created by Austin Kibler on 6/6/16.
+//  Created by Austin Kibler on 6/8/16.
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
 import UIKit
 
-class LocationTableViewController: UITableViewController {
+class LawsonTableViewController: UITableViewController {
     
     // MARK: Properties
     
-    // var titles = ["City", "Building", "Department", "Company"]
+    var labels = [["Law","Notes"],["City","Building","Department","Company"]]
     
+    
+    
+    @IBOutlet weak var lawNum: UITextField!
+    @IBOutlet weak var notes: UITextField!
+    @IBOutlet weak var city: UITableViewCell!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,28 +37,27 @@ class LocationTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    /*
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return labels.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return labels[section].count
     }
-    */
+
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = "LocationTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        
-        cell.textLabel?.text = titles[indexPath.row]
-        
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+
+        // Configure the cell...
+
         return cell
     }
     */
-    
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -93,17 +98,12 @@ class LocationTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let nav = segue.destinationViewController as! UINavigationController
+        let svc = nav.topViewController as! DeviceTableViewController
+        svc.lawNum = lawNum.text
+        
     }
-    
-
 }
-
-
-
-
-
 
 
 
