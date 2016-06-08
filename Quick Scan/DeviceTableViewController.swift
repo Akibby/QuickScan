@@ -49,9 +49,9 @@ class DeviceTableViewController: UITableViewController {
     
     func loadSampleDevices(){
         let defaultPhoto = UIImage(named: "No Photo Selected")!
-        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", type: "PC", photo: defaultPhoto, law: lawNum)!
-        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", type: "PC", photo: defaultPhoto, law: lawNum)!
-        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", type: "PC", photo: defaultPhoto, law: lawNum)!
+        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
+        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
+        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
         
         devices += [device1, device2, device3]
     }
@@ -136,6 +136,11 @@ class DeviceTableViewController: UITableViewController {
             let nav = segue.destinationViewController as! UINavigationController
             let svc = nav.topViewController as! ViewController
             svc.lawNum = lawNum
+            svc.notes = notes
+            svc.city = city
+            svc.building = building
+            svc.department = department
+            svc.company = company
         }
     }
     

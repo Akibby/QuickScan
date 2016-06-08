@@ -462,7 +462,7 @@
                             <outlet property="delegate" destination="H7i-RB-O1n" id="L81-k2-n9f"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Lawson Info" id="3yv-Cb-bvF"/>
+                    <navigationItem key="navigationItem" title="Order Info" id="3yv-Cb-bvF"/>
                     <connections>
                         <outlet property="buildingLabel" destination="vfh-2X-lhH" id="HDE-h5-Whc"/>
                         <outlet property="cityLabel" destination="hTd-WE-gCQ" id="EOd-mI-BZq"/>

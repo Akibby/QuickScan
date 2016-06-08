@@ -17,6 +17,11 @@ class Device: NSObject, NSCoding {
     var type: String
     var photo: UIImage?
     var law: String
+    var notes: String?
+    var city: String
+    var building: String
+    var department: String
+    var company: String
     
     // MARK: Archiving Paths
     
@@ -31,18 +36,27 @@ class Device: NSObject, NSCoding {
         static let typeKey = "type"
         static let photoKey = "photo"
         static let lawKey = "law"
+        static let notesKey = "notes"
+        static let cityKey = "city"
+        static let buildingKey = "building"
+        static let departmentKey = "department"
+        static let companyKey = "company"
     }
     
     // MARK: Initialization
     
-    init?(assetTag: String, serialNum: String, type: String?, photo: UIImage?, law: String){
+    init?(assetTag: String, serialNum: String, type: String?, photo: UIImage?, law: String, notes: String?, city: String, building: String, department: String, company: String){
         
         // Initialize stored properties
         self.assetTag = assetTag
         self.serialNum = serialNum
-        // self.type = type!
         self.photo = photo
         self.law = law
+        self.notes = notes
+        self.city = city
+        self.building = building
+        self.department = department
+        self.company = company
         if type == ""{
             self.type = "Unknown"
         }
@@ -65,6 +79,11 @@ class Device: NSObject, NSCoding {
         aCoder.encodeObject(type, forKey: PropertyKey.typeKey)
         aCoder.encodeObject(photo, forKey: PropertyKey.photoKey)
         aCoder.encodeObject(law, forKey: PropertyKey.lawKey)
+        aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)
+        aCoder.encodeObject(city, forKey: PropertyKey.cityKey)
+        aCoder.encodeObject(building, forKey: PropertyKey.buildingKey)
+        aCoder.encodeObject(department, forKey: PropertyKey.departmentKey)
+        aCoder.encodeObject(company, forKey: PropertyKey.companyKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -73,9 +92,14 @@ class Device: NSObject, NSCoding {
         let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
         let photo = aDecoder.decodeObjectForKey(PropertyKey.photoKey) as? UIImage
         let law = aDecoder.decodeObjectForKey(PropertyKey.lawKey) as! String
+        let notes = aDecoder.decodeObjectForKey(PropertyKey.notesKey) as? String
+        let city = aDecoder.decodeObjectForKey(PropertyKey.cityKey) as! String
+        let building = aDecoder.decodeObjectForKey(PropertyKey.buildingKey) as! String
+        let department = aDecoder.decodeObjectForKey(PropertyKey.departmentKey) as! String
+        let company = aDecoder.decodeObjectForKey(PropertyKey.companyKey) as! String
         
         // Must call init
-        self.init(assetTag: assetTag, serialNum: serialNum, type: type, photo: photo, law: law)
+        self.init(assetTag: assetTag, serialNum: serialNum, type: type, photo: photo, law: law, notes: notes, city: city, building: building, department: department, company: company)
     }
     
     
