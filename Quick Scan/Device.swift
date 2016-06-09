@@ -17,7 +17,7 @@ class Device: NSObject, NSCoding {
     var type: String
     var photo: UIImage?
     var law: String
-    var notes: String?
+    var notes: String
     var city: String
     var building: String
     var department: String
@@ -45,7 +45,7 @@ class Device: NSObject, NSCoding {
     
     // MARK: Initialization
     
-    init?(assetTag: String, serialNum: String, type: String?, photo: UIImage?, law: String, notes: String?, city: String, building: String, department: String, company: String){
+    init?(assetTag: String, serialNum: String, type: String?, photo: UIImage?, law: String, notes: String, city: String, building: String, department: String, company: String){
         
         // Initialize stored properties
         self.assetTag = assetTag
@@ -92,7 +92,7 @@ class Device: NSObject, NSCoding {
         let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
         let photo = aDecoder.decodeObjectForKey(PropertyKey.photoKey) as? UIImage
         let law = aDecoder.decodeObjectForKey(PropertyKey.lawKey) as! String
-        let notes = aDecoder.decodeObjectForKey(PropertyKey.notesKey) as? String
+        let notes = aDecoder.decodeObjectForKey(PropertyKey.notesKey) as! String
         let city = aDecoder.decodeObjectForKey(PropertyKey.cityKey) as! String
         let building = aDecoder.decodeObjectForKey(PropertyKey.buildingKey) as! String
         let department = aDecoder.decodeObjectForKey(PropertyKey.departmentKey) as! String

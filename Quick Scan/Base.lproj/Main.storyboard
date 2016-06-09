@@ -67,7 +67,11 @@
                                     <segue destination="DbR-vf-2q3" kind="presentation" identifier="AddNew" id="ZJK-dG-rqb"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="action" id="7lg-26-dkK"/>
+                            <barButtonItem systemItem="action" id="7lg-26-dkK">
+                                <connections>
+                                    <action selector="postToServer:" destination="aHu-Jd-Bj9" id="kTE-LM-eXV"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <keyCommands/>

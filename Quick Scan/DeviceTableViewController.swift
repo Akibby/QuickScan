@@ -19,6 +19,8 @@ class DeviceTableViewController: UITableViewController {
     var building: String!
     var department: String!
     var company: String!
+    let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    let fileName = "sample.csv"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,7 @@ class DeviceTableViewController: UITableViewController {
         print(building)
         print(department)
         print(company)
+        print("")
         
         navigationItem.leftBarButtonItem = editButtonItem()
         if let savedDevices = loadDevices(){
@@ -158,6 +161,46 @@ class DeviceTableViewController: UITableViewController {
         saveDevices()
     }
     
+    func convertCSV(devices: [Device]) -> NSString{
+        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
+            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
+            
+            var contentsOfFile = "Department,Building/Location,Company,City,idLawsonRequisitionNo,devAssetTag,devSerial,devNotes,idScanSession,scanTimeIn\n"
+            var i = 0
+            while i < devices.count {
+                let department = devices[i].department.capitalizedString
+                let building = devices[i].building.capitalizedString
+                let company = devices[i].company.capitalizedString
+                let city = devices[i].city.capitalizedString
+                let law = devices[i].law.capitalizedString
+                let asset = devices[i].assetTag.capitalizedString
+                let serial = devices[i].serialNum.capitalizedString
+                let notes = devices[i].notes.capitalizedString
+                
+                contentsOfFile = contentsOfFile + department + "," + building + "," + company + "," + city + "," + law + "," + asset + "," + serial + "," + notes + "," + law + "\n"
+                i += 1
+            }
+            
+            do {
+                try contentsOfFile.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
+                print("File created!")
+            }
+            catch{
+                print("Failed to create file!")
+            }
+            
+            do {
+                let readFile = try NSString(contentsOfURL: path, encoding: NSUTF8StringEncoding)
+                print("File read!")
+                return readFile
+            }
+            catch{
+                print("Failed to read file!")
+            }
+        }
+        return "Failed to read!"
+    }
+    
     // MARK: NSCoding
     
     func saveDevices(){
@@ -169,6 +212,22 @@ class DeviceTableViewController: UITableViewController {
     
     func loadDevices() -> [Device]?{
         return NSKeyedUnarchiver.unarchiveObjectWithFile(Device.ArchiveURL.path!) as? [Device]
+    }
+    
+    // MARK: Upload
+    
+    @IBAction func postToServer(sender: AnyObject) {
+        let url: NSURL = NSURL(string: "192.168.1.202")!
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        let bodyData = "data=something"
+        request.HTTPMethod = "POST"
+        request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){
+            (response, data, error) in
+            print(response)
+        }
+        print(convertCSV(devices))
+        print("")
     }
 }
 
