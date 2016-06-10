@@ -118,27 +118,23 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let law = lawNum.text
+        let note = notes.text
+        let city = cityLabel.text
+        let building = buildingLabel.text
+        let department = departmentLabel.text
+        let company = companyLabel.text
+        let devices = [Device]()
+        
         if saveButton === sender{
-            let law = lawNum.text
-            let note = notes.text
-            let city = cityLabel.text
-            let building = buildingLabel.text
-            let department = departmentLabel.text
-            let company = companyLabel.text
-            let devices = [Device]()
-            
             session = Session(lawNum: law!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
         }
         
         if segue.identifier == "POEntered"{
             let nav = segue.destinationViewController as! UINavigationController
             let svc = nav.topViewController as! DeviceTableViewController
-            svc.lawNum = lawNum.text
-            svc.notes = notes.text
-            svc.city = city
-            svc.building = building
-            svc.department = department
-            svc.company = company
+            session = Session(lawNum: law!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
+            svc.session = session
         }
     }
     

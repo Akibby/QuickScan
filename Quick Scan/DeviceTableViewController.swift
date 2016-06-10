@@ -13,60 +13,23 @@ class DeviceTableViewController: UITableViewController {
     // MARK: Properties
     
     var session: Session!
-    var devices: [Device]!
-    var lawNum: String!
-    var notes: String!
-    var city: String!
-    var building: String!
-    var department: String!
-    var company: String!
+    var sessions: [Session]!
+    var sesIndex: Int!
     let fileName = "sample.csv"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = lawNum
-        print(lawNum)
-        print(notes)
-        print(city)
-        print(building)
-        print(department)
-        print(company)
-        print("")
-        print(devices.count)
+        navigationItem.title = sessions[sesIndex].lawNum
         
         navigationItem.leftBarButtonItem = editButtonItem()
-        
-        if let savedSession = loadSession(){
-            session = savedSession
-            devices = session.devices
-        }
-        
-        /*
-        if let savedDevices = loadDevices(){
-            devices += savedDevices
-        }
-        
-        else {
-            loadSampleDevices()
-        }
-        */
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    /*
-    func loadSampleDevices(){
-        let defaultPhoto = UIImage(named: "No Photo Selected")!
-        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
-        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
-        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
-        
-        devices += [device1, device2, device3]
-    }
-    */
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,14 +42,15 @@ class DeviceTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return devices.count
+        return sessions[sesIndex].devices.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "DeviceTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeviceTableViewCell
         
-        let device = devices[indexPath.row]
+        // let device = session.devices[indexPath.row]
+        let device = sessions[sesIndex].devices[indexPath.row]
         
         cell.assetLabel.text = device.assetTag
         cell.serialLabel.text = device.serialNum
@@ -106,53 +70,39 @@ class DeviceTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            devices.removeAtIndex(indexPath.row)
-            // saveDevices()
-            // saveSession()
+            // session.devices.removeAtIndex(indexPath.row)
+            sessions[sesIndex].devices.removeAtIndex(indexPath.row)
+            
+            saveSession()
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail"{
             let deviceInfoViewController = segue.destinationViewController as! UINavigationController
             let deviceInfo = deviceInfoViewController.topViewController as! DeviceInfoViewController
              if let selectedViewCell = sender as? DeviceTableViewCell{
                 let indexPath = tableView.indexPathForCell(selectedViewCell)!
-                let selectedDevice = devices[indexPath.row]
+                // let selectedDevice = session.devices[indexPath.row]
+                let selectedDevice = sessions[sesIndex].devices[indexPath.row]
                 deviceInfo.device = selectedDevice
             }
         }
         else if segue.identifier == "AddNew"{
             let nav = segue.destinationViewController as! UINavigationController
             let svc = nav.topViewController as! ViewController
-            svc.lawNum = lawNum
-            svc.notes = notes
-            svc.city = city
-            svc.building = building
-            svc.department = department
-            svc.company = company
+            svc.lawNum = sessions[sesIndex].lawNum
+            svc.notes = sessions[sesIndex].notes
+            svc.city = sessions[sesIndex].city
+            svc.building = sessions[sesIndex].bldg
+            svc.department = sessions[sesIndex].dept
+            svc.company = sessions[sesIndex].comp
         }
     }
     
@@ -162,19 +112,18 @@ class DeviceTableViewController: UITableViewController {
     @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? ViewController, device = sourceViewController.device{
             // Add new device
-            let newIndexPath = NSIndexPath(forRow: devices.count, inSection: 0)
-            devices.append(device)
+            let newIndexPath = NSIndexPath(forRow: sessions[sesIndex].devices.count, inSection: 0)
+            sessions[sesIndex].devices.append(device)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
-        // saveDevices()
-        // saveSession()
+        saveSession()
     }
     
     func convertCSV(devices: [Device]) -> NSString{
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
             
-            var contentsOfFile = "Department,Building/Location,Company,City,idLawsonRequisitionNo,devAssetTag,devSerial,devNotes,idScanSession,scanTimeIn\n"
+            var contentsOfFile = ""
             var i = 0
             while i < devices.count {
                 let department = devices[i].department.capitalizedString
@@ -212,25 +161,16 @@ class DeviceTableViewController: UITableViewController {
     
     // MARK: NSCoding
     
-    func saveDevices(){
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(devices, toFile: Device.ArchiveURL.path!)
-        if !isSuccessfulSave{
-            print("Failed to save devices!")
-        }
-    }
-    
     func saveSession(){
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(session, toFile: Session.ArchiveURL.path!)
+        
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(sessions, toFile: Session.ArchiveURL.path!)
+        
         if !isSuccessfulSave{
             print("Failed to save session!")
         }
         else{
             print("Session Saved!")
         }
-    }
-    
-    func loadDevices() -> [Device]?{
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(Device.ArchiveURL.path!) as? [Device]
     }
     
     func loadSession() -> Session?{
@@ -240,6 +180,7 @@ class DeviceTableViewController: UITableViewController {
     // MARK: Upload
     
     @IBAction func postToServer(sender: AnyObject) {
+        /*
         let url: NSURL = NSURL(string: "192.168.1.202")!
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
         let bodyData = "data=something"
@@ -249,8 +190,9 @@ class DeviceTableViewController: UITableViewController {
             (response, data, error) in
             print(response)
         }
-        print(convertCSV(devices))
+        print(convertCSV(sessions[sesIndex].devices))
         print("")
+        */
     }
 }
 
