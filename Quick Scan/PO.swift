@@ -31,7 +31,4 @@ class PO: NSObject {
         self.city = city
         self.devices = devices
     }
-    
-    
-    
 }
