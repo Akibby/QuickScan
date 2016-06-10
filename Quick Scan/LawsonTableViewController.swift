@@ -8,11 +8,14 @@
 
 import UIKit
 
-class LawsonTableViewController: UITableViewController {
+class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
     var labels = [["Law","Notes"],["City","Building","Department","Company"]]
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
     
     @IBOutlet weak var lawNum: UITextField!
     @IBOutlet weak var notes: UITextField!
@@ -28,9 +31,13 @@ class LawsonTableViewController: UITableViewController {
     var building: String!
     var department: String!
     var company: String!
+    var session: Session?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.notes.delegate = self
+        saveButton.enabled = true
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -43,7 +50,13 @@ class LawsonTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        // Hide the keyboard.
+        textField.resignFirstResponder()
+        return true
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -105,6 +118,18 @@ class LawsonTableViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if saveButton === sender{
+            let law = lawNum.text
+            let note = notes.text
+            let city = cityLabel.text
+            let building = buildingLabel.text
+            let department = departmentLabel.text
+            let company = companyLabel.text
+            let devices = [Device]()
+            
+            session = Session(lawNum: law!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
+        }
+        
         if segue.identifier == "POEntered"{
             let nav = segue.destinationViewController as! UINavigationController
             let svc = nav.topViewController as! DeviceTableViewController
@@ -116,6 +141,11 @@ class LawsonTableViewController: UITableViewController {
             svc.company = company
         }
     }
+    
+    @IBAction func cancel(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     // MARK: Actions
     

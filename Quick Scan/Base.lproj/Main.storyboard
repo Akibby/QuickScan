@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vDt-Zc-wqr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LOM-jJ-fKY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -218,7 +218,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ah0-l0-5BK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3087" y="-262"/>
+            <point key="canvasLocation" x="3899" y="-327"/>
         </scene>
         <!--Scan Device-->
         <scene sceneID="tne-QT-ifu">
@@ -329,6 +329,60 @@
             </objects>
             <point key="canvasLocation" x="3899" y="451"/>
         </scene>
+        <!--Scanning Sessions-->
+        <scene sceneID="iC8-HF-9bk">
+            <objects>
+                <tableViewController id="2LL-da-mD4" customClass="SessionTableViewController" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" id="CU5-iI-oLt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScanSessionCell" rowHeight="67" id="1Sx-SV-pvR" customClass="SessionTableViewCell" customModule="Quick_Scan" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="67"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Sx-SV-pvR" id="hys-8h-lj9">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="67"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lawNum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hw0-L6-EkW">
+                                            <rect key="frame" x="8" y="8" width="584" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iko-J3-6C1">
+                                            <rect key="frame" x="8" y="38" width="584" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="lawNum" destination="Hw0-L6-EkW" id="U5m-ad-A5z"/>
+                                    <outlet property="nickname" destination="iko-J3-6C1" id="uBC-2L-UKf"/>
+                                    <segue destination="Hab-vF-Tu6" kind="show" identifier="SessionSelected" id="Ghj-Bk-oJP"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2LL-da-mD4" id="6f0-fY-BCK"/>
+                            <outlet property="delegate" destination="2LL-da-mD4" id="QUf-7h-D5P"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Scanning Sessions" id="lRR-wW-Ce0">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wi8-iH-7bg">
+                            <connections>
+                                <segue destination="vDt-Zc-wqr" kind="show" identifier="NewSession" id="Zor-6R-J8F"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2oa-Rl-hjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="812" y="-327"/>
+        </scene>
         <!--Lawson View Controller-->
         <scene sceneID="qwP-cY-rCC">
             <objects>
@@ -355,12 +409,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lawson Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYu-R1-YGG">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lawson Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fYu-R1-YGG">
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fYu-R1-YGG" firstAttribute="trailing" secondItem="z2R-o6-gG8" secondAttribute="trailingMargin" id="8Dk-gu-kQe"/>
+                                                <constraint firstItem="fYu-R1-YGG" firstAttribute="leading" secondItem="z2R-o6-gG8" secondAttribute="leadingMargin" id="e1K-nN-XD8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LdL-EC-PgT">
@@ -370,12 +428,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-VR-eZ4">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-VR-eZ4">
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="OjJ-VR-eZ4" firstAttribute="leading" secondItem="RKy-1E-CrY" secondAttribute="leadingMargin" id="6bk-8i-Spv"/>
+                                                <constraint firstItem="OjJ-VR-eZ4" firstAttribute="trailing" secondItem="RKy-1E-CrY" secondAttribute="trailingMargin" id="fiP-Uf-A8z"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -466,7 +528,18 @@
                             <outlet property="delegate" destination="H7i-RB-O1n" id="L81-k2-n9f"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Order Info" id="3yv-Cb-bvF"/>
+                    <navigationItem key="navigationItem" title="New Order" id="3yv-Cb-bvF">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="X0h-sb-Ail">
+                            <connections>
+                                <action selector="cancel:" destination="H7i-RB-O1n" id="32g-gH-LN3"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="kl3-i6-Cwc">
+                            <connections>
+                                <segue destination="3zv-pI-keD" kind="unwind" unwindAction="unwindToSessionList:" id="skv-5S-mUe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="buildingLabel" destination="vfh-2X-lhH" id="HDE-h5-Whc"/>
                         <outlet property="cityLabel" destination="hTd-WE-gCQ" id="EOd-mI-BZq"/>
@@ -474,9 +547,11 @@
                         <outlet property="departmentLabel" destination="aRf-bq-2ve" id="snc-HJ-cfw"/>
                         <outlet property="lawNum" destination="fYu-R1-YGG" id="42Q-QS-N0b"/>
                         <outlet property="notes" destination="OjJ-VR-eZ4" id="vZG-AH-F8d"/>
+                        <outlet property="saveButton" destination="kl3-i6-Cwc" id="RIG-0e-oJn"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lac-Xl-vwn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="3zv-pI-keD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="812" y="451"/>
         </scene>
@@ -562,7 +637,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T4e-vh-3S4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3885" y="-262"/>
+            <point key="canvasLocation" x="4697" y="-262"/>
         </scene>
         <!--Department-->
         <scene sceneID="8tX-cf-06c">
@@ -749,7 +824,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mwl-xM-g9w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2365" y="-262"/>
+            <point key="canvasLocation" x="3145" y="-327"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vQR-qx-MkA">
@@ -769,8 +844,29 @@
             </objects>
             <point key="canvasLocation" x="22" y="451"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qZP-6L-eq5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LOM-jJ-fKY" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dg4-fj-r2m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2LL-da-mD4" kind="relationship" relationship="rootViewController" id="hO1-jX-9eh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dtj-bt-aGR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22" y="-327"/>
+        </scene>
     </scenes>
     <resources>
         <image name="No Photo Selected" width="540" height="540"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Ghj-Bk-oJP"/>
+    </inferredMetricsTieBreakers>
 </document>

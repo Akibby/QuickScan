@@ -12,14 +12,14 @@ class DeviceTableViewController: UITableViewController {
     
     // MARK: Properties
     
-    var devices = [Device]()
+    var session: Session!
+    var devices: [Device]!
     var lawNum: String!
     var notes: String!
     var city: String!
     var building: String!
     var department: String!
     var company: String!
-    let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
     let fileName = "sample.csv"
     
     override func viewDidLoad() {
@@ -33,8 +33,16 @@ class DeviceTableViewController: UITableViewController {
         print(department)
         print(company)
         print("")
+        print(devices.count)
         
         navigationItem.leftBarButtonItem = editButtonItem()
+        
+        if let savedSession = loadSession(){
+            session = savedSession
+            devices = session.devices
+        }
+        
+        /*
         if let savedDevices = loadDevices(){
             devices += savedDevices
         }
@@ -42,14 +50,14 @@ class DeviceTableViewController: UITableViewController {
         else {
             loadSampleDevices()
         }
-        
+        */
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    
+    /*
     func loadSampleDevices(){
         let defaultPhoto = UIImage(named: "No Photo Selected")!
         let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
@@ -58,7 +66,7 @@ class DeviceTableViewController: UITableViewController {
         
         devices += [device1, device2, device3]
     }
-    
+    */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -99,7 +107,8 @@ class DeviceTableViewController: UITableViewController {
         if editingStyle == .Delete {
             // Delete the row from the data source
             devices.removeAtIndex(indexPath.row)
-            saveDevices()
+            // saveDevices()
+            // saveSession()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -156,9 +165,9 @@ class DeviceTableViewController: UITableViewController {
             let newIndexPath = NSIndexPath(forRow: devices.count, inSection: 0)
             devices.append(device)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-            print("LAW Num = \(device.law)")
         }
-        saveDevices()
+        // saveDevices()
+        // saveSession()
     }
     
     func convertCSV(devices: [Device]) -> NSString{
@@ -210,8 +219,22 @@ class DeviceTableViewController: UITableViewController {
         }
     }
     
+    func saveSession(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(session, toFile: Session.ArchiveURL.path!)
+        if !isSuccessfulSave{
+            print("Failed to save session!")
+        }
+        else{
+            print("Session Saved!")
+        }
+    }
+    
     func loadDevices() -> [Device]?{
         return NSKeyedUnarchiver.unarchiveObjectWithFile(Device.ArchiveURL.path!) as? [Device]
+    }
+    
+    func loadSession() -> Session?{
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(Session.ArchiveURL.path!) as? Session
     }
     
     // MARK: Upload
