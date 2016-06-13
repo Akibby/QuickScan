@@ -69,7 +69,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="action" id="7lg-26-dkK">
                                 <connections>
-                                    <action selector="postToServer:" destination="aHu-Jd-Bj9" id="kTE-LM-eXV"/>
+                                    <action selector="actionSheet:" destination="aHu-Jd-Bj9" id="HAh-1s-D92"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>

@@ -20,6 +20,7 @@ class DeviceTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         navigationItem.title = sessions[sesIndex].lawNum
         
         navigationItem.leftBarButtonItem = editButtonItem()
@@ -135,7 +136,7 @@ class DeviceTableViewController: UITableViewController {
                 let serial = devices[i].serialNum.capitalizedString
                 let notes = devices[i].notes.capitalizedString
                 
-                contentsOfFile = contentsOfFile + department + "," + building + "," + company + "," + city + "," + law + "," + asset + "," + serial + "," + notes + "," + law + "\n"
+                contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + asset + "," + serial + "," + notes + "," + law + "\n"
                 i += 1
             }
             
@@ -159,6 +160,35 @@ class DeviceTableViewController: UITableViewController {
         return "Failed to read!"
     }
     
+    @IBAction func actionSheet(sender: AnyObject) {
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
+        
+        let returnAction = UIAlertAction(title: "Save and Return to Session Table", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.saveSession()
+            self.dismissViewControllerAnimated(true, completion: nil)
+            print("returning")
+        })
+        
+        let submitAction = UIAlertAction(title: "Submit to Database", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.saveSession()
+            self.postToServer(self)
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancelled")
+        })
+        
+        optionMenu.addAction(returnAction)
+        optionMenu.addAction(submitAction)
+        optionMenu.addAction(cancelAction)
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+    }
+    
+    
     // MARK: NSCoding
     
     func saveSession(){
@@ -180,18 +210,37 @@ class DeviceTableViewController: UITableViewController {
     // MARK: Upload
     
     @IBAction func postToServer(sender: AnyObject) {
-        /*
-        let url: NSURL = NSURL(string: "192.168.1.202")!
+        print("Submitting")
+        let url: NSURL = NSURL(string: "http://192.168.1.202")!
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
         let bodyData = "data=something"
         request.HTTPMethod = "POST"
         request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
+        //NSURLSession dataTaskWithRequest(request)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){
             (response, data, error) in
             print(response)
         }
         print(convertCSV(sessions[sesIndex].devices))
-        print("")
+        
+        /*
+        let urlPath: String = "http://192.168.1.202"
+        let url: NSURL = NSURL(string: urlPath)!
+        let request1: NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        
+        request1.HTTPMethod = "POST"
+        let stringPost="deviceToken=123456"
+        
+        let data = stringPost.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        request1.timeoutInterval = 60
+        request1.HTTPBody = data
+        request1.HTTPShouldHandleCookies = false
+        let queue:NSOperationQueue = NSOperationQueue()
+        
+        NSURLConnection.sendAsynchronousRequest(request1, queue: queue){_,_,_ in 
+            
+        }
         */
     }
 }
