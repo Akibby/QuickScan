@@ -14,6 +14,7 @@ class Device: NSObject, NSCoding {
     
     var assetTag: String
     var serialNum: String
+    var poNum: String
     var type: String
     var photo: UIImage?
     var law: String
@@ -22,6 +23,7 @@ class Device: NSObject, NSCoding {
     var building: String
     var department: String
     var company: String
+    var submit: Bool
     
     // MARK: Archiving Paths
     
@@ -33,6 +35,7 @@ class Device: NSObject, NSCoding {
     struct PropertyKey {
         static let assetTagKey = "assetTag"
         static let serialNumKey = "serialNum"
+        static let poNum = "poNum"
         static let typeKey = "type"
         static let photoKey = "photo"
         static let lawKey = "law"
@@ -41,15 +44,17 @@ class Device: NSObject, NSCoding {
         static let buildingKey = "building"
         static let departmentKey = "department"
         static let companyKey = "company"
+        static let submitKey = "submit"
     }
     
     // MARK: Initialization
     
-    init?(assetTag: String, serialNum: String, type: String?, photo: UIImage?, law: String, notes: String, city: String, building: String, department: String, company: String){
+    init?(assetTag: String, serialNum: String, poNum: String, type: String?, photo: UIImage?, law: String, notes: String, city: String, building: String, department: String, company: String, submit: Bool){
         
         // Initialize stored properties
         self.assetTag = assetTag
         self.serialNum = serialNum
+        self.poNum = poNum
         self.photo = photo
         self.law = law
         self.notes = notes
@@ -57,6 +62,7 @@ class Device: NSObject, NSCoding {
         self.building = building
         self.department = department
         self.company = company
+        self.submit = submit
         if type == ""{
             self.type = "Unknown"
         }
@@ -76,6 +82,7 @@ class Device: NSObject, NSCoding {
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(assetTag, forKey: PropertyKey.assetTagKey)
         aCoder.encodeObject(serialNum, forKey: PropertyKey.serialNumKey)
+        aCoder.encodeObject(poNum, forKey:  PropertyKey.poNum)
         aCoder.encodeObject(type, forKey: PropertyKey.typeKey)
         aCoder.encodeObject(photo, forKey: PropertyKey.photoKey)
         aCoder.encodeObject(law, forKey: PropertyKey.lawKey)
@@ -84,11 +91,13 @@ class Device: NSObject, NSCoding {
         aCoder.encodeObject(building, forKey: PropertyKey.buildingKey)
         aCoder.encodeObject(department, forKey: PropertyKey.departmentKey)
         aCoder.encodeObject(company, forKey: PropertyKey.companyKey)
+        aCoder.encodeObject(submit, forKey: PropertyKey.submitKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         let assetTag = aDecoder.decodeObjectForKey(PropertyKey.assetTagKey) as! String
         let serialNum = aDecoder.decodeObjectForKey(PropertyKey.serialNumKey) as! String
+        let poNum = aDecoder.decodeObjectForKey(PropertyKey.poNum) as! String
         let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
         let photo = aDecoder.decodeObjectForKey(PropertyKey.photoKey) as? UIImage
         let law = aDecoder.decodeObjectForKey(PropertyKey.lawKey) as! String
@@ -97,9 +106,10 @@ class Device: NSObject, NSCoding {
         let building = aDecoder.decodeObjectForKey(PropertyKey.buildingKey) as! String
         let department = aDecoder.decodeObjectForKey(PropertyKey.departmentKey) as! String
         let company = aDecoder.decodeObjectForKey(PropertyKey.companyKey) as! String
+        let submit = aDecoder.decodeObjectForKey(PropertyKey.submitKey) as! Bool
         
         // Must call init
-        self.init(assetTag: assetTag, serialNum: serialNum, type: type, photo: photo, law: law, notes: notes, city: city, building: building, department: department, company: company)
+        self.init(assetTag: assetTag, serialNum: serialNum, poNum: poNum, type: type, photo: photo, law: law, notes: notes, city: city, building: building, department: department, company: company, submit: submit)
     }
     
     

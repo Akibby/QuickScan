@@ -35,7 +35,7 @@ class SessionTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,15 +52,15 @@ class SessionTableViewController: UITableViewController {
         notes = "Nooooootes"
         
         let defaultPhoto = UIImage(named: "No Photo Selected")!
-        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", type: "PC", photo: defaultPhoto, law: "12345", notes: notes, city: city, building: building, department: department, company: company)!
-        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
-        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)!
+        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", poNum: "09132478", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false)!
+        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", poNum: "75092832", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false)!
+        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", poNum: "57092834", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false)!
         
         let devices = [device1, device2, device3]
         
-        let session1 = Session(lawNum: lawNum, notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
-        let session2 = Session(lawNum: lawNum, notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
-        let session3 = Session(lawNum: lawNum, notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
+        let session1 = Session(lawNum: lawNum, po: "87327842", nickname: "Hard Drives", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
+        let session2 = Session(lawNum: lawNum, po: "75124512", nickname: "Monitors", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
+        let session3 = Session(lawNum: lawNum, po: "87124341", nickname: "Tiny Stock", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
         sessions = [session1!, session2!, session3!]
     }
 
@@ -82,8 +82,30 @@ class SessionTableViewController: UITableViewController {
         let session = sessions[indexPath.row]
         
         cell.lawNum.text = session.lawNum
+        if session.nickname != ""{
+            cell.nickname.text = session.nickname
+        }
 
         return cell
+    }
+    
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    
+    // Override to support editing the table view.
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            // session.devices.removeAtIndex(indexPath.row)
+            sessions.removeAtIndex(indexPath.row)
+            saveSessions()
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
     }
 
     // MARK: - Navigation
@@ -98,6 +120,11 @@ class SessionTableViewController: UITableViewController {
             svc.session = session
             svc.sessions = sessions
             svc.sesIndex = selectedIndexPath?.row
+        }
+        if segue.identifier == "NewSession"{
+            let nav = segue.destinationViewController as! UINavigationController
+            let svc = nav.topViewController as! LawsonTableViewController
+            svc.sessions = sessions
         }
     }
  

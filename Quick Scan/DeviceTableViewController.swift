@@ -53,10 +53,18 @@ class DeviceTableViewController: UITableViewController {
         // let device = session.devices[indexPath.row]
         let device = sessions[sesIndex].devices[indexPath.row]
         
-        cell.assetLabel.text = device.assetTag
+        
         cell.serialLabel.text = device.serialNum
         cell.typeLabel.text = device.type
         cell.photoImageView.image = device.photo
+        print(device.submit)
+        
+        if device.submit{
+            cell.assetLabel.text = device.assetTag + " - S"
+        }
+        else{
+            cell.assetLabel.text = device.assetTag
+        }
         
         return cell
     }
@@ -99,6 +107,7 @@ class DeviceTableViewController: UITableViewController {
             let nav = segue.destinationViewController as! UINavigationController
             let svc = nav.topViewController as! ViewController
             svc.lawNum = sessions[sesIndex].lawNum
+            svc.poNum = sessions[sesIndex].po
             svc.notes = sessions[sesIndex].notes
             svc.city = sessions[sesIndex].city
             svc.building = sessions[sesIndex].bldg
@@ -127,17 +136,25 @@ class DeviceTableViewController: UITableViewController {
             var contentsOfFile = ""
             var i = 0
             while i < devices.count {
-                let department = devices[i].department.capitalizedString
-                let building = devices[i].building.capitalizedString
-                let company = devices[i].company.capitalizedString
-                let city = devices[i].city.capitalizedString
-                let law = devices[i].law.capitalizedString
-                let asset = devices[i].assetTag.capitalizedString
-                let serial = devices[i].serialNum.capitalizedString
-                let notes = devices[i].notes.capitalizedString
-                
-                contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + asset + "," + serial + "," + notes + "," + law + "\n"
-                i += 1
+                if devices[i].submit == false{
+                    devices[i].submit = true
+                    print(devices[i].assetTag)
+                    let department = devices[i].department.capitalizedString
+                    let building = devices[i].building.capitalizedString
+                    let company = devices[i].company.capitalizedString
+                    let city = devices[i].city.capitalizedString
+                    let law = devices[i].law.capitalizedString
+                    let asset = devices[i].assetTag.capitalizedString
+                    let serial = devices[i].serialNum.capitalizedString
+                    let notes = devices[i].notes.capitalizedString
+                    let po = devices[i].poNum.capitalizedString
+                    
+                    contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + notes + "," + law + "\n"
+                    i += 1
+                }
+                else{
+                    i += 1
+                }
             }
             
             do {
@@ -181,13 +198,32 @@ class DeviceTableViewController: UITableViewController {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
+        if needUpdate() == true{
+            optionMenu.addAction(submitAction)
+        }
         
         optionMenu.addAction(returnAction)
-        optionMenu.addAction(submitAction)
         optionMenu.addAction(cancelAction)
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }
-    
+
+    func needUpdate() -> Bool{
+        
+        let curses = sessions[sesIndex]
+        let curdevs = curses.devices
+        let devcount = curses.devices.count
+        var i = 0
+        
+        while i < devcount{
+            if curdevs[i].submit == true{
+                i += 1
+            }
+            else{
+                return true
+            }
+        }
+        return false
+    }
     
     // MARK: NSCoding
     

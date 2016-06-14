@@ -13,6 +13,8 @@ class Session: NSObject {
     // MARK: Properties
     
     var lawNum: String
+    var po: String
+    var nickname: String
     var dept: String
     var bldg: String
     var comp: String
@@ -35,11 +37,13 @@ class Session: NSObject {
         static let departmentKey = "department"
         static let companyKey = "company"
         static let deviceKey = "devices"
+        static let poKey = "po"
+        static let nicknameKey = "nickname"
     }
     
     // MARK: Initialization
     
-    init?(lawNum: String, notes: String, dept: String, bldg: String, comp: String, city: String, devices: [Device]){
+    init?(lawNum: String, po: String, nickname: String, notes: String, dept: String, bldg: String, comp: String, city: String, devices: [Device]){
         self.lawNum = lawNum
         self.notes = notes
         self.dept = dept
@@ -47,6 +51,8 @@ class Session: NSObject {
         self.comp = comp
         self.city = city
         self.devices = devices
+        self.po = po
+        self.nickname = nickname
     }
     
     // MARK: NSCoding
@@ -59,6 +65,8 @@ class Session: NSObject {
         aCoder.encodeObject(dept, forKey: PropertyKey.departmentKey)
         aCoder.encodeObject(comp, forKey: PropertyKey.companyKey)
         aCoder.encodeObject(devices, forKey: PropertyKey.deviceKey)
+        aCoder.encodeObject(po, forKey: PropertyKey.poKey)
+        aCoder.encodeObject(nickname, forKey: PropertyKey.nicknameKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -69,8 +77,10 @@ class Session: NSObject {
         let dept = aDecoder.decodeObjectForKey(PropertyKey.departmentKey) as! String
         let comp = aDecoder.decodeObjectForKey(PropertyKey.companyKey) as! String
         let devices = aDecoder.decodeObjectForKey(PropertyKey.deviceKey) as! [Device]
+        let po = aDecoder.decodeObjectForKey(PropertyKey.poKey) as! String
+        let nickname = aDecoder.decodeObjectForKey(PropertyKey.nicknameKey) as! String
         
         // Must call init
-        self.init(lawNum: lawNum, notes: notes, dept: dept, bldg: bldg, comp: comp, city: city, devices: (devices))
+        self.init(lawNum: lawNum, po: po, nickname: nickname, notes: notes, dept: dept, bldg: bldg, comp: comp, city: city, devices: (devices))
     }
 }

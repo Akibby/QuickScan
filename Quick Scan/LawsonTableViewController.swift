@@ -12,14 +12,14 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
-    var labels = [["Law","Notes"],["City","Building","Department","Company"]]
+    var labels = [["Law","PO","Nickname","Notes"],["City","Building","Department","Company"]]
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    
     @IBOutlet weak var lawNum: UITextField!
+    @IBOutlet weak var poNum: UITextField!
+    @IBOutlet weak var nickname: UITextField!
     @IBOutlet weak var notes: UITextField!
-    
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var buildingLabel: UILabel!
@@ -32,12 +32,19 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     var department: String!
     var company: String!
     var session: Session?
+    var sessions: [Session]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.notes.delegate = self
-        saveButton.enabled = true
+        self.lawNum.delegate = self
+        self.poNum.delegate = self
+        self.nickname.delegate = self
+        print(poNum.text)
+        print(lawNum.text)
+        print(cityLabel.text)
+        checkValidEntries()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -56,6 +63,26 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    /*
+    func textFieldDidBeginEditing(textField: UITextField) {
+        // Disable the Save button while editing
+        saveButton.enabled = false
+    }
+    */
+    func textFieldDidEndEditing(textField: UITextField) {
+        checkValidEntries()
+    }
+    
+    func checkValidEntries(){
+        let law = lawNum.text ?? ""
+        let po = poNum.text ?? ""
+        if (!law.isEmpty && po.characters.count > 7 && cityLabel.text! != "City" && buildingLabel.text != "Building" && departmentLabel.text != "Department" && companyLabel.text != "Company"){
+            saveButton.enabled = true
+        }
+        else{
+            saveButton.enabled = false
+        }
+    }
     
     // MARK: - Table view data source
 
@@ -69,56 +96,11 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
         return labels[section].count
     }
 
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let law = lawNum.text
+        let nick = nickname.text
         let note = notes.text
         let city = cityLabel.text
         let building = buildingLabel.text
@@ -127,14 +109,8 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
         let devices = [Device]()
         
         if saveButton === sender{
-            session = Session(lawNum: law!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
-        }
-        
-        if segue.identifier == "POEntered"{
-            let nav = segue.destinationViewController as! UINavigationController
-            let svc = nav.topViewController as! DeviceTableViewController
-            session = Session(lawNum: law!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
-            svc.session = session
+            let po = correctPO(poNum.text!)
+            session = Session(lawNum: law!, po: po, nickname: nick!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
         }
     }
     
@@ -144,6 +120,33 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     
     
     // MARK: Actions
+    
+    func correctPO(po: String) -> String{
+        var temp1 = po
+        var temp2 = po
+        var temp3 = po
+        let dash = "-"
+        if !po.containsString(dash){
+            let suffix1 = temp1.endIndex.advancedBy(-4)..<temp1.endIndex
+            let suffix2 = temp2.endIndex.advancedBy(-3)..<temp2.endIndex
+            
+            temp1.removeRange(suffix1)
+            temp2.removeRange(suffix2)
+            
+            let prefix2 = temp2.startIndex..<temp2.startIndex.advancedBy(4)
+            let prefix3 = temp3.startIndex..<temp3.startIndex.advancedBy(5)
+            
+            temp2.removeRange(prefix2)
+            temp3.removeRange(prefix3)
+            
+            let fixedpo = temp1 + dash + temp2 + dash + temp3
+            print(fixedpo)
+            return fixedpo
+        }
+        else{
+            return po
+        }
+    }
     
     @IBAction func unwindToLawsonTable(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? CityTableViewController{
@@ -166,8 +169,8 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
             companyLabel.text = company
             print(company)
         }
+        checkValidEntries()
     }
-    
 }
 
 

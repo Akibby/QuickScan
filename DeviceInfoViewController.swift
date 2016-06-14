@@ -15,6 +15,13 @@ class DeviceInfoViewController: UIViewController {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var assetTagLabel: UILabel!
     @IBOutlet weak var serialNumLabel: UILabel!
+    @IBOutlet weak var lawNumLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var buildingLabel: UILabel!
+    @IBOutlet weak var departmentLabel: UILabel!
+    @IBOutlet weak var companyLabel: UILabel!
+    @IBOutlet weak var poNumLabel: UILabel!
+    
     
     var device: Device?
 
@@ -25,6 +32,12 @@ class DeviceInfoViewController: UIViewController {
             typeLabel.text = device.type
             assetTagLabel.text = device.assetTag
             serialNumLabel.text = device.serialNum
+            lawNumLabel.text = device.law
+            poNumLabel.text = device.poNum
+            cityLabel.text = device.city
+            buildingLabel.text = device.building
+            departmentLabel.text = device.department
+            companyLabel.text = device.company
         }
     }
 

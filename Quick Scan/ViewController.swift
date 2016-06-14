@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var batteryLabel: UILabel!
     var lawNum: String!
+    var poNum: String!
     var notes: String!
     var city: String!
     var building: String!
@@ -98,7 +99,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
             let type = typeField.text ?? ""
             let photo = UIImage(named: "No Photo Selected")
             
-            device = Device(assetTag: asset, serialNum: serial, type: type, photo: photo, law: lawNum, notes: notes, city: city, building: building, department: department, company: company)
+            device = Device(assetTag: asset, serialNum: serial, poNum: poNum, type: type, photo: photo, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false)
         }
     }
     
