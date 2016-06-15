@@ -12,6 +12,7 @@
 		D9208CE61D07551D009E4C6F /* DepartmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9208CE51D07551D009E4C6F /* DepartmentTableViewController.swift */; };
 		D937FAD31D061BDD008598DC /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */; };
 		D937FAD51D070500008598DC /* CityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D937FAD41D070500008598DC /* CityTableViewController.swift */; };
+		D9906E2B1D11A101009F8B36 /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9906E2A1D11A101009F8B36 /* MailViewController.swift */; };
 		D9A4D3B71D08584700931AB6 /* LawsonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4D3B61D08584700931AB6 /* LawsonTableViewController.swift */; };
 		D9D4C9A31CFCCA2E000591D5 /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */; };
 		D9D4C9A71CFCDB92000591D5 /* Captuvo in Resources */ = {isa = PBXBuildFile; fileRef = D9D4C9A61CFCDB92000591D5 /* Captuvo */; };
@@ -49,6 +50,7 @@
 		D924F08D1CFDFBE600D0BB6D /* Captuvo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Captuvo.h; sourceTree = "<group>"; };
 		D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		D937FAD41D070500008598DC /* CityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewController.swift; sourceTree = "<group>"; };
+		D9906E2A1D11A101009F8B36 /* MailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		D9A4D3B61D08584700931AB6 /* LawsonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawsonTableViewController.swift; sourceTree = "<group>"; };
 		D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceInfoViewController.swift; path = ../DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D9D4C9A61CFCDB92000591D5 /* Captuvo */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Captuvo; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				D9FA85121CF8ECAB009C5ECC /* DeviceTableViewController.swift */,
 				D9A4D3B61D08584700931AB6 /* LawsonTableViewController.swift */,
 				D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */,
+				D9906E2A1D11A101009F8B36 /* MailViewController.swift */,
 				D9E59EC31D09E85100B87C3E /* Session.swift */,
 				D9D6F1641D09F17100A1D959 /* SessionTableViewCell.swift */,
 				D9E59EC11D09E5BA00B87C3E /* SessionTableViewController.swift */,
@@ -260,6 +263,7 @@
 				D9208CE61D07551D009E4C6F /* DepartmentTableViewController.swift in Sources */,
 				D9A4D3B71D08584700931AB6 /* LawsonTableViewController.swift in Sources */,
 				D9208CE21D075029009E4C6F /* CompanyTableViewController.swift in Sources */,
+				D9906E2B1D11A101009F8B36 /* MailViewController.swift in Sources */,
 				D9E59EC41D09E85100B87C3E /* Session.swift in Sources */,
 				D9FA850F1CF8CE4E009C5ECC /* Device.swift in Sources */,
 				D9D4C9A31CFCCA2E000591D5 /* DeviceInfoViewController.swift in Sources */,

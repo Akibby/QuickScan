@@ -7,19 +7,28 @@
 //
 
 import UIKit
+import MessageUI
 
-class DeviceTableViewController: UITableViewController {
+class DeviceTableViewController: UITableViewController, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     
     var session: Session!
     var sessions: [Session]!
     var sesIndex: Int!
-    let fileName = "sample.csv"
+    var fileName: String! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fileName = sessions[sesIndex].nickname
+        if fileName == ""{
+            fileName = sessions[sesIndex].po
+        }
+        else{
+            fileName = fileName + "_" + sessions[sesIndex].po
+        }
+        print(fileName)
         
         navigationItem.title = sessions[sesIndex].lawNum
         
@@ -131,8 +140,9 @@ class DeviceTableViewController: UITableViewController {
     
     func convertCSV(devices: [Device]) -> NSString{
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
+            print("filename = " + fileName)
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
-            
+            print("contents created")
             var contentsOfFile = ""
             var i = 0
             while i < devices.count {
@@ -150,13 +160,14 @@ class DeviceTableViewController: UITableViewController {
                     let po = devices[i].poNum.capitalizedString
                     
                     contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + notes + "," + law + "\n"
+                    print("content added")
                     i += 1
                 }
                 else{
                     i += 1
                 }
             }
-            
+            saveSession()
             do {
                 try contentsOfFile.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
                 print("File created!")
@@ -186,22 +197,31 @@ class DeviceTableViewController: UITableViewController {
             self.dismissViewControllerAnimated(true, completion: nil)
             print("returning")
         })
-        
+        /*
         let submitAction = UIAlertAction(title: "Submit to Database", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.saveSession()
             self.postToServer(self)
             self.dismissViewControllerAnimated(true, completion: nil)
         })
-        
+        */
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
-        if needUpdate() == true{
-            optionMenu.addAction(submitAction)
-        }
         
+        let emailAction = UIAlertAction(title: "Email CSV", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.saveSession()
+            // self.configuredMailComposeViewController()
+            self.emailCSV()
+            // self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        if needUpdate() == true{
+            // optionMenu.addAction(submitAction)
+            optionMenu.addAction(emailAction)
+        }
         optionMenu.addAction(returnAction)
         optionMenu.addAction(cancelAction)
         self.presentViewController(optionMenu, animated: true, completion: nil)
@@ -253,10 +273,10 @@ class DeviceTableViewController: UITableViewController {
         request.HTTPMethod = "POST"
         request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)
         //NSURLSession dataTaskWithRequest(request)
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){
+        /*NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()){
             (response, data, error) in
             print(response)
-        }
+        }*/
         print(convertCSV(sessions[sesIndex].devices))
         
         /*
@@ -278,6 +298,27 @@ class DeviceTableViewController: UITableViewController {
             
         }
         */
+    }
+    
+    func emailCSV(){
+        let emailViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail(){
+            emailViewController.delegate = self
+            self.presentViewController(emailViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController{
+        let contents = convertCSV(sessions[sesIndex].devices)
+        let data = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        let emailController = MFMailComposeViewController()
+        
+        emailController.mailComposeDelegate = self
+        emailController.setSubject(fileName + " CSV File")
+        emailController.setMessageBody("Data for \n" + "Lawson Number: " + sessions[sesIndex].lawNum + "\n PO Number: " + sessions[sesIndex].po, isHTML: false)
+        emailController.addAttachmentData(data!, mimeType: "text/csv", fileName: fileName + ".csv")
+        
+        return emailController
     }
 }
 
