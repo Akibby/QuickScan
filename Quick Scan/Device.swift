@@ -24,6 +24,7 @@ class Device: NSObject, NSCoding {
     var department: String
     var company: String
     var submit: Bool
+    var time: NSDate
     
     // MARK: Archiving Paths
     
@@ -45,11 +46,12 @@ class Device: NSObject, NSCoding {
         static let departmentKey = "department"
         static let companyKey = "company"
         static let submitKey = "submit"
+        static let timeKey = "time"
     }
     
     // MARK: Initialization
     
-    init?(assetTag: String, serialNum: String, poNum: String, type: String?, photo: UIImage?, law: String, notes: String, city: String, building: String, department: String, company: String, submit: Bool){
+    init?(assetTag: String, serialNum: String, poNum: String, type: String?, photo: UIImage?, law: String, notes: String, city: String, building: String, department: String, company: String, submit: Bool, time: NSDate){
         
         // Initialize stored properties
         self.assetTag = assetTag
@@ -63,6 +65,7 @@ class Device: NSObject, NSCoding {
         self.department = department
         self.company = company
         self.submit = submit
+        self.time = time
         if type == ""{
             self.type = "Unknown"
         }
@@ -92,6 +95,7 @@ class Device: NSObject, NSCoding {
         aCoder.encodeObject(department, forKey: PropertyKey.departmentKey)
         aCoder.encodeObject(company, forKey: PropertyKey.companyKey)
         aCoder.encodeObject(submit, forKey: PropertyKey.submitKey)
+        aCoder.encodeObject(time, forKey: PropertyKey.timeKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -107,9 +111,10 @@ class Device: NSObject, NSCoding {
         let department = aDecoder.decodeObjectForKey(PropertyKey.departmentKey) as! String
         let company = aDecoder.decodeObjectForKey(PropertyKey.companyKey) as! String
         let submit = aDecoder.decodeObjectForKey(PropertyKey.submitKey) as! Bool
+        let time = aDecoder.decodeObjectForKey(PropertyKey.timeKey) as! NSDate
         
         // Must call init
-        self.init(assetTag: assetTag, serialNum: serialNum, poNum: poNum, type: type, photo: photo, law: law, notes: notes, city: city, building: building, department: department, company: company, submit: submit)
+        self.init(assetTag: assetTag, serialNum: serialNum, poNum: poNum, type: type, photo: photo, law: law, notes: notes, city: city, building: building, department: department, company: company, submit: submit, time: time)
     }
     
     

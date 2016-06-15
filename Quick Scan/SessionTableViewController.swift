@@ -52,9 +52,9 @@ class SessionTableViewController: UITableViewController {
         notes = "Nooooootes"
         
         let defaultPhoto = UIImage(named: "No Photo Selected")!
-        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", poNum: "09132478", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false)!
-        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", poNum: "75092832", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false)!
-        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", poNum: "57092834", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false)!
+        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", poNum: "09132478", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate())!
+        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", poNum: "75092832", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate())!
+        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", poNum: "57092834", type: "PC", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate())!
         
         let devices = [device1, device2, device3]
         

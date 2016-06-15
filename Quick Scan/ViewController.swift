@@ -94,12 +94,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if saveButton === sender{
+            let date = NSDate()
             let asset = assetField.text ?? ""
             let serial = serialField.text ?? ""
             let type = typeField.text ?? ""
             let photo = UIImage(named: "No Photo Selected")
             
-            device = Device(assetTag: asset, serialNum: serial, poNum: poNum, type: type, photo: photo, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false)
+            device = Device(assetTag: asset, serialNum: serial, poNum: poNum, type: type, photo: photo, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: date)
         }
     }
     
