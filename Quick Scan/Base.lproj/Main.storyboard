@@ -7,24 +7,6 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Mail View Controller-->
-        <scene sceneID="o6c-YH-qsq">
-            <objects>
-                <viewController id="uR9-x8-nw1" customClass="MailViewController" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Kns-q8-y8L"/>
-                        <viewControllerLayoutGuide type="bottom" id="Nww-iB-298"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Lxg-QV-3Zx">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tyC-ch-ahM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2349" y="-327"/>
-        </scene>
         <!--Tagged Devices-->
         <scene sceneID="DLe-ID-Fas">
             <objects>
