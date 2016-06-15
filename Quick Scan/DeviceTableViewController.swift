@@ -17,6 +17,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     var sessions: [Session]!
     var sesIndex: Int!
     var fileName: String! = nil
+    var cursub: [Int]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,9 +214,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         let emailAction = UIAlertAction(title: "Email CSV", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.saveSession()
-            // self.configuredMailComposeViewController()
             self.emailCSV()
-            // self.dismissViewControllerAnimated(true, completion: nil)
         })
         
         if needUpdate() == true{
@@ -228,21 +227,32 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
 
     func needUpdate() -> Bool{
-        
         let curses = sessions[sesIndex]
         let curdevs = curses.devices
         let devcount = curses.devices.count
+        var tf: Bool!
         var i = 0
         
-        while i < devcount{
-            if curdevs[i].submit == true{
+        while i < devcount {
+            if curdevs[i].submit == false{
+                if cursub == nil{
+                    print("cursub is nil")
+                    cursub = [i]
+                }
+                else{
+                    print("cursub isn't nil")
+                    cursub.append(i)
+                }
+                print(cursub)
+                tf = true
                 i += 1
             }
-            else{
-                return true
+            else if cursub.count == 0{
+                tf = false
+                i += 1
             }
         }
-        return false
+        return tf
     }
     
     // MARK: NSCoding
@@ -300,25 +310,46 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         */
     }
     
+    
     func emailCSV(){
         let emailViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail(){
-            emailViewController.delegate = self
             self.presentViewController(emailViewController, animated: true, completion: nil)
         }
     }
+    
+    
     
     func configuredMailComposeViewController() -> MFMailComposeViewController{
         let contents = convertCSV(sessions[sesIndex].devices)
         let data = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         let emailController = MFMailComposeViewController()
         
+        emailController.canResignFirstResponder()
         emailController.mailComposeDelegate = self
         emailController.setSubject(fileName + " CSV File")
         emailController.setMessageBody("Data for \n" + "Lawson Number: " + sessions[sesIndex].lawNum + "\n PO Number: " + sessions[sesIndex].po, isHTML: false)
         emailController.addAttachmentData(data!, mimeType: "text/csv", fileName: fileName + ".csv")
         
+        
         return emailController
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        print(result)
+        if result.rawValue == 0{
+            var i = 0
+            while i < cursub.count {
+                sessions[sesIndex].devices[cursub[i]].submit = false
+                i += 1
+            }
+        }
+        else{
+            
+        }
+        cursub = []
+        controller.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
