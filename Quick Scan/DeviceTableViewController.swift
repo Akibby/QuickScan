@@ -144,23 +144,26 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             print("filename = " + fileName)
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
             print("contents created")
-            var contentsOfFile = ""
+            let mystring = "department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes"
+            var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,scanTimeIn,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
+            // var contentsOfFile = "idLawsonRequisitionNo,idPurchaseOrder,poStatus,poNickname,poQuoteNo,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devSerial,devAssetTag,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,devNotes,scanTimeIn,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             var i = 0
             while i < devices.count {
                 if devices[i].submit == false{
                     devices[i].submit = true
                     print(devices[i].assetTag)
-                    let department = devices[i].department.capitalizedString
-                    let building = devices[i].building.capitalizedString
-                    let company = devices[i].company.capitalizedString
-                    let city = devices[i].city.capitalizedString
-                    let law = devices[i].law.capitalizedString
-                    let asset = devices[i].assetTag.capitalizedString
-                    let serial = devices[i].serialNum.capitalizedString
-                    let notes = devices[i].notes.capitalizedString
-                    let po = devices[i].poNum.capitalizedString
+                    let department = devices[i].department.uppercaseString
+                    let building = devices[i].building.uppercaseString
+                    let company = devices[i].company.uppercaseString
+                    let city = devices[i].city.uppercaseString
+                    let law = devices[i].law.uppercaseString
+                    let asset = devices[i].assetTag.uppercaseString
+                    let serial = devices[i].serialNum.uppercaseString
+                    let notes = devices[i].notes.uppercaseString
+                    let po = devices[i].poNum.uppercaseString
+                    let ponickname = sessions[sesIndex].nickname.uppercaseString
                     
-                    contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + notes + "," + law + "\n"
+                    contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + ponickname + "," + notes + "\n"
                     print("content added")
                     i += 1
                 }
@@ -209,6 +212,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
+            self.cursub = []
         })
         
         let emailAction = UIAlertAction(title: "Email CSV", style: .Default, handler: {
