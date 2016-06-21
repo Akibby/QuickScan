@@ -29,7 +29,7 @@ class DeviceInfoViewController: UIViewController {
         super.viewDidLoad()
         
         if let device = device {
-            typeLabel.text = device.type
+            // typeLabel.text = device.type
             assetTagLabel.text = device.assetTag
             serialNumLabel.text = device.serialNum
             lawNumLabel.text = device.law

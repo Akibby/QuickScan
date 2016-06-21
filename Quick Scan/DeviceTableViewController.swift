@@ -31,7 +31,13 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         }
         print(fileName)
         
-        navigationItem.title = sessions[sesIndex].lawNum
+        
+        if sessions[sesIndex].nickname != ""{
+            navigationItem.title = sessions[sesIndex].nickname
+        }
+        else{
+            navigationItem.title = sessions[sesIndex].lawNum
+        }
         
         navigationItem.leftBarButtonItem = editButtonItem()
         // Uncomment the following line to preserve selection between presentations
@@ -65,7 +71,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         
         
         cell.serialLabel.text = device.serialNum
-        cell.typeLabel.text = device.type
+        // cell.typeLabel.text = device.type
         cell.photoImageView.image = device.photo
         print(device.submit)
         
@@ -144,8 +150,8 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             print("filename = " + fileName)
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
             print("contents created")
-            let mystring = "department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,"
-            var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
+            let mystring = "department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,"
+            var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             // var contentsOfFile = "idLawsonRequisitionNo,idPurchaseOrder,poStatus,poNickname,poQuoteNo,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devSerial,devAssetTag,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,devNotes,scanTimeIn,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             var i = 0
             while i < devices.count {
@@ -163,8 +169,9 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                     let po = devices[i].poNum.uppercaseString
                     let ponickname = sessions[sesIndex].nickname.uppercaseString
                     let time = devices[i].time.description
+                    let model = devices[i].model.uppercaseString
                     
-                    contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + ponickname + "," + notes + "," + time + "\n"
+                    contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + ponickname + "," + notes + "," + time + "," + model + "\n"
                     print("content added")
                     i += 1
                 }
@@ -235,7 +242,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         let curses = sessions[sesIndex]
         let curdevs = curses.devices
         let devcount = curses.devices.count
-        var tf: Bool!
+        var tf = false
         var i = 0
         
         while i < devcount {

@@ -15,7 +15,7 @@ class Device: NSObject, NSCoding {
     var assetTag: String
     var serialNum: String
     var poNum: String
-    var type: String
+    // var type: String
     var photo: UIImage?
     var law: String
     var notes: String
@@ -25,6 +25,7 @@ class Device: NSObject, NSCoding {
     var company: String
     var submit: Bool
     var time: NSDate
+    var model: String
     
     // MARK: Archiving Paths
     
@@ -37,7 +38,7 @@ class Device: NSObject, NSCoding {
         static let assetTagKey = "assetTag"
         static let serialNumKey = "serialNum"
         static let poNum = "poNum"
-        static let typeKey = "type"
+        // static let typeKey = "type"
         static let photoKey = "photo"
         static let lawKey = "law"
         static let notesKey = "notes"
@@ -47,11 +48,12 @@ class Device: NSObject, NSCoding {
         static let companyKey = "company"
         static let submitKey = "submit"
         static let timeKey = "time"
+        static let modelKey = "model"
     }
     
     // MARK: Initialization
     
-    init?(assetTag: String, serialNum: String, poNum: String, type: String?, photo: UIImage?, law: String, notes: String, city: String, building: String, department: String, company: String, submit: Bool, time: NSDate){
+    init?(assetTag: String, serialNum: String, poNum: String, photo: UIImage?, law: String, notes: String, city: String, building: String, department: String, company: String, submit: Bool, time: NSDate, model: String){
         
         // Initialize stored properties
         self.assetTag = assetTag
@@ -66,13 +68,15 @@ class Device: NSObject, NSCoding {
         self.company = company
         self.submit = submit
         self.time = time
+        self.model = model
+        /*
         if type == ""{
             self.type = "Unknown"
         }
         else{
             self.type = type!
         }
-        
+        */
         super.init()
         
         if  assetTag.isEmpty || serialNum.isEmpty {
@@ -86,7 +90,7 @@ class Device: NSObject, NSCoding {
         aCoder.encodeObject(assetTag, forKey: PropertyKey.assetTagKey)
         aCoder.encodeObject(serialNum, forKey: PropertyKey.serialNumKey)
         aCoder.encodeObject(poNum, forKey:  PropertyKey.poNum)
-        aCoder.encodeObject(type, forKey: PropertyKey.typeKey)
+        // aCoder.encodeObject(type, forKey: PropertyKey.typeKey)
         aCoder.encodeObject(photo, forKey: PropertyKey.photoKey)
         aCoder.encodeObject(law, forKey: PropertyKey.lawKey)
         aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)
@@ -96,13 +100,14 @@ class Device: NSObject, NSCoding {
         aCoder.encodeObject(company, forKey: PropertyKey.companyKey)
         aCoder.encodeObject(submit, forKey: PropertyKey.submitKey)
         aCoder.encodeObject(time, forKey: PropertyKey.timeKey)
+        aCoder.encodeObject(model, forKey: PropertyKey.modelKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         let assetTag = aDecoder.decodeObjectForKey(PropertyKey.assetTagKey) as! String
         let serialNum = aDecoder.decodeObjectForKey(PropertyKey.serialNumKey) as! String
         let poNum = aDecoder.decodeObjectForKey(PropertyKey.poNum) as! String
-        let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
+        // let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
         let photo = aDecoder.decodeObjectForKey(PropertyKey.photoKey) as? UIImage
         let law = aDecoder.decodeObjectForKey(PropertyKey.lawKey) as! String
         let notes = aDecoder.decodeObjectForKey(PropertyKey.notesKey) as! String
@@ -112,9 +117,10 @@ class Device: NSObject, NSCoding {
         let company = aDecoder.decodeObjectForKey(PropertyKey.companyKey) as! String
         let submit = aDecoder.decodeObjectForKey(PropertyKey.submitKey) as! Bool
         let time = aDecoder.decodeObjectForKey(PropertyKey.timeKey) as! NSDate
+        let model = aDecoder.decodeObjectForKey(PropertyKey.modelKey) as! String
         
         // Must call init
-        self.init(assetTag: assetTag, serialNum: serialNum, poNum: poNum, type: type, photo: photo, law: law, notes: notes, city: city, building: building, department: department, company: company, submit: submit, time: time)
+        self.init(assetTag: assetTag, serialNum: serialNum, poNum: poNum, photo: photo, law: law, notes: notes, city: city, building: building, department: department, company: company, submit: submit, time: time, model: model)
     }
     
     

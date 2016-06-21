@@ -97,10 +97,10 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
             let date = NSDate()
             let asset = assetField.text ?? ""
             let serial = serialField.text ?? ""
-            let type = typeField.text ?? ""
+            let model = typeField.text ?? ""
             let photo = UIImage(named: "No Photo Selected")
             
-            device = Device(assetTag: asset, serialNum: serial, poNum: poNum, type: type, photo: photo, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: date)
+            device = Device(assetTag: asset, serialNum: serial, poNum: poNum, photo: photo, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: date, model: model)
         }
     }
     
