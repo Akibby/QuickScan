@@ -12,14 +12,15 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
-    var labels = [["Law","PO","Nickname","Notes"],["City","Building","Department","Company"]]
+    var labels = [["Device Info","Model","Type","Nickname","Notes", "Capital"],["Location Info","City","Building","Department","Company"]]
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    @IBOutlet weak var lawNum: UITextField!
-    @IBOutlet weak var poNum: UITextField!
+    
+    @IBOutlet weak var modNum: UITextField!
     @IBOutlet weak var nickname: UITextField!
     @IBOutlet weak var notes: UITextField!
+    @IBOutlet weak var typeLabel: UILabel!
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var buildingLabel: UILabel!
@@ -27,22 +28,26 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var companyLabel: UILabel!
     
     
+    
     var city: String!
     var building: String!
     var department: String!
     var company: String!
+    var type: String!
     var session: Session?
     var sessions: [Session]!
+    var pol: POL!
+    var pols: [POL]!
+    var POLIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.notes.delegate = self
-        self.lawNum.delegate = self
-        self.poNum.delegate = self
+        self.modNum.delegate = self
         self.nickname.delegate = self
-        print(poNum.text)
-        print(lawNum.text)
+        
+        print(modNum.text)
         print(cityLabel.text)
         checkValidEntries()
 
@@ -74,9 +79,9 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func checkValidEntries(){
-        let law = lawNum.text ?? ""
-        let po = poNum.text ?? ""
-        if (!law.isEmpty && po.characters.count > 7 && cityLabel.text! != "City" && buildingLabel.text != "Building" && departmentLabel.text != "Department" && companyLabel.text != "Company"){
+        let mod = modNum.text ?? ""
+        
+        if (!mod.isEmpty && typeLabel.text != "Type" && cityLabel.text! != "City" && buildingLabel.text != "Building" && departmentLabel.text != "Department" && companyLabel.text != "Company"){
             saveButton.enabled = true
         }
         else{
@@ -93,13 +98,17 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return labels[section].count
+        return labels[section].count - 1
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+        return labels[section][0]
     }
 
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let law = lawNum.text
+        let model = modNum.text
         let nick = nickname.text
         let note = notes.text
         let city = cityLabel.text
@@ -109,18 +118,12 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
         let devices = [Device]()
         
         if saveButton === sender{
-            let po = correctPO(poNum.text!)
-            session = Session(lawNum: law!, po: po, nickname: nick!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
+            session = Session(lawNum: pols[POLIndex].lawNum, po: pols[POLIndex].po, model: model!, nickname: nick!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
         }
     }
     
-    @IBAction func cancel(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
     // MARK: Actions
-    
+    /*
     func correctPO(po: String) -> String{
         var temp1 = po
         var temp2 = po
@@ -147,7 +150,7 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
             return po
         }
     }
-    
+    */
     @IBAction func unwindToLawsonTable(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? CityTableViewController{
             city = sourceViewController.city
@@ -168,6 +171,11 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
             company = sourceViewController.company
             companyLabel.text = company
             print(company)
+        }
+        if let sourceViewController = sender.sourceViewController as? TypeTableViewController{
+            type = sourceViewController.type
+            typeLabel.text = type
+            print(type)
         }
         checkValidEntries()
     }

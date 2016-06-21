@@ -119,8 +119,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     
     func decoderDataReceived(data: String!) {
         if assetField.text != ""{
-            serialField.text = data
-            saveButton.enabled = true
+            if serialField.text != ""{
+                typeField.text = data
+                saveButton.enabled = true
+            }
+            else {
+                serialField.text = data
+            }
         }
         else{
             assetField.text = data

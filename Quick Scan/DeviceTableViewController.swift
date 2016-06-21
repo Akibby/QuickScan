@@ -13,30 +13,36 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     // MARK: Properties
     
-    var session: Session!
-    var sessions: [Session]!
+    // var session: Session!
+    // var sessions: [Session]!
+    var pol: POL!
+    var pols: [POL]!
+    var POLIndex: Int!
     var sesIndex: Int!
-    var fileName: String! = nil
+    var fileName: String! = ""
     var cursub: [Int]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fileName = sessions[sesIndex].nickname
+        print(POLIndex)
+        print(sesIndex)
+        print(fileName)
+        fileName = pols[POLIndex].sessions[sesIndex].nickname
+        print("fileName set")
         if fileName == ""{
-            fileName = sessions[sesIndex].po
+            fileName = pols[POLIndex].sessions[sesIndex].po
         }
         else{
-            fileName = fileName + "_" + sessions[sesIndex].po
+            fileName = fileName + "_" + pols[POLIndex].sessions[sesIndex].po
         }
         print(fileName)
         
         
-        if sessions[sesIndex].nickname != ""{
-            navigationItem.title = sessions[sesIndex].nickname
+        if pols[POLIndex].sessions[sesIndex].nickname != ""{
+            navigationItem.title = pols[POLIndex].sessions[sesIndex].nickname
         }
         else{
-            navigationItem.title = sessions[sesIndex].lawNum
+            navigationItem.title = pols[POLIndex].sessions[sesIndex].lawNum
         }
         
         navigationItem.leftBarButtonItem = editButtonItem()
@@ -59,7 +65,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sessions[sesIndex].devices.count
+        return pols[POLIndex].sessions[sesIndex].devices.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -67,7 +73,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeviceTableViewCell
         
         // let device = session.devices[indexPath.row]
-        let device = sessions[sesIndex].devices[indexPath.row]
+        let device = pols[POLIndex].sessions[sesIndex].devices[indexPath.row]
         
         
         cell.serialLabel.text = device.serialNum
@@ -96,9 +102,9 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         if editingStyle == .Delete {
             // Delete the row from the data source
             // session.devices.removeAtIndex(indexPath.row)
-            sessions[sesIndex].devices.removeAtIndex(indexPath.row)
+            pols[POLIndex].sessions[sesIndex].devices.removeAtIndex(indexPath.row)
             
-            saveSession()
+            savePOLs()
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
@@ -110,25 +116,25 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail"{
-            let deviceInfoViewController = segue.destinationViewController as! UINavigationController
-            let deviceInfo = deviceInfoViewController.topViewController as! DeviceInfoViewController
+            let nav = segue.destinationViewController as! DeviceInfoViewController
+            // let deviceInfo = deviceInfoViewController.topViewController as! DeviceInfoViewController
              if let selectedViewCell = sender as? DeviceTableViewCell{
                 let indexPath = tableView.indexPathForCell(selectedViewCell)!
                 // let selectedDevice = session.devices[indexPath.row]
-                let selectedDevice = sessions[sesIndex].devices[indexPath.row]
-                deviceInfo.device = selectedDevice
+                let selectedDevice = pols[POLIndex].sessions[sesIndex].devices[indexPath.row]
+                nav.device = selectedDevice
             }
         }
         else if segue.identifier == "AddNew"{
-            let nav = segue.destinationViewController as! UINavigationController
-            let svc = nav.topViewController as! ViewController
-            svc.lawNum = sessions[sesIndex].lawNum
-            svc.poNum = sessions[sesIndex].po
-            svc.notes = sessions[sesIndex].notes
-            svc.city = sessions[sesIndex].city
-            svc.building = sessions[sesIndex].bldg
-            svc.department = sessions[sesIndex].dept
-            svc.company = sessions[sesIndex].comp
+            let nav = segue.destinationViewController as! ViewController
+            // let svc = nav.topViewController as! ViewController
+            nav.lawNum = pols[POLIndex].sessions[sesIndex].lawNum
+            nav.poNum = pols[POLIndex].sessions[sesIndex].po
+            nav.notes = pols[POLIndex].sessions[sesIndex].notes
+            nav.city = pols[POLIndex].sessions[sesIndex].city
+            nav.building = pols[POLIndex].sessions[sesIndex].bldg
+            nav.department = pols[POLIndex].sessions[sesIndex].dept
+            nav.company = pols[POLIndex].sessions[sesIndex].comp
         }
     }
     
@@ -138,11 +144,11 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? ViewController, device = sourceViewController.device{
             // Add new device
-            let newIndexPath = NSIndexPath(forRow: sessions[sesIndex].devices.count, inSection: 0)
-            sessions[sesIndex].devices.append(device)
+            let newIndexPath = NSIndexPath(forRow: pols[POLIndex].sessions[sesIndex].devices.count, inSection: 0)
+            pols[POLIndex].sessions[sesIndex].devices.append(device)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
-        saveSession()
+        savePOLs()
     }
     
     func convertCSV(devices: [Device]) -> NSString{
@@ -167,7 +173,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                     let serial = devices[i].serialNum.uppercaseString
                     let notes = devices[i].notes.uppercaseString
                     let po = devices[i].poNum.uppercaseString
-                    let ponickname = sessions[sesIndex].nickname.uppercaseString
+                    let ponickname = pols[POLIndex].sessions[sesIndex].nickname.uppercaseString
                     let time = devices[i].time.description
                     let model = devices[i].model.uppercaseString
                     
@@ -179,7 +185,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                     i += 1
                 }
             }
-            saveSession()
+            savePOLs()
             do {
                 try contentsOfFile.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
                 print("File created!")
@@ -205,7 +211,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         
         let returnAction = UIAlertAction(title: "Save and Return to Session Table", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.saveSession()
+            self.savePOLs()
             self.dismissViewControllerAnimated(true, completion: nil)
             print("returning")
         })
@@ -225,7 +231,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         
         let emailAction = UIAlertAction(title: "Email CSV", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.saveSession()
+            self.savePOLs()
             self.emailCSV()
         })
         
@@ -239,7 +245,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
 
     func needUpdate() -> Bool{
-        let curses = sessions[sesIndex]
+        let curses = pols[POLIndex].sessions[sesIndex]
         let curdevs = curses.devices
         let devcount = curses.devices.count
         var tf = false
@@ -269,10 +275,8 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     // MARK: NSCoding
     
-    func saveSession(){
-        
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(sessions, toFile: Session.ArchiveURL.path!)
-        
+    func savePOLs(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
         if !isSuccessfulSave{
             print("Failed to save session!")
         }
@@ -280,11 +284,11 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             print("Session Saved!")
         }
     }
-    
-    func loadSession() -> Session?{
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(Session.ArchiveURL.path!) as? Session
+    /*
+    func loadPOLs() -> [POL]?{
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(POL.ArchiveURL.path!) as? [POL]
     }
-    
+    */
     // MARK: Upload
     
     @IBAction func postToServer(sender: AnyObject) {
@@ -299,7 +303,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             (response, data, error) in
             print(response)
         }*/
-        print(convertCSV(sessions[sesIndex].devices))
+        print(convertCSV(pols[POLIndex].sessions[sesIndex].devices))
         
         /*
         let urlPath: String = "http://192.168.1.202"
@@ -333,14 +337,14 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     
     func configuredMailComposeViewController() -> MFMailComposeViewController{
-        let contents = convertCSV(sessions[sesIndex].devices)
+        let contents = convertCSV(pols[POLIndex].sessions[sesIndex].devices)
         let data = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         let emailController = MFMailComposeViewController()
         
         emailController.canResignFirstResponder()
         emailController.mailComposeDelegate = self
         emailController.setSubject(fileName + " CSV File")
-        emailController.setMessageBody("Data for \n" + "Lawson Number: " + sessions[sesIndex].lawNum + "\n PO Number: " + sessions[sesIndex].po, isHTML: false)
+        emailController.setMessageBody("Data for \n" + "Lawson Number: " + pols[POLIndex].sessions[sesIndex].lawNum + "\n PO Number: " + pols[POLIndex].sessions[sesIndex].po, isHTML: false)
         emailController.addAttachmentData(data!, mimeType: "text/csv", fileName: fileName + ".csv")
         
         
@@ -352,7 +356,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         if result.rawValue == 0{
             var i = 0
             while i < cursub.count {
-                sessions[sesIndex].devices[cursub[i]].submit = false
+                pols[POLIndex].sessions[sesIndex].devices[cursub[i]].submit = false
                 i += 1
             }
         }

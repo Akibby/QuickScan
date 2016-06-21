@@ -19,6 +19,11 @@
 		D9D4C9AA1CFCDEB1000591D5 /* libCaptuvoSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */; };
 		D9D4C9AC1CFCDF45000591D5 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D4C9AB1CFCDF45000591D5 /* ExternalAccessory.framework */; };
 		D9D6F1651D09F17100A1D959 /* SessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D6F1641D09F17100A1D959 /* SessionTableViewCell.swift */; };
+		D9DF8ACF1D198D280059B57D /* POL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF8ACE1D198D280059B57D /* POL.swift */; };
+		D9DF8AD11D1990C60059B57D /* POLTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF8AD01D1990C60059B57D /* POLTableViewController.swift */; };
+		D9DF8AD31D19925C0059B57D /* POLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF8AD21D19925C0059B57D /* POLTableViewCell.swift */; };
+		D9DF8AD51D19D16B0059B57D /* NewPOLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF8AD41D19D16B0059B57D /* NewPOLViewController.swift */; };
+		D9DF8AD71D19E13D0059B57D /* TypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF8AD61D19E13D0059B57D /* TypeTableViewController.swift */; };
 		D9E59EC21D09E5BA00B87C3E /* SessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E59EC11D09E5BA00B87C3E /* SessionTableViewController.swift */; };
 		D9E59EC41D09E85100B87C3E /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E59EC31D09E85100B87C3E /* Session.swift */; };
 		D9FA84EF1CF8A616009C5ECC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */; };
@@ -55,6 +60,11 @@
 		D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCaptuvoSDK.a; path = Captuvo/libCaptuvoSDK.a; sourceTree = "<group>"; };
 		D9D4C9AB1CFCDF45000591D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		D9D6F1641D09F17100A1D959 /* SessionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewCell.swift; sourceTree = "<group>"; };
+		D9DF8ACE1D198D280059B57D /* POL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POL.swift; sourceTree = "<group>"; };
+		D9DF8AD01D1990C60059B57D /* POLTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POLTableViewController.swift; sourceTree = "<group>"; };
+		D9DF8AD21D19925C0059B57D /* POLTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POLTableViewCell.swift; sourceTree = "<group>"; };
+		D9DF8AD41D19D16B0059B57D /* NewPOLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPOLViewController.swift; sourceTree = "<group>"; };
+		D9DF8AD61D19E13D0059B57D /* TypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TypeTableViewController.swift; path = Assets.xcassets/TypeTableViewController.swift; sourceTree = "<group>"; };
 		D9E59EC11D09E5BA00B87C3E /* SessionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionTableViewController.swift; sourceTree = "<group>"; };
 		D9E59EC31D09E85100B87C3E /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D9E75CDF1CFF580E005D8164 /* Quick-Scan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Quick-Scan-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -131,9 +141,14 @@
 				D9FA85121CF8ECAB009C5ECC /* DeviceTableViewController.swift */,
 				D9A4D3B61D08584700931AB6 /* LawsonTableViewController.swift */,
 				D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */,
+				D9DF8AD41D19D16B0059B57D /* NewPOLViewController.swift */,
+				D9DF8ACE1D198D280059B57D /* POL.swift */,
+				D9DF8AD21D19925C0059B57D /* POLTableViewCell.swift */,
+				D9DF8AD01D1990C60059B57D /* POLTableViewController.swift */,
 				D9E59EC31D09E85100B87C3E /* Session.swift */,
 				D9D6F1641D09F17100A1D959 /* SessionTableViewCell.swift */,
 				D9E59EC11D09E5BA00B87C3E /* SessionTableViewController.swift */,
+				D9DF8AD61D19E13D0059B57D /* TypeTableViewController.swift */,
 				D9FA84F01CF8A616009C5ECC /* ViewController.swift */,
 				D9FA84F51CF8A616009C5ECC /* Assets.xcassets */,
 				D9FA84F71CF8A616009C5ECC /* LaunchScreen.storyboard */,
@@ -256,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9FA85151CF8F584009C5ECC /* DeviceTableViewCell.swift in Sources */,
+				D9DF8AD31D19925C0059B57D /* POLTableViewCell.swift in Sources */,
 				D9208CE41D075511009E4C6F /* BuildingTableViewController.swift in Sources */,
 				D9208CE61D07551D009E4C6F /* DepartmentTableViewController.swift in Sources */,
 				D9A4D3B71D08584700931AB6 /* LawsonTableViewController.swift in Sources */,
@@ -265,11 +281,15 @@
 				D9D4C9A31CFCCA2E000591D5 /* DeviceInfoViewController.swift in Sources */,
 				D9E59EC21D09E5BA00B87C3E /* SessionTableViewController.swift in Sources */,
 				D937FAD31D061BDD008598DC /* LocationTableViewCell.swift in Sources */,
+				D9DF8AD11D1990C60059B57D /* POLTableViewController.swift in Sources */,
 				D937FAD51D070500008598DC /* CityTableViewController.swift in Sources */,
 				D9FA85131CF8ECAB009C5ECC /* DeviceTableViewController.swift in Sources */,
+				D9DF8AD51D19D16B0059B57D /* NewPOLViewController.swift in Sources */,
 				D9D6F1651D09F17100A1D959 /* SessionTableViewCell.swift in Sources */,
 				D9FA84F11CF8A616009C5ECC /* ViewController.swift in Sources */,
+				D9DF8AD71D19E13D0059B57D /* TypeTableViewController.swift in Sources */,
 				D9FA84EF1CF8A616009C5ECC /* AppDelegate.swift in Sources */,
+				D9DF8ACF1D198D280059B57D /* POL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

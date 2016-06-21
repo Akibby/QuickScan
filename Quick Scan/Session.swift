@@ -20,6 +20,7 @@ class Session: NSObject {
     var comp: String
     var city: String
     var notes: String
+    var model: String
     var devices = [Device]()
     
     // MARK: Archiving Paths
@@ -39,11 +40,12 @@ class Session: NSObject {
         static let deviceKey = "devices"
         static let poKey = "po"
         static let nicknameKey = "nickname"
+        static let modelKey = "model"
     }
     
     // MARK: Initialization
     
-    init?(lawNum: String, po: String, nickname: String, notes: String, dept: String, bldg: String, comp: String, city: String, devices: [Device]){
+    init?(lawNum: String, po: String, model: String, nickname: String, notes: String, dept: String, bldg: String, comp: String, city: String, devices: [Device]){
         self.lawNum = lawNum
         self.notes = notes
         self.dept = dept
@@ -53,6 +55,7 @@ class Session: NSObject {
         self.devices = devices
         self.po = po
         self.nickname = nickname
+        self.model = model
     }
     
     // MARK: NSCoding
@@ -67,6 +70,7 @@ class Session: NSObject {
         aCoder.encodeObject(devices, forKey: PropertyKey.deviceKey)
         aCoder.encodeObject(po, forKey: PropertyKey.poKey)
         aCoder.encodeObject(nickname, forKey: PropertyKey.nicknameKey)
+        aCoder.encodeObject(model, forKey:  PropertyKey.modelKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -79,8 +83,9 @@ class Session: NSObject {
         let devices = aDecoder.decodeObjectForKey(PropertyKey.deviceKey) as! [Device]
         let po = aDecoder.decodeObjectForKey(PropertyKey.poKey) as! String
         let nickname = aDecoder.decodeObjectForKey(PropertyKey.nicknameKey) as! String
+        let model = aDecoder.decodeObjectForKey(PropertyKey.modelKey) as! String
         
         // Must call init
-        self.init(lawNum: lawNum, po: po, nickname: nickname, notes: notes, dept: dept, bldg: bldg, comp: comp, city: city, devices: (devices))
+        self.init(lawNum: lawNum, po: po, model: model, nickname: nickname, notes: notes, dept: dept, bldg: bldg, comp: comp, city: city, devices: (devices))
     }
 }

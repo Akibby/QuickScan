@@ -12,60 +12,48 @@ class SessionTableViewController: UITableViewController {
     
     // MARK: Properties
     
-    var sessions: [Session]!
-    var city: String!
-    var building: String!
-    var department: String!
-    var company: String!
-    var lawNum: String!
-    var notes: String!
-    var model: String!
+    // var pol: POL!
+    var pols: [POL]!
+    var POLIndex: Int!
+    // var sessions: [Session]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let savedSessions = loadSessions(){
-            sessions = savedSessions
-            print("Sessions loaded!")
-        }
-        else{
-            loadSampleSession()
-            print("Samples created!")
-        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        // self.navigationItem.leftBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    /*
     func loadSampleSession(){
-        city = "Baton Rouge, La"
-        building = "FML - 2051 Silverside - IS"
-        department = "LAKE-Oncology Outpatient-101-6056"
-        company = "Calais Health"
-        lawNum = "123456789"
-        notes = "Nooooootes"
-        model = "MODELNUM"
+        let city = "Baton Rouge, La"
+        let building = "FML - 2051 Silverside - IS"
+        let department = "LAKE-Oncology Outpatient-101-6056"
+        let company = "Calais Health"
+        let lawNum = "123456789"
+        let notes = "Nooooootes"
+        let model = "MODELNUM"
         
         let defaultPhoto = UIImage(named: "No Photo Selected")!
-        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", poNum: "09132478", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
-        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", poNum: "75092832", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
-        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", poNum: "57092834", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
+        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", poNum: "0913-2-478", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
+        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", poNum: "7509-2-832", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
+        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", poNum: "5709-2-834", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
         
         let devices = [device1, device2, device3]
         
-        let session1 = Session(lawNum: lawNum, po: "87327842", nickname: "Hard Drives", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
-        let session2 = Session(lawNum: lawNum, po: "75124512", nickname: "Monitors", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
-        let session3 = Session(lawNum: lawNum, po: "87124341", nickname: "Tiny Stock", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
-        sessions = [session1!, session2!, session3!]
+        let session1 = Session(lawNum: lawNum, po: "87327842", model: model, nickname: "Hard Drives", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
+        let session2 = Session(lawNum: lawNum, po: "75124512", model: model, nickname: "Monitors", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
+        let session3 = Session(lawNum: lawNum, po: "87124341", model: model, nickname: "Tiny Stock", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
+        pols[POLIndex].sessions = [session1!, session2!, session3!]
     }
-
+ */
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -75,18 +63,23 @@ class SessionTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return sessions.count
+        return pols[POLIndex].sessions.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "ScanSessionCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SessionTableViewCell
-        let session = sessions[indexPath.row]
+        let session = pols[POLIndex].sessions[indexPath.row]
         
+        // cell.lawNum.text = session.lawNum + " - " + session.po
         cell.lawNum.text = session.lawNum
+        cell.nickname.text = session.nickname
+        
+        /*
         if session.nickname != ""{
             cell.nickname.text = session.nickname
         }
+        */
 
         return cell
     }
@@ -102,8 +95,8 @@ class SessionTableViewController: UITableViewController {
         if editingStyle == .Delete {
             // Delete the row from the data source
             // session.devices.removeAtIndex(indexPath.row)
-            sessions.removeAtIndex(indexPath.row)
-            saveSessions()
+            pols[POLIndex].sessions.removeAtIndex(indexPath.row)
+            savePOLs()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -118,15 +111,20 @@ class SessionTableViewController: UITableViewController {
             let nav = segue.destinationViewController as! UINavigationController
             let svc = nav.topViewController as! DeviceTableViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
-            let session = sessions[(selectedIndexPath?.row)!]
-            svc.session = session
-            svc.sessions = sessions
+            // let session = pols[POLIndex].sessions[(selectedIndexPath?.row)!]
+            svc.pol = pols[POLIndex]
+            svc.pols = pols
+            svc.POLIndex = POLIndex
             svc.sesIndex = selectedIndexPath?.row
         }
         if segue.identifier == "NewSession"{
-            let nav = segue.destinationViewController as! UINavigationController
-            let svc = nav.topViewController as! LawsonTableViewController
-            svc.sessions = sessions
+            let nav = segue.destinationViewController as! LawsonTableViewController
+            // let svc = nav.topViewController as! LawsonTableViewController
+            // svc.sessions = sessions
+            nav.pol = pols[POLIndex]
+            nav.pols = pols
+            nav.POLIndex = POLIndex
+            nav.sessions = pols[POLIndex].sessions
         }
     }
  
@@ -135,18 +133,19 @@ class SessionTableViewController: UITableViewController {
     
     @IBAction func unwindToSessionList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? LawsonTableViewController, session = sourceViewController.session{
-            let newIndexPath = NSIndexPath(forRow: sessions.count, inSection: 0)
-            sessions.append(session)
+            let newIndexPath = NSIndexPath(forRow: pols[POLIndex].sessions.count, inSection: 0)
+            pols[POLIndex].sessions.append(session)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
-        saveSessions()
+        savePOLs()
+        let new = pols[POLIndex].sessions.count - 1
+        print(pols[POLIndex].sessions[new].nickname)
     }
     
     // MARK: NSCoding
     
-    func saveSessions(){
-        
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(sessions, toFile: Session.ArchiveURL.path!)
+    func savePOLs(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
         if !isSuccessfulSave{
             print("Failed to save session!")
         }
@@ -155,8 +154,8 @@ class SessionTableViewController: UITableViewController {
         }
     }
     
-    func loadSessions() -> [Session]?{
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(Session.ArchiveURL.path!) as? [Session]
+    func loadPOLs() -> [POL]?{
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(POL.ArchiveURL.path!) as? [POL]
     }
 }
 

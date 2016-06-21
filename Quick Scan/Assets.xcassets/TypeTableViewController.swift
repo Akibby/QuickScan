@@ -1,32 +1,28 @@
 //
-//  CityTableViewController.swift
+//  TypeTableViewController.swift
 //  Quick Scan
 //
-//  Created by Austin Kibler on 6/7/16.
+//  Created by Austin Kibler on 6/21/16.
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
 import UIKit
 
-class CityTableViewController: UITableViewController {
+class TypeTableViewController: UITableViewController {
     
     // MARK: - Properties
     
-    var cityTitles = ["Baton Rouge, La", "Carencro, La","Crowley, La","Denham Springs, La","Donaldsville, La","Dutchtown, La","Gamercy, La","Gonzales, La","Lafayette, La","Monroe, La","Napoleonville, La","New Orleans, La","New Roads, La","Praireville, La","West Monroe, La"]
+    var typeTitles = ["Desktops","Monitors","Thin Client","Printers","Mobile Carts","Laptops","Phones","Other"]
     
     @IBOutlet weak var doneButton: UIBarButtonItem!
-    var city: String!
+    
+    var type: String!
     var oldIndex: NSIndexPath!
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,15 +39,14 @@ class CityTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return cityTitles.count
+        return typeTitles.count
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = "LocationTableViewCell"
+        let cellIdentifier = "TypeCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-
-        cell.textLabel?.text = cityTitles[indexPath.row]
+        
+        cell.textLabel?.text = typeTitles[indexPath.row]
         if oldIndex == nil{
             doneButton.enabled = false
         }
@@ -59,7 +54,7 @@ class CityTableViewController: UITableViewController {
         return cell
     }
     
-    // MARK: Actions
+    // MARK: = Actions
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if oldIndex != nil{
@@ -71,18 +66,15 @@ class CityTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-    
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if doneButton === sender{
             let selectedIndexPath = tableView.indexPathForSelectedRow
-            city = cityTitles[(selectedIndexPath?.row)!]
+            type = typeTitles[(selectedIndexPath?.row)!]
         }
     }
 }
-
-
-
-
 
 
 

@@ -1,20 +1,19 @@
 //
-//  SessionTableViewCell.swift
+//  POLTableViewCell.swift
 //  Quick Scan
 //
-//  Created by Austin Kibler on 6/9/16.
+//  Created by Austin Kibler on 6/21/16.
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
 import UIKit
 
-class SessionTableViewCell: UITableViewCell {
+class POLTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var lawNum: UILabel!
+    @IBOutlet weak var POL: UILabel!
     @IBOutlet weak var nickname: UILabel!
     
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
