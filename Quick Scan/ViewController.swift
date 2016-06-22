@@ -97,13 +97,12 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     
     // MARK: Captuvo
     
-    func captuvoConnected(){
+    func captuvoConnected() {
         
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
     }
     
-    func captuvoDisconnected()
-    {
+    func captuvoDisconnected() {
         Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
         batteryLabel.text = "Searching for Scanner"
     }

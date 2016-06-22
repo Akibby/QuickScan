@@ -21,6 +21,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     var sesIndex: Int!
     var fileName: String! = ""
     var cursub: [Int]! = []
+    @IBOutlet weak var submitButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,14 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             navigationItem.title = pols[POLIndex].lawNum
         }
         
-        navigationItem.leftBarButtonItem = editButtonItem()
+        if needUpdate() == true{
+            submitButton.enabled = true
+        }
+        else{
+            submitButton.enabled = false
+        }
+        
+        // navigationItem.leftBarButtonItem = editButtonItem()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -136,7 +144,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     
-    // MARK: Actions
+    // MARK: - Actions
     
     @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? ViewController, device = sourceViewController.device{
@@ -144,6 +152,12 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             let newIndexPath = NSIndexPath(forRow: pols[POLIndex].sessions[sesIndex].devices.count, inSection: 0)
             pols[POLIndex].sessions[sesIndex].devices.append(device)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        }
+        if needUpdate() == true{
+            submitButton.enabled = true
+        }
+        else{
+            submitButton.enabled = false
         }
         savePOLs()
     }
@@ -208,15 +222,17 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     @IBAction func actionSheet(sender: AnyObject) {
-        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
-        
+        self.emailCSV()
+        /*
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        /*
         let returnAction = UIAlertAction(title: "Save and Return to Session Table", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.savePOLs()
             self.dismissViewControllerAnimated(true, completion: nil)
             print("returning")
         })
-        /*
+        
         let submitAction = UIAlertAction(title: "Submit to Database", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.saveSession()
@@ -235,14 +251,17 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             self.savePOLs()
             self.emailCSV()
         })
-        
+        /*
         if needUpdate() == true{
             // optionMenu.addAction(submitAction)
             optionMenu.addAction(emailAction)
         }
-        optionMenu.addAction(returnAction)
+        */
+        // optionMenu.addAction(returnAction)
+        optionMenu.addAction(emailAction)
         optionMenu.addAction(cancelAction)
         self.presentViewController(optionMenu, animated: true, completion: nil)
+        */
     }
 
     func needUpdate() -> Bool{
@@ -274,7 +293,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         return tf
     }
     
-    // MARK: NSCoding
+    // MARK: - NSCoding
     
     func savePOLs(){
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
@@ -290,7 +309,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         return NSKeyedUnarchiver.unarchiveObjectWithFile(POL.ArchiveURL.path!) as? [POL]
     }
     */
-    // MARK: Upload
+    // MARK: - Upload
     
     @IBAction func postToServer(sender: AnyObject) {
         print("Submitting")
@@ -354,7 +373,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         print(result)
-        if result.rawValue == 0{
+        if result.rawValue != 2{
             var i = 0
             while i < cursub.count {
                 pols[POLIndex].sessions[sesIndex].devices[cursub[i]].submit = false
@@ -362,11 +381,10 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             }
         }
         else{
-            
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         cursub = []
         controller.dismissViewControllerAnimated(true, completion: nil)
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

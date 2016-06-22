@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
+class LawsonTableViewController: UITableViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     // MARK: Properties
     
@@ -50,8 +50,9 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
         self.modNum.delegate = self
         self.nickname.delegate = self
         
-        print(modNum.text)
-        print(cityLabel.text)
+        Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
+        Captuvo.sharedCaptuvoDevice().startDecoderHardware()
+        
         checkValidEntries()
 
         // Uncomment the following line to preserve selection between presentations
@@ -156,6 +157,20 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
             print(type)
         }
         checkValidEntries()
+    }
+    
+    // MARK: - Captuvo
+    
+    func captuvoConnected() {
+        Captuvo.sharedCaptuvoDevice().startDecoderHardware()
+    }
+    
+    func captuvoDisconnected() {
+        Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
+    }
+    
+    func decoderDataReceived(data: String!) {
+        modNum.text = data
     }
 }
 

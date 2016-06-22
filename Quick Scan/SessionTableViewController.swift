@@ -49,8 +49,7 @@ class SessionTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SessionTableViewCell
         let session = pols[POLIndex].sessions[indexPath.row]
         
-        // cell.lawNum.text = session.lawNum + " - " + session.po
-        cell.lawNum.text = session.model
+        cell.lawNum.text = session.model + " - " + session.type
         cell.nickname.text = session.nickname
         
         /*
@@ -107,7 +106,7 @@ class SessionTableViewController: UITableViewController {
     }
  
     
-    // MARK: Actions
+    // MARK: - Actions
     
     @IBAction func unwindToSessionList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? LawsonTableViewController, session = sourceViewController.session{
@@ -120,7 +119,7 @@ class SessionTableViewController: UITableViewController {
         print(pols[POLIndex].sessions[new].nickname)
     }
     
-    // MARK: NSCoding
+    // MARK: - NSCoding
     
     func savePOLs(){
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
