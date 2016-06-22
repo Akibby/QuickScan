@@ -21,6 +21,7 @@ class Session: NSObject {
     var model: String
     var capital: Bool
     var type: String
+    var submit: Bool
     var devices = [Device]()
     
     // MARK: Archiving Paths
@@ -41,11 +42,12 @@ class Session: NSObject {
         static let modelKey = "model"
         static let capitalKey = "capital"
         static let typeKey = "type"
+        static let submitKey = "submit"
     }
     
     // MARK: Initialization
     
-    init?(model: String, nickname: String, notes: String, type: String, capital: Bool, dept: String, bldg: String, comp: String, city: String, devices: [Device]){
+    init?(model: String, nickname: String, notes: String, type: String, capital: Bool, dept: String, bldg: String, comp: String, city: String, devices: [Device], submit: Bool){
         self.notes = notes
         self.dept = dept
         self.bldg = bldg
@@ -56,6 +58,7 @@ class Session: NSObject {
         self.model = model
         self.type = type
         self.capital = capital
+        self.submit = submit
     }
     
     // MARK: NSCoding
@@ -71,6 +74,7 @@ class Session: NSObject {
         aCoder.encodeObject(model, forKey:  PropertyKey.modelKey)
         aCoder.encodeObject(capital, forKey: PropertyKey.capitalKey)
         aCoder.encodeObject(type, forKey: PropertyKey.typeKey)
+        aCoder.encodeObject(submit, forKey: PropertyKey.submitKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -84,8 +88,9 @@ class Session: NSObject {
         let model = aDecoder.decodeObjectForKey(PropertyKey.modelKey) as! String
         let capital = aDecoder.decodeObjectForKey(PropertyKey.capitalKey) as! Bool
         let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
+        let submit = aDecoder.decodeObjectForKey(PropertyKey.submitKey) as! Bool
         
         // Must call init
-        self.init(model: model, nickname: nickname, notes: notes, type: type, capital: capital, dept: dept, bldg: bldg, comp: comp, city: city, devices: (devices))
+        self.init(model: model, nickname: nickname, notes: notes, type: type, capital: capital, dept: dept, bldg: bldg, comp: comp, city: city, devices: (devices), submit: submit)
     }
 }

@@ -13,8 +13,6 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     // MARK: Properties
     
-    // var session: Session!
-    // var sessions: [Session]!
     var pol: POL!
     var pols: [POL]!
     var POLIndex: Int!
@@ -22,6 +20,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     var fileName: String! = ""
     var cursub: [Int]! = []
     @IBOutlet weak var submitButton: UIBarButtonItem!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +45,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             navigationItem.title = pols[POLIndex].lawNum
         }
         
-        if needUpdate() == true{
+        if needQuickUpdate() == true{
             submitButton.enabled = true
         }
         else{
@@ -120,6 +119,18 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         }    
     }
     
+    // MARK: - NSCoding
+    
+    func savePOLs(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
+        if !isSuccessfulSave{
+            print("Failed to save session!")
+        }
+        else{
+            print("Session Saved!")
+        }
+    }
+    
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -145,7 +156,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             pols[POLIndex].sessions[sesIndex].devices.append(device)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
-        if needUpdate() == true{
+        if needQuickUpdate() == true{
             submitButton.enabled = true
         }
         else{
@@ -214,6 +225,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     @IBAction func actionSheet(sender: AnyObject) {
+        self.needUpdate()
         self.emailCSV()
         /*
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
@@ -257,9 +269,8 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
 
     func needUpdate() -> Bool{
-        let curses = pols[POLIndex].sessions[sesIndex]
-        let curdevs = curses.devices
-        let devcount = curses.devices.count
+        let curdevs = pols[POLIndex].sessions[sesIndex].devices
+        let devcount = curdevs.count
         var tf = false
         var i = 0
         
@@ -275,32 +286,29 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                 }
                 print(cursub)
                 tf = true
-                i += 1
             }
             else if cursub.count == 0{
                 tf = false
-                i += 1
             }
+            i += 1
         }
         return tf
     }
     
-    // MARK: - NSCoding
+    func needQuickUpdate() -> Bool {
+        let curdevs = pols[POLIndex].sessions[sesIndex].devices
+        var i = 0
+        while i < curdevs.count {
+            if curdevs[i].submit == true{
+                i += 1
+            }
+            else{
+                return true
+            }
+        }
+        return false
+    }
     
-    func savePOLs(){
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
-        if !isSuccessfulSave{
-            print("Failed to save session!")
-        }
-        else{
-            print("Session Saved!")
-        }
-    }
-    /*
-    func loadPOLs() -> [POL]?{
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(POL.ArchiveURL.path!) as? [POL]
-    }
-    */
     // MARK: - Upload
     
     @IBAction func postToServer(sender: AnyObject) {
@@ -373,6 +381,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             }
         }
         else{
+            controller.dismissViewControllerAnimated(true, completion: nil)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         cursub = []

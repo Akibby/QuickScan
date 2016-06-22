@@ -55,6 +55,7 @@
                     <navigationItem key="navigationItem" title="Tagged Devices" id="bw5-Ib-W3i">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="hWA-iG-InE">
                             <connections>
+                                <action selector="doneAction:" destination="aHu-Jd-Bj9" id="UnA-Yg-UYm"/>
                                 <segue destination="zeo-Ft-MRo" kind="unwind" unwindAction="unwindToSessionList:" id="Pbz-dc-xZC"/>
                             </connections>
                         </barButtonItem>
@@ -73,6 +74,7 @@
                     </navigationItem>
                     <keyCommands/>
                     <connections>
+                        <outlet property="doneButton" destination="hWA-iG-InE" id="O6a-aU-h52"/>
                         <outlet property="submitButton" destination="7lg-26-dkK" id="2zJ-E0-Yhj"/>
                     </connections>
                 </tableViewController>
@@ -353,12 +355,22 @@
                                 <segue destination="GC2-gF-qdF" kind="unwind" unwindAction="unwindToPOLList:" id="eZW-eq-thZ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="wi8-iH-7bg">
-                            <connections>
-                                <segue destination="H7i-RB-O1n" kind="show" identifier="NewSession" id="yo3-f5-T6m"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="wi8-iH-7bg">
+                                <connections>
+                                    <segue destination="H7i-RB-O1n" kind="show" identifier="NewSession" id="yo3-f5-T6m"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="action" id="X4L-8d-Zmr">
+                                <connections>
+                                    <action selector="submitPressed:" destination="2LL-da-mD4" id="SrN-jY-Ke4"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="submitButton" destination="X4L-8d-Zmr" id="0yt-Wl-zRC"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2oa-Rl-hjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="GC2-gF-qdF" userLabel="Exit" sceneMemberID="exit"/>

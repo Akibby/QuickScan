@@ -12,7 +12,7 @@
 		D9208CE61D07551D009E4C6F /* DepartmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9208CE51D07551D009E4C6F /* DepartmentTableViewController.swift */; };
 		D937FAD31D061BDD008598DC /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */; };
 		D937FAD51D070500008598DC /* CityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D937FAD41D070500008598DC /* CityTableViewController.swift */; };
-		D9A4D3B71D08584700931AB6 /* NewSessino.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4D3B61D08584700931AB6 /* NewSessino.swift */; };
+		D9A4D3B71D08584700931AB6 /* NewSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4D3B61D08584700931AB6 /* NewSession.swift */; };
 		D9D4C9A31CFCCA2E000591D5 /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */; };
 		D9D4C9A71CFCDB92000591D5 /* Captuvo in Resources */ = {isa = PBXBuildFile; fileRef = D9D4C9A61CFCDB92000591D5 /* Captuvo */; };
 		D9D4C9A81CFCDB92000591D5 /* Captuvo in Resources */ = {isa = PBXBuildFile; fileRef = D9D4C9A61CFCDB92000591D5 /* Captuvo */; };
@@ -54,7 +54,7 @@
 		D924F08D1CFDFBE600D0BB6D /* Captuvo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Captuvo.h; sourceTree = "<group>"; };
 		D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		D937FAD41D070500008598DC /* CityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewController.swift; sourceTree = "<group>"; };
-		D9A4D3B61D08584700931AB6 /* NewSessino.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSessino.swift; sourceTree = "<group>"; };
+		D9A4D3B61D08584700931AB6 /* NewSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSession.swift; sourceTree = "<group>"; };
 		D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceInfoViewController.swift; path = ../DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D9D4C9A61CFCDB92000591D5 /* Captuvo */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Captuvo; sourceTree = "<group>"; };
 		D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCaptuvoSDK.a; path = Captuvo/libCaptuvoSDK.a; sourceTree = "<group>"; };
@@ -167,15 +167,15 @@
 				D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */,
 				D9FA84F01CF8A616009C5ECC /* NewDevice.swift */,
 				D9DF8AD41D19D16B0059B57D /* NewPOL.swift */,
-				D9A4D3B61D08584700931AB6 /* NewSessino.swift */,
+				D9A4D3B61D08584700931AB6 /* NewSession.swift */,
 				D9DF8AD01D1990C60059B57D /* POLTableViewController.swift */,
 				D9E59EC11D09E5BA00B87C3E /* SessionTableViewController.swift */,
 				D9DF8AD61D19E13D0059B57D /* TypeTableViewController.swift */,
+				D9FA84F71CF8A616009C5ECC /* LaunchScreen.storyboard */,
+				D9FA84F21CF8A616009C5ECC /* Main.storyboard */,
 				D9FA84F51CF8A616009C5ECC /* Assets.xcassets */,
 				D921E8B21D1AED5400D530FA /* Cells */,
-				D9FA84F71CF8A616009C5ECC /* LaunchScreen.storyboard */,
 				D921E8B01D1AECFE00D530FA /* Locations */,
-				D9FA84F21CF8A616009C5ECC /* Main.storyboard */,
 				D921E8B11D1AED3300D530FA /* Objects */,
 			);
 			path = "Quick Scan";
@@ -298,7 +298,7 @@
 				D9DF8AD31D19925C0059B57D /* POLTableViewCell.swift in Sources */,
 				D9208CE41D075511009E4C6F /* BuildingTableViewController.swift in Sources */,
 				D9208CE61D07551D009E4C6F /* DepartmentTableViewController.swift in Sources */,
-				D9A4D3B71D08584700931AB6 /* NewSessino.swift in Sources */,
+				D9A4D3B71D08584700931AB6 /* NewSession.swift in Sources */,
 				D9208CE21D075029009E4C6F /* CompanyTableViewController.swift in Sources */,
 				D9E59EC41D09E85100B87C3E /* Session.swift in Sources */,
 				D9FA850F1CF8CE4E009C5ECC /* Device.swift in Sources */,
