@@ -61,7 +61,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="q7Q-Wq-p3R">
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="AddNew" id="rjy-8V-vLM"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="AddNew" id="4LP-Vg-Amx"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="action" id="7lg-26-dkK">
@@ -84,7 +84,7 @@
         <!--Scan Device-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="NewDevice" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -224,7 +224,7 @@
         <!--New PO/Law-->
         <scene sceneID="FS8-gH-d9y">
             <objects>
-                <viewController id="SDu-ra-WmP" customClass="NewPOLViewController" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="SDu-ra-WmP" customClass="NewPOL" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9tU-lE-CUz"/>
                         <viewControllerLayoutGuide type="bottom" id="HYa-QQ-oLU"/>
@@ -368,7 +368,7 @@
         <!--Lawson View Controller-->
         <scene sceneID="qwP-cY-rCC">
             <objects>
-                <tableViewController id="H7i-RB-O1n" userLabel="Lawson View Controller" customClass="LawsonTableViewController" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="H7i-RB-O1n" userLabel="Lawson View Controller" customClass="NewSession" customModule="Quick_Scan" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="118-Nv-iDc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

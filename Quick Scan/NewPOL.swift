@@ -1,5 +1,5 @@
 //
-//  NewPOLViewController.swift
+//  NewPOL.swift
 //  Quick Scan
 //
 //  Created by Austin Kibler on 6/21/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewPOLViewController: UIViewController, UITextFieldDelegate {
+class NewPOL: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     

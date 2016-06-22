@@ -133,21 +133,13 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                 nav.device = selectedDevice
             }
         }
-        else if segue.identifier == "AddNew"{
-            let nav = segue.destinationViewController as! ViewController
-            nav.notes = pols[POLIndex].sessions[sesIndex].notes
-            nav.city = pols[POLIndex].sessions[sesIndex].city
-            nav.building = pols[POLIndex].sessions[sesIndex].bldg
-            nav.department = pols[POLIndex].sessions[sesIndex].dept
-            nav.company = pols[POLIndex].sessions[sesIndex].comp
-        }
     }
     
     
     // MARK: - Actions
     
     @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? ViewController, device = sourceViewController.device{
+        if let sourceViewController = sender.sourceViewController as? NewDevice, device = sourceViewController.device{
             // Add new device
             let newIndexPath = NSIndexPath(forRow: pols[POLIndex].sessions[sesIndex].devices.count, inSection: 0)
             pols[POLIndex].sessions[sesIndex].devices.append(device)

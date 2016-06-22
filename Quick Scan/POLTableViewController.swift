@@ -118,7 +118,7 @@ class POLTableViewController: UITableViewController {
     }
     
     @IBAction func unwindToPOLList(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? NewPOLViewController, pol = sourceViewController.pol {
+        if let sourceViewController = sender.sourceViewController as? NewPOL, pol = sourceViewController.pol {
             let newIndexPath = NSIndexPath(forRow: pols.count, inSection: 0)
             pols.append(pol)
             print(pols.count)

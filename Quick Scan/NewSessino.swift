@@ -1,5 +1,5 @@
 //
-//  LawsonTableViewController.swift
+//  NewSession.swift
 //  Quick Scan
 //
 //  Created by Austin Kibler on 6/8/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LawsonTableViewController: UITableViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
+class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     // MARK: Properties
     

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  NewDevice.swift
 //  Quick Scan
 //
 //  Created by Austin Kibler on 5/27/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
+class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     
     // MARK: Properties

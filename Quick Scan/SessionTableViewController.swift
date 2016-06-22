@@ -95,8 +95,7 @@ class SessionTableViewController: UITableViewController {
             svc.sesIndex = selectedIndexPath?.row
         }
         if segue.identifier == "NewSession"{
-            let nav = segue.destinationViewController as! LawsonTableViewController
-            // let svc = nav.topViewController as! LawsonTableViewController
+            let nav = segue.destinationViewController as! NewSession
             // svc.sessions = sessions
             nav.pol = pols[POLIndex]
             nav.pols = pols
@@ -109,7 +108,7 @@ class SessionTableViewController: UITableViewController {
     // MARK: - Actions
     
     @IBAction func unwindToSessionList(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? LawsonTableViewController, session = sourceViewController.session{
+        if let sourceViewController = sender.sourceViewController as? NewSession, session = sourceViewController.session{
             let newIndexPath = NSIndexPath(forRow: pols[POLIndex].sessions.count, inSection: 0)
             pols[POLIndex].sessions.append(session)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
