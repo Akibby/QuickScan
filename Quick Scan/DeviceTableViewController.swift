@@ -30,10 +30,10 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         fileName = pols[POLIndex].sessions[sesIndex].nickname
         print("fileName set")
         if fileName == ""{
-            fileName = pols[POLIndex].sessions[sesIndex].po
+            fileName = pols[POLIndex].po
         }
         else{
-            fileName = fileName + "_" + pols[POLIndex].sessions[sesIndex].po
+            fileName = fileName + "_" + pols[POLIndex].po
         }
         print(fileName)
         
@@ -42,7 +42,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             navigationItem.title = pols[POLIndex].sessions[sesIndex].nickname
         }
         else{
-            navigationItem.title = pols[POLIndex].sessions[sesIndex].lawNum
+            navigationItem.title = pols[POLIndex].lawNum
         }
         
         navigationItem.leftBarButtonItem = editButtonItem()
@@ -127,9 +127,6 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         }
         else if segue.identifier == "AddNew"{
             let nav = segue.destinationViewController as! ViewController
-            // let svc = nav.topViewController as! ViewController
-            nav.lawNum = pols[POLIndex].sessions[sesIndex].lawNum
-            nav.poNum = pols[POLIndex].sessions[sesIndex].po
             nav.notes = pols[POLIndex].sessions[sesIndex].notes
             nav.city = pols[POLIndex].sessions[sesIndex].city
             nav.building = pols[POLIndex].sessions[sesIndex].bldg
@@ -156,28 +153,32 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             print("filename = " + fileName)
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
             print("contents created")
-            let mystring = "department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,"
-            var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
+            let mystring = "department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,devType,"
+            var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             // var contentsOfFile = "idLawsonRequisitionNo,idPurchaseOrder,poStatus,poNickname,poQuoteNo,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devSerial,devAssetTag,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,devNotes,scanTimeIn,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             var i = 0
+            let pol = pols[POLIndex]
+            let ses = pol.sessions[sesIndex]
             while i < devices.count {
                 if devices[i].submit == false{
                     devices[i].submit = true
                     print(devices[i].assetTag)
-                    let department = devices[i].department.uppercaseString
-                    let building = devices[i].building.uppercaseString
-                    let company = devices[i].company.uppercaseString
-                    let city = devices[i].city.uppercaseString
-                    let law = devices[i].law.uppercaseString
+                    let department = ses.dept.uppercaseString
+                    let building = ses.bldg.uppercaseString
+                    let company = ses.comp.uppercaseString
+                    let city = ses.city.uppercaseString
+                    let law = pol.lawNum.uppercaseString
                     let asset = devices[i].assetTag.uppercaseString
                     let serial = devices[i].serialNum.uppercaseString
-                    let notes = devices[i].notes.uppercaseString
-                    let po = devices[i].poNum.uppercaseString
-                    let ponickname = pols[POLIndex].sessions[sesIndex].nickname.uppercaseString
-                    let time = devices[i].time.description
-                    let model = devices[i].model.uppercaseString
+                    let notes = ses.notes.uppercaseString
+                    let po = pol.po.uppercaseString
+                    let nickname = pol.nickname.uppercaseString + "-" + ses.nickname.uppercaseString
+                    let time = devices[i].time.description.uppercaseString
+                    let model = ses.model.uppercaseString
+                    let type = ses.type.uppercaseString
+                    let capital = ses.capital.description.uppercaseString
                     
-                    contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + ponickname + "," + notes + "," + time + "," + model + "\n"
+                    contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + nickname + "," + notes + "," + time + "," + model + "," + type + "," + capital + "\n"
                     print("content added")
                     i += 1
                 }
@@ -344,7 +345,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         emailController.canResignFirstResponder()
         emailController.mailComposeDelegate = self
         emailController.setSubject(fileName + " CSV File")
-        emailController.setMessageBody("Data for \n" + "Lawson Number: " + pols[POLIndex].sessions[sesIndex].lawNum + "\n PO Number: " + pols[POLIndex].sessions[sesIndex].po, isHTML: false)
+        emailController.setMessageBody("Data for \n" + "Lawson Number: " + pols[POLIndex].lawNum + "\n PO Number: " + pols[POLIndex].po, isHTML: false)
         emailController.addAttachmentData(data!, mimeType: "text/csv", fileName: fileName + ".csv")
         
         

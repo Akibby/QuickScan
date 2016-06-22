@@ -21,6 +21,8 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var nickname: UITextField!
     @IBOutlet weak var notes: UITextField!
     @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var capSwitch: UISwitch!
+    
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var buildingLabel: UILabel!
@@ -39,6 +41,7 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
     var pol: POL!
     var pols: [POL]!
     var POLIndex: Int!
+    var capital: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,41 +119,16 @@ class LawsonTableViewController: UITableViewController, UITextFieldDelegate {
         let department = departmentLabel.text
         let company = companyLabel.text
         let devices = [Device]()
+        let type = typeLabel.text
+        let capital = capSwitch.on
         
         if saveButton === sender{
-            session = Session(lawNum: pols[POLIndex].lawNum, po: pols[POLIndex].po, model: model!, nickname: nick!, notes: note!, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
+            session = Session(model: model!, nickname: nick!, notes: note!, type: type!, capital: capital, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices)
         }
     }
     
     // MARK: Actions
-    /*
-    func correctPO(po: String) -> String{
-        var temp1 = po
-        var temp2 = po
-        var temp3 = po
-        let dash = "-"
-        if !po.containsString(dash){
-            let suffix1 = temp1.endIndex.advancedBy(-4)..<temp1.endIndex
-            let suffix2 = temp2.endIndex.advancedBy(-3)..<temp2.endIndex
-            
-            temp1.removeRange(suffix1)
-            temp2.removeRange(suffix2)
-            
-            let prefix2 = temp2.startIndex..<temp2.startIndex.advancedBy(4)
-            let prefix3 = temp3.startIndex..<temp3.startIndex.advancedBy(5)
-            
-            temp2.removeRange(prefix2)
-            temp3.removeRange(prefix3)
-            
-            let fixedpo = temp1 + dash + temp2 + dash + temp3
-            print(fixedpo)
-            return fixedpo
-        }
-        else{
-            return po
-        }
-    }
-    */
+    
     @IBAction func unwindToLawsonTable(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? CityTableViewController{
             city = sourceViewController.city

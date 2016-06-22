@@ -31,29 +31,7 @@ class SessionTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    /*
-    func loadSampleSession(){
-        let city = "Baton Rouge, La"
-        let building = "FML - 2051 Silverside - IS"
-        let department = "LAKE-Oncology Outpatient-101-6056"
-        let company = "Calais Health"
-        let lawNum = "123456789"
-        let notes = "Nooooootes"
-        let model = "MODELNUM"
-        
-        let defaultPhoto = UIImage(named: "No Photo Selected")!
-        let device1 = Device(assetTag: "1183176", serialNum: "MJ905EW", poNum: "0913-2-478", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
-        let device2 = Device(assetTag: "1156296", serialNum: "MJ96G3F", poNum: "7509-2-832", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
-        let device3 = Device(assetTag: "1155625", serialNum: "MJ75Z07", poNum: "5709-2-834", photo: defaultPhoto, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: NSDate(), model: model)!
-        
-        let devices = [device1, device2, device3]
-        
-        let session1 = Session(lawNum: lawNum, po: "87327842", model: model, nickname: "Hard Drives", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
-        let session2 = Session(lawNum: lawNum, po: "75124512", model: model, nickname: "Monitors", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
-        let session3 = Session(lawNum: lawNum, po: "87124341", model: model, nickname: "Tiny Stock", notes: notes, dept: department, bldg: building, comp: company, city: city, devices: devices)
-        pols[POLIndex].sessions = [session1!, session2!, session3!]
-    }
- */
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -72,7 +50,7 @@ class SessionTableViewController: UITableViewController {
         let session = pols[POLIndex].sessions[indexPath.row]
         
         // cell.lawNum.text = session.lawNum + " - " + session.po
-        cell.lawNum.text = session.lawNum
+        cell.lawNum.text = session.model
         cell.nickname.text = session.nickname
         
         /*

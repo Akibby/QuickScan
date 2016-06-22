@@ -15,7 +15,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     
     @IBOutlet weak var assetField: UITextField!
     @IBOutlet weak var serialField: UITextField!
-    @IBOutlet weak var typeField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var batteryLabel: UILabel!
     var lawNum: String!
@@ -35,7 +34,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
         // Handle the text field's inputs
         assetField.delegate = self
         serialField.delegate = self
-        typeField.delegate = self
         saveButton.enabled = false
         
         Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
@@ -69,12 +67,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
         saveButton.enabled = !text.isEmpty
     }
     
-    func checkValidType(){
-        // Disable the save button while the field is empty
-        let text = typeField.text ?? ""
-        saveButton.enabled = !text.isEmpty
-    }
-    
     func textFieldDidEndEditing(textField: UITextField) {
         checkValidSerial()
         checkValidAsset()
@@ -97,10 +89,9 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
             let date = NSDate()
             let asset = assetField.text ?? ""
             let serial = serialField.text ?? ""
-            let model = typeField.text ?? ""
             let photo = UIImage(named: "No Photo Selected")
             
-            device = Device(assetTag: asset, serialNum: serial, poNum: poNum, photo: photo, law: lawNum, notes: notes, city: city, building: building, department: department, company: company, submit: false, time: date, model: model)
+            device = Device(assetTag: asset, serialNum: serial, photo: photo, submit: false, time: date)
         }
     }
     
@@ -119,13 +110,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CaptuvoEventsProtoc
     
     func decoderDataReceived(data: String!) {
         if assetField.text != ""{
-            if serialField.text != ""{
-                typeField.text = data
-                saveButton.enabled = true
-            }
-            else {
-                serialField.text = data
-            }
+            serialField.text = data
+            saveButton.enabled = true
         }
         else{
             assetField.text = data

@@ -32,12 +32,6 @@ class DeviceInfoViewController: UIViewController {
             // typeLabel.text = device.type
             assetTagLabel.text = device.assetTag
             serialNumLabel.text = device.serialNum
-            lawNumLabel.text = device.law
-            poNumLabel.text = device.poNum
-            cityLabel.text = device.city
-            buildingLabel.text = device.building
-            departmentLabel.text = device.department
-            companyLabel.text = device.company
         }
     }
 

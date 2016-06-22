@@ -125,6 +125,7 @@ class POLTableViewController: UITableViewController {
             print(pols[pols.count - 1].nickname)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
+        savePOLs()
     }
     
     // MARK: NSCoding
