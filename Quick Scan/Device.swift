@@ -6,11 +6,20 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: The Device Object.
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class Device: NSObject, NSCoding {
     
-    // MARK: Properties
+    // MARK: - Properties
+    /*
+     Features of the Device Object.
+    */
     
     var assetTag: String
     var serialNum: String
@@ -18,12 +27,20 @@ class Device: NSObject, NSCoding {
     var submit: Bool
     var time: NSDate
     
-    // MARK: Archiving Paths
+    
+    // MARK: - Archiving Paths
+    /*
+     Where the Device Object has its properties stored.
+     */
     
     static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("devices")
     
-    // MARK: Types
+    
+    // MARK: - Types
+    /*
+     A structure to store the properties of the Device Object.
+     */
     
     struct PropertyKey {
         static let assetTagKey = "assetTag"
@@ -33,7 +50,10 @@ class Device: NSObject, NSCoding {
         static let timeKey = "time"
     }
     
-    // MARK: Initialization
+    // MARK: - Initialization
+    /*
+     Function to create the Device Object.
+     */
     
     init?(assetTag: String, serialNum: String, photo: UIImage?, submit: Bool, time: NSDate){
         
@@ -51,7 +71,10 @@ class Device: NSObject, NSCoding {
         }
     }
     
-    // MARK: NSCoding
+    // MARK: - NSCoding
+    /*
+     Encoding, decoding, and initialization of Device Objects.
+     */
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(assetTag, forKey: PropertyKey.assetTagKey)
@@ -71,6 +94,4 @@ class Device: NSObject, NSCoding {
         // Must call init
         self.init(assetTag: assetTag, serialNum: serialNum, photo: photo, submit: submit, time: time)
     }
-    
-    
 }

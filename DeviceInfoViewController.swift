@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Displays information about a specific device.
+ 
+    Completion Status: Incomplete!
+*/
+
 import UIKit
 
 class DeviceInfoViewController: UIViewController {
@@ -29,7 +35,6 @@ class DeviceInfoViewController: UIViewController {
         super.viewDidLoad()
         
         if let device = device {
-            // typeLabel.text = device.type
             assetTagLabel.text = device.assetTag
             serialNumLabel.text = device.serialNum
         }

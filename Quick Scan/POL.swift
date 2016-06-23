@@ -6,23 +6,39 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: The POL (POL: PO-Lawson) Object.
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class POL: NSObject {
     
-    // MARK: Properties
+    // MARK: - Properties
+    /*
+     Features of the POL Object.
+     */
     
     var lawNum: String
     var po: String
     var nickname: String
     var sessions = [Session]()
     
-    // MARK: Archiving Paths
+    
+    // MARK: - Archiving Paths
+    /*
+     Where the POL Object has its properties stored.
+     */
     
     static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("pol")
     
-    // MARK: Types
+    // MARK: - Types
+    /*
+     A structure to store the properties of the POL Object.
+     */
     
     struct PropertyKey {
         static let lawKey = "law"
@@ -31,7 +47,10 @@ class POL: NSObject {
         static let sessionsKey = "sessions"
     }
     
-    // MARK: Initialization
+    // MARK: - Initialization
+    /*
+     Function to create the POL Object.
+     */
     
     init?(lawNum: String, po: String, nickname: String, sessions: [Session]){
         self.lawNum = lawNum
@@ -40,7 +59,10 @@ class POL: NSObject {
         self.sessions = sessions
     }
     
-    // MARK: NSCoding
+    // MARK: - NSCoding
+    /*
+     Encoding, decoding, and initialization of POL Objects.
+     */
     
     func encodeWithCoder(aCoder: NSCoder){
         aCoder.encodeObject(lawNum, forKey: PropertyKey.lawKey)

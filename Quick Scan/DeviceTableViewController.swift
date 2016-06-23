@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Displays the array of Devices contained within the selected Session.
+ 
+    Completion Status: Partially Complete!
+*/
+
 import UIKit
 import MessageUI
 
@@ -24,18 +30,14 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(POLIndex)
-        print(sesIndex)
-        print(fileName)
+        
         fileName = pols[POLIndex].sessions[sesIndex].nickname
-        print("fileName set")
         if fileName == ""{
             fileName = pols[POLIndex].po
         }
         else{
             fileName = fileName + "_" + pols[POLIndex].po
         }
-        print(fileName)
         
         
         if pols[POLIndex].sessions[sesIndex].nickname != ""{
@@ -86,7 +88,6 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         cell.serialLabel.text = device.serialNum
         // cell.typeLabel.text = device.type
         cell.photoImageView.image = device.photo
-        print(device.submit)
         
         if device.submit{
             cell.assetLabel.text = device.assetTag
@@ -167,10 +168,8 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     func convertCSV(devices: [Device]) -> NSString{
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
-            print("filename = " + fileName)
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
-            print("contents created")
-            let mystring = "department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,devType,"
+            let mystring = "devType,department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,"
             var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             // var contentsOfFile = "idLawsonRequisitionNo,idPurchaseOrder,poStatus,poNickname,poQuoteNo,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devSerial,devAssetTag,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,devNotes,scanTimeIn,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             var i = 0
@@ -179,7 +178,6 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             while i < devices.count {
                 if devices[i].submit == false{
                     devices[i].submit = true
-                    print(devices[i].assetTag)
                     let department = ses.dept.uppercaseString
                     let building = ses.bldg.uppercaseString
                     let company = ses.comp.uppercaseString
@@ -194,14 +192,12 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                     let model = ses.model.uppercaseString
                     let type = ses.type.uppercaseString
                     let capital = ses.capital.description.uppercaseString
+                    let status = "In Use"
+                    let floor = "1"
                     
-                    contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + nickname + "," + notes + "," + time + "," + model + "," + type + "," + capital + "\n"
-                    print("content added")
-                    i += 1
+                    contentsOfFile = contentsOfFile + type + "," + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + nickname + "," + notes + "," + time + "," + model  + "," + capital +  "," + status +  "," + floor +  "\n"
                 }
-                else{
-                    i += 1
-                }
+                i += 1
             }
             savePOLs()
             do {
@@ -277,14 +273,11 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         while i < devcount {
             if curdevs[i].submit == false{
                 if cursub == nil{
-                    print("cursub is nil")
                     cursub = [i]
                 }
                 else{
-                    print("cursub isn't nil")
                     cursub.append(i)
                 }
-                print(cursub)
                 tf = true
             }
             else if cursub.count == 0{
@@ -299,12 +292,10 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         let curdevs = pols[POLIndex].sessions[sesIndex].devices
         var i = 0
         while i < curdevs.count {
-            if curdevs[i].submit == true{
-                i += 1
-            }
-            else{
+            if curdevs[i].submit == false{
                 return true
             }
+            i += 1
         }
         return false
     }
@@ -312,7 +303,6 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     // MARK: - Upload
     
     @IBAction func postToServer(sender: AnyObject) {
-        print("Submitting")
         let url: NSURL = NSURL(string: "http://192.168.1.202")!
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
         let bodyData = "data=something"
@@ -372,7 +362,6 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        print(result)
         if result.rawValue != 2{
             var i = 0
             while i < cursub.count {

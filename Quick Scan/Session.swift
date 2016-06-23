@@ -6,11 +6,20 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: The Session Object.
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class Session: NSObject {
     
-    // MARK: Properties
+    // MARK: - Properties
+    /*
+     Features of the Session Object.
+     */
     
     var nickname: String
     var dept: String
@@ -24,12 +33,18 @@ class Session: NSObject {
     var submit: Bool
     var devices = [Device]()
     
-    // MARK: Archiving Paths
+    // MARK: - Archiving Paths
+    /*
+     Where the Session Object has its properties stored.
+     */
     
     static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("session")
     
-    // MARK: Types
+    // MARK: - Types
+    /*
+     A structure to store the properties of the Session Object.
+     */
     
     struct PropertyKey {
         static let notesKey = "notes"
@@ -45,7 +60,10 @@ class Session: NSObject {
         static let submitKey = "submit"
     }
     
-    // MARK: Initialization
+    // MARK: - Initialization
+    /*
+     Function to create the Session Object.
+     */
     
     init?(model: String, nickname: String, notes: String, type: String, capital: Bool, dept: String, bldg: String, comp: String, city: String, devices: [Device], submit: Bool){
         self.notes = notes
@@ -61,7 +79,10 @@ class Session: NSObject {
         self.submit = submit
     }
     
-    // MARK: NSCoding
+    // MARK: - NSCoding
+    /*
+     Encoding, decoding, and initialization of Device Objects.
+     */
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)

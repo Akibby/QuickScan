@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Displays all POLs (POL: PO-Lawson) saved on device.
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class POLTableViewController: UITableViewController {
@@ -22,7 +28,6 @@ class POLTableViewController: UITableViewController {
         }
         else{
             loadSamplePOLs()
-            print("Samples created")
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -121,8 +126,6 @@ class POLTableViewController: UITableViewController {
         if let sourceViewController = sender.sourceViewController as? NewPOL, pol = sourceViewController.pol {
             let newIndexPath = NSIndexPath(forRow: pols.count, inSection: 0)
             pols.append(pol)
-            print(pols.count)
-            print(pols[pols.count - 1].nickname)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
         savePOLs()

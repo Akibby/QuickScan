@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Used to create the cells for CityTableViewController, DepartmentTableViewController, and CompanyTableViewController
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class LocationTableViewCell: UITableViewCell {

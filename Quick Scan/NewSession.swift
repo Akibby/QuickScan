@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Allows for creation of a new Session Object. The new Session will be added to the Session Array for the selected POL.
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
@@ -134,27 +140,22 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
         if let sourceViewController = sender.sourceViewController as? CityTableViewController{
             city = sourceViewController.city
             cityLabel.text = city
-            print(city)
         }
         if let sourceViewController = sender.sourceViewController as? BuildingTableViewController{
             building = sourceViewController.building
             buildingLabel.text = building
-            print(building)
         }
         if let sourceViewController = sender.sourceViewController as? DepartmentTableViewController{
             department = sourceViewController.department
             departmentLabel.text = department
-            print(department)
         }
         if let sourceViewController = sender.sourceViewController as? CompanyTableViewController{
             company = sourceViewController.company
             companyLabel.text = company
-            print(company)
         }
         if let sourceViewController = sender.sourceViewController as? TypeTableViewController{
             type = sourceViewController.type
             typeLabel.text = type
-            print(type)
         }
         checkValidEntries()
     }

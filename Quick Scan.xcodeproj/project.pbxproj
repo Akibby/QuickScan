@@ -103,15 +103,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D921E8B01D1AECFE00D530FA /* Locations */ = {
+		D921E8B01D1AECFE00D530FA /* SessionInfo */ = {
 			isa = PBXGroup;
 			children = (
+				D9DF8AD61D19E13D0059B57D /* TypeTableViewController.swift */,
 				D9208CE31D075511009E4C6F /* BuildingTableViewController.swift */,
 				D937FAD41D070500008598DC /* CityTableViewController.swift */,
 				D9208CE11D075029009E4C6F /* CompanyTableViewController.swift */,
 				D9208CE51D07551D009E4C6F /* DepartmentTableViewController.swift */,
 			);
-			name = Locations;
+			name = SessionInfo;
 			sourceTree = "<group>";
 		};
 		D921E8B11D1AED3300D530FA /* Objects */ = {
@@ -127,6 +128,7 @@
 		D921E8B21D1AED5400D530FA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */,
 				D9FA85141CF8F584009C5ECC /* DeviceTableViewCell.swift */,
 				D9D6F1641D09F17100A1D959 /* SessionTableViewCell.swift */,
 				D9DF8AD21D19925C0059B57D /* POLTableViewCell.swift */,
@@ -164,18 +166,16 @@
 				D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */,
 				D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */,
 				D9FA85121CF8ECAB009C5ECC /* DeviceTableViewController.swift */,
-				D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */,
 				D9FA84F01CF8A616009C5ECC /* NewDevice.swift */,
 				D9DF8AD41D19D16B0059B57D /* NewPOL.swift */,
 				D9A4D3B61D08584700931AB6 /* NewSession.swift */,
 				D9DF8AD01D1990C60059B57D /* POLTableViewController.swift */,
 				D9E59EC11D09E5BA00B87C3E /* SessionTableViewController.swift */,
-				D9DF8AD61D19E13D0059B57D /* TypeTableViewController.swift */,
 				D9FA84F71CF8A616009C5ECC /* LaunchScreen.storyboard */,
 				D9FA84F21CF8A616009C5ECC /* Main.storyboard */,
 				D9FA84F51CF8A616009C5ECC /* Assets.xcassets */,
 				D921E8B21D1AED5400D530FA /* Cells */,
-				D921E8B01D1AECFE00D530FA /* Locations */,
+				D921E8B01D1AECFE00D530FA /* SessionInfo */,
 				D921E8B11D1AED3300D530FA /* Objects */,
 			);
 			path = "Quick Scan";

@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Displays the array of Sessions contained within the selected POL.
+ 
+    Completion Status: Partially Complete!
+*/
+
 import UIKit
 import MessageUI
 
@@ -38,7 +44,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         // self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
         
-        if needUpdate() == true{
+        if needQuickUpdate() == true{
             submitButton.enabled = true
         }
         else{
@@ -64,7 +70,6 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        print("Building cell")
         let cellIdentifier = "ScanSessionCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SessionTableViewCell
         let session = pols[POLIndex].sessions[indexPath.row]
@@ -74,11 +79,9 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         
         if session.submit == true{
             cell.lawNum.text = session.model + " - " + session.type
-            print("Cell submitted")
         }
         else{
             cell.lawNum.text = session.model + " - " + session.type
-            print("Cell needs submission")
         }
 
         return cell
@@ -143,6 +146,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     // MARK: - Actions
     
     @IBAction func submitPressed(sender: AnyObject) {
+        needUpdate()
         emailCSV()
     }
     
@@ -154,33 +158,25 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
         else if let sourceViewController = sender.sourceViewController as? DeviceTableViewController{
-            print("Unwinding to session table")
-            print("")
             if sourceViewController.needQuickUpdate(){
                 pols[POLIndex].sessions[sourceViewController.sesIndex].submit = false
-                print("Update needed still!")
             }
             else{
                 pols[POLIndex].sessions[sourceViewController.sesIndex].submit = true
-                print("Session up to date!")
             }
         }
         savePOLs()
-        if needUpdate() == true{
+        if needQuickUpdate() == true{
             submitButton.enabled = true
         }
         else{
             submitButton.enabled = false
         }
-        let new = pols[POLIndex].sessions.count - 1
-        print(pols[POLIndex].sessions[new].nickname)
     }
     
     func convertCSV(sessions: [Session]) -> NSString{
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
-            print("filename = " + fileName)
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
-            print("contents created")
             let mystring = "department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,devType,"
             var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             // var contentsOfFile = "idLawsonRequisitionNo,idPurchaseOrder,poStatus,poNickname,poQuoteNo,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devSerial,devAssetTag,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,devNotes,scanTimeIn,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
@@ -243,6 +239,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         return "Failed to read!"
     }
     
+    
     func needUpdate() -> Bool{
         let curses = pols[POLIndex].sessions
         let sescount = curses.count
@@ -271,6 +268,19 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             i += 1
         }
         return tf
+    }
+    
+    func needQuickUpdate() -> Bool{
+        let curses = pols[POLIndex].sessions
+        var i = 0
+        
+        while i < curses.count{
+            if curses[i].submit == false{
+                return true
+            }
+            i += 1
+        }
+        return false
     }
     
     func unsubmit(sessions: [Session]){

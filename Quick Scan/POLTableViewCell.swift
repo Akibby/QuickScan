@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Used to create the cells for POLTableViewController.
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class POLTableViewCell: UITableViewCell {

@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Allows for the creation of a new Device object and appends it to the Device Array for the Selected Session.
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {

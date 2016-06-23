@@ -6,6 +6,12 @@
 //  Copyright © 2016 FMOLHS. All rights reserved.
 //
 
+/*
+    Description: Allows for the creation of new POL Objects (POL: PO-Lawson).
+ 
+    Completion Status: Complete!
+*/
+
 import UIKit
 
 class NewPOL: UIViewController, UITextFieldDelegate {
@@ -77,7 +83,6 @@ class NewPOL: UIViewController, UITextFieldDelegate {
             temp3.removeRange(prefix3)
             
             let fixedpo = temp1 + dash + temp2 + dash + temp3
-            print(fixedpo)
             return fixedpo
         }
         else{
