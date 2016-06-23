@@ -124,7 +124,7 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
         let capital = capSwitch.on
         
         if saveButton === sender{
-            session = Session(model: model!, nickname: nick!, notes: note!, type: type!, capital: capital, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices, submit: false)
+            session = Session(model: model!, nickname: nick!, notes: note!, type: type!, capital: capital, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices, submit: true)
         }
     }
     

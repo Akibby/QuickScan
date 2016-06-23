@@ -55,8 +55,7 @@
                     <navigationItem key="navigationItem" title="Tagged Devices" id="bw5-Ib-W3i">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="hWA-iG-InE">
                             <connections>
-                                <action selector="doneAction:" destination="aHu-Jd-Bj9" id="UnA-Yg-UYm"/>
-                                <segue destination="zeo-Ft-MRo" kind="unwind" unwindAction="unwindToSessionList:" id="Pbz-dc-xZC"/>
+                                <segue destination="zeo-Ft-MRo" kind="unwind" identifier="unwindToSessionList" unwindAction="unwindToSessionList:" id="c9X-w6-dEN"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>

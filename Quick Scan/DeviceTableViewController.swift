@@ -89,7 +89,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         print(device.submit)
         
         if device.submit{
-            cell.assetLabel.text = device.assetTag + " - S"
+            cell.assetLabel.text = device.assetTag
         }
         else{
             cell.assetLabel.text = device.assetTag
@@ -382,7 +382,8 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         }
         else{
             controller.dismissViewControllerAnimated(true, completion: nil)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            // self.dismissViewControllerAnimated(true, completion: nil)
+            self.performSegueWithIdentifier("unwindToSessionList", sender: nil)
         }
         cursub = []
         controller.dismissViewControllerAnimated(true, completion: nil)

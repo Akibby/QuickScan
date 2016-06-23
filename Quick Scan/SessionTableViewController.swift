@@ -73,7 +73,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         cell.nickname.text = session.nickname
         
         if session.submit == true{
-            cell.lawNum.text = session.model + " - " + session.type + " S"
+            cell.lawNum.text = session.model + " - " + session.type
             print("Cell submitted")
         }
         else{
@@ -254,9 +254,6 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             
             if curses[i].submit == false{
                 cursub.append(i)
-                
-                
-                
                 let curdev = curses[i].devices
                 let devcount = curdev.count
                 var j = 0
