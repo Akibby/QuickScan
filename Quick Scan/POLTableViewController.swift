@@ -16,55 +16,54 @@ import UIKit
 
 class POLTableViewController: UITableViewController {
     
-    // MARK: Properties
-    
+    // MARK: - Properties
+    /*
+     Features of the device table.
+     */
     var pols: [POL]!
 
+    // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Checks to see if any pols are saved and loads samples if not.
         if let savedPOLs = loadPOLs(){
             pols = savedPOLs
         }
         else{
             loadSamplePOLs()
         }
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    // Function from Apple to handle memory.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // Creates sample POLs.
     func loadSamplePOLs(){
-        let law = "123456789"
-        let po = "QWER-T-FM1"
-        
-        let pol1 = POL(lawNum: law, po: po, nickname: "pol1", sessions: [Session]())!
-        let pol2 = POL(lawNum: law, po: po, nickname: "pol2", sessions: [Session]())!
-        let pol3 = POL(lawNum: law, po: po, nickname: "pol3", sessions: [Session]())!
-        
-        pols = [pol1,pol2,pol3]
+        let pol1 = POL(lawNum: "115935", po: "2457-0-FMI", nickname: "Monitors", sessions: [Session]())!
+        let pol2 = POL(lawNum: "328174", po: "2445-0-FMI", nickname: "Tiny Order", sessions: [Session]())!
+        pols = [pol1,pol2]
     }
     
     // MARK: - Table view data source
-
+    /*
+     Defines how the table should be built
+     */
+    
+    // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
+    // Defines the number of cells in the table.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return pols.count
     }
 
+    // Builds the cells for the table.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "POLCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! POLTableViewCell
@@ -77,20 +76,12 @@ class POLTableViewController: UITableViewController {
         return cell
     }
 
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-
-    // Override to support editing the table view.
+    // Allows for editing the table.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
 
     /*
@@ -108,9 +99,33 @@ class POLTableViewController: UITableViewController {
     }
     */
 
+    // MARK: - NSCoding
+    /*
+     Functions for saving.
+     */
+    
+    // Will save the changes to the pols array.
+    func savePOLs(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
+        if !isSuccessfulSave{
+            print("Failed to save session!")
+        }
+        else{
+            print("Session Saved!")
+        }
+    }
+    
+    // Loads any saved POL arrays.
+    func loadPOLs() -> [POL]?{
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(POL.ArchiveURL.path!) as? [POL]
+    }
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    /*
+     Navigation to and from the page.
+     */
+    
+    // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "POLSelected"{
             let nav = segue.destinationViewController as! UINavigationController
@@ -122,6 +137,7 @@ class POLTableViewController: UITableViewController {
         }
     }
     
+    // Handles when a page that was navigated to returns back to the table.
     @IBAction func unwindToPOLList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? NewPOL, pol = sourceViewController.pol {
             let newIndexPath = NSIndexPath(forRow: pols.count, inSection: 0)
@@ -129,22 +145,6 @@ class POLTableViewController: UITableViewController {
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
         savePOLs()
-    }
-    
-    // MARK: NSCoding
-    
-    func savePOLs(){
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
-        if !isSuccessfulSave{
-            print("Failed to save session!")
-        }
-        else{
-            print("Session Saved!")
-        }
-    }
-    
-    func loadPOLs() -> [POL]?{
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(POL.ArchiveURL.path!) as? [POL]
     }
 }
 

@@ -16,8 +16,12 @@ import UIKit
 
 class DeviceTableViewCell: UITableViewCell {
     
-    // MARK: Properties
+    // MARK: - Properties
+    /*
+     Features of the type table view controller.
+     */
     
+    // Connects the labels on the cell to code.
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var serialLabel: UILabel!
     @IBOutlet weak var assetLabel: UILabel!

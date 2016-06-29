@@ -17,7 +17,11 @@ import UIKit
 class NewPOL: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
+    /*
+     Features of the new POL page.
+     */
     
+    // Connects text fields and buttons to code.
     @IBOutlet weak var lawNum: UITextField!
     @IBOutlet weak var poNum: UITextField!
     @IBOutlet weak var nickName: UITextField!
@@ -25,6 +29,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     
     var pol: POL?
     
+    // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,16 +38,21 @@ class NewPOL: UIViewController, UITextFieldDelegate {
         nickName.delegate = self
         
         checkValidEntries()
-        // Do any additional setup after loading the view.
     }
 
+    // Function from Apple to handle memory.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - UITextFieldDelegate
+    /*
+     Defines how the program should react to changes in the text fields.
+     */
+    
+    // Hide the keyboard.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        // Hide the keyboard.
         textField.resignFirstResponder()
         return true
     }
@@ -51,6 +61,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
         checkValidEntries()
     }
     
+    // Checks the text fields for valid data.
     func checkValidEntries(){
         let law = lawNum.text ?? ""
         let po = poNum.text ?? ""
@@ -64,6 +75,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     
+    // Edits the PO to place two - if they are missing.
     func correctPO(po: String) -> String{
         var temp1 = po
         var temp2 = po
@@ -91,8 +103,12 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    /*
+     Navigation from the page.
+     */
+    
+    
+    // Creates new POL to be passed on to POLTableViewController.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if saveButton === sender{
             let law = lawNum.text ?? ""

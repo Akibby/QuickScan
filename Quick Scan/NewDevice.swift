@@ -17,8 +17,12 @@ import UIKit
 class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     
-    // MARK: Properties
+    // MARK: - Properties
+    /*
+     Features of the new device page.
+     */
     
+    // Connects the text fields to code.
     @IBOutlet weak var assetField: UITextField!
     @IBOutlet weak var serialField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -32,8 +36,8 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     var company: String!
     
     var device: Device?
-    
 
+    // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,38 +45,43 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         assetField.delegate = self
         serialField.delegate = self
         saveButton.enabled = false
-        
+        // Initializes the scanner.
         Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
         
     }
 
+    // Function from Apple to handle memory.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-    // MARK: UITextFieldDelegate
+    // MARK: - UITextFieldDelegate
+    /*
+     Defines how the program should react to changes in the text fields.
+     */
     
+    // Hide the keyboard.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        // Hide the keyboard.
         textField.resignFirstResponder()
         return true
     }
     
+    // Disable the save button while the field is empty
     func checkValidAsset(){
-        // Disable the save button while the field is empty
         let text = assetField.text ?? ""
         saveButton.enabled = !text.isEmpty
     }
     
+    // Disable the save button while the field is empty
     func checkValidSerial(){
-        // Disable the save button while the field is empty
         let text = serialField.text ?? ""
         saveButton.enabled = !text.isEmpty
     }
     
+    // Checks for a valid serial and asset tag when the text field finishes editing.
     func textFieldDidEndEditing(textField: UITextField) {
         checkValidSerial()
         checkValidAsset()
@@ -84,12 +93,17 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     }
     */
     
-    // MARK: Navigation
+    // MARK: - Navigation
+    /*
+     Navigation from the page.
+     */
     
+    // Function the cancel button calls to close the page.
     @IBAction func cancel(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // Creates a device object to be passed to the DeviceTableViewController.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if saveButton === sender{
             let date = NSDate()
@@ -101,18 +115,23 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         }
     }
     
-    // MARK: Captuvo
+    // MARK: - Captuvo
+    /*
+     Functions to for the Captuvo scanner.
+     */
     
+    // Starts the decoder.
     func captuvoConnected() {
-        
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
     }
     
+    // Stops the decoder and updates label to indicate scanner is not connected.
     func captuvoDisconnected() {
         Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
         batteryLabel.text = "Searching for Scanner"
     }
     
+    // Handles data recieved from the scanner and decides which field it belongs in.
     func decoderDataReceived(data: String!) {
         if assetField.text != ""{
             serialField.text = data
@@ -123,6 +142,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         }
     }
     
+    // Updates label to indicate the scanner is connected and ready.
     func decoderReady() {
         batteryLabel.text = "Scanner is Ready"
     }

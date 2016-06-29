@@ -17,7 +17,10 @@ import MessageUI
 
 class SessionTableViewController: UITableViewController, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
     
-    // MARK: Properties
+    // MARK: - Properties
+    /*
+     Features of the device table.
+     */
     
     var pols: [POL]!
     var POLIndex: Int!
@@ -26,9 +29,11 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     var curdevsub = [[Int]]()
     @IBOutlet weak var submitButton: UIBarButtonItem!
 
+    // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Decides a file name for the csv.
         fileName = pols[POLIndex].nickname
         if fileName == ""{
             fileName = pols[POLIndex].po
@@ -52,45 +57,37 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         }
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Table view data source
-
+    /*
+     Defines how the table should be built
+     */
+    
+    // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
+    // Defines the number of cells in the table.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return pols[POLIndex].sessions.count
     }
 
+    // Builds the cells for the table.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "ScanSessionCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SessionTableViewCell
         let session = pols[POLIndex].sessions[indexPath.row]
         
-        
         cell.nickname.text = session.nickname
+        cell.lawNum.text = session.model + " - " + session.type
         
-        if session.submit == true{
-            cell.lawNum.text = session.model + " - " + session.type
-        }
-        else{
-            cell.lawNum.text = session.model + " - " + session.type
-        }
-
         return cell
-    }
-    
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
     }
     
     // Override to support editing the table view.
@@ -99,13 +96,15 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             pols[POLIndex].sessions.removeAtIndex(indexPath.row)
             savePOLs()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
     
     // MARK: - NSCoding
+    /*
+     Functions for saving.
+     */
     
+    // Will save the changes to the sessions array.
     func savePOLs(){
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
         if !isSuccessfulSave{
@@ -115,14 +114,13 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             print("Session Saved!")
         }
     }
-    
-    func loadPOLs() -> [POL]?{
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(POL.ArchiveURL.path!) as? [POL]
-    }
 
     // MARK: - Navigation
+    /*
+     Navigation to and from the page.
+     */
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SessionSelected"{
             let nav = segue.destinationViewController as! UINavigationController
@@ -144,13 +142,17 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     
     
     // MARK: - Actions
+    /*
+     Action functions.
+     */
     
+    // Function for the submit button.
     @IBAction func submitPressed(sender: AnyObject) {
         needUpdate()
         emailCSV()
     }
     
-    
+    // Handles when a page that was navigated to returns back to the table.
     @IBAction func unwindToSessionList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? NewSession, session = sourceViewController.session{
             let newIndexPath = NSIndexPath(forRow: pols[POLIndex].sessions.count, inSection: 0)
@@ -174,6 +176,11 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         }
     }
     
+    /*
+     Converts all devices in the Sessions that need submission in to their .csv format.
+     Functionally complete but tweaking exact output info.
+     This function DOES update the submission status of each device and session that it converts!
+     */
     func convertCSV(sessions: [Session]) -> NSString{
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
@@ -186,7 +193,6 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             
             while i < sessions.count {
                 if sessions[i].submit == false{
-                    
                     let ses = pol.sessions[i]
                     let devs = ses.devices
                     var j = 0
@@ -239,7 +245,14 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         return "Failed to read!"
     }
     
-    
+    /*
+     Checks each session to see if it needs submitted.
+     If a session needs submission it will check every device within it to see if needs submission and appends a section to curdevsub for EVERY section.
+     If the session is not submitted already it will store index of the object in the cursub array.
+     If the device contained in the session is not submitted it will append it to curdevsub.
+     Function will return a boolean value to decide if the DB needs an update.
+     This function DOES NOT change the submission status of ANY OBJECT!
+     */
     func needUpdate() -> Bool{
         let curses = pols[POLIndex].sessions
         let sescount = curses.count
@@ -270,6 +283,10 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         return tf
     }
     
+    /*
+     Similar to needUpdate() but it only runs until it finds one session that needs an update.
+     Does NOT store any indexes to cursub or curdevsub or change any submission statuses!
+     */
     func needQuickUpdate() -> Bool{
         let curses = pols[POLIndex].sessions
         var i = 0
@@ -283,6 +300,10 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         return false
     }
     
+    /*
+     Iterates through all indexes of cursub and uses the values to iterate through curdevsub and find which devices were updated.
+     Then changes the submission status of the devices within each submitted session and session back to false.
+     */
     func unsubmit(sessions: [Session]){
         var i = 0
         while i < cursub.count {
@@ -298,7 +319,14 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     }
     
     // MARK: - Upload
+    /*
+     Functions that are releated to submitting data.
+     */
     
+    /*
+     Function to pull up the email page using the email composer defined by
+     configuredMailComposeViewController().
+     */
     func emailCSV(){
         let emailViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail(){
@@ -306,6 +334,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         }
     }
     
+    //Configures an email view with auto filled in information.
     func configuredMailComposeViewController() -> MFMailComposeViewController{
         let contents = convertCSV(pols[POLIndex].sessions)
         let data = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
@@ -321,6 +350,11 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         return emailController
     }
     
+    /*
+     Handles the mail view closing.
+     If the mail view returns 2 (email sent) as its result cursub and curdevsub are set to empty arrays and the view is dismissed.
+     If the mail view returns any other result the submitted sessions will be unsubmitted.
+     */
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         print(result)
         if result.rawValue != 2{

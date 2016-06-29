@@ -16,9 +16,12 @@ import UIKit
 
 class LocationTableViewCell: UITableViewCell {
     
-    // MARK: Properties
+    // MARK: - Properties
+    /*
+     Features of the type table view controller.
+     */
     
-    
+    // Connects the labels on the cell to code.
     @IBOutlet weak var titleCell: UILabel!
     @IBOutlet weak var cityCell: UILabel!
 

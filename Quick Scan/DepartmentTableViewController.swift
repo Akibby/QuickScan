@@ -16,6 +16,12 @@ import UIKit
 
 class DepartmentTableViewController: UITableViewController {
     
+    // MARK: - Properties
+    /*
+     Features of the type table view controller.
+     */
+    
+    // An array of arrays of strings that are the different departments sorted by type.
     var departmentTitles = [[ "FMOLHS",
         "FMOL-BIS Systems-3000-8239",
         "FMOL-Cain Inc-3100-8311",
@@ -440,11 +446,12 @@ class DepartmentTableViewController: UITableViewController {
         "COLL-Therapeutic Massage-601-8407",
         "COLL-Vice Pres Acadm Affr-601-8102",
         "COLL-VP Support Serv-601-8113"]]
-    
+    // Connection to the done button.
     @IBOutlet weak var doneButton: UIBarButtonItem!
     var department: String!
     var oldIndex: NSIndexPath!
 
+    // Loads the table.
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -455,32 +462,34 @@ class DepartmentTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    // Function from Apple to handle memory.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
-
+    /*
+     Defines how the table should be built
+     */
+    
+    // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return departmentTitles.count
     }
-
+    
+    // Defines the number of rows in a section.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return departmentTitles[section].count - 1
     }
 
+    // Function to build the cells.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-        
         cell.textLabel?.text = departmentTitles[indexPath.section][indexPath.row + 1]
         if oldIndex == nil{
             doneButton.enabled = false
         }
-        
         return cell
     }
     
@@ -488,8 +497,12 @@ class DepartmentTableViewController: UITableViewController {
         return departmentTitles[section][0]
     }
     
-    // MARK: Actions
+    // MARK: - Actions
+    /*
+     Action functions.
+     */
     
+    //  Adds checkmark to the selected cell and removes checkmark from last selected if needed.
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if oldIndex != nil {
             tableView.cellForRowAtIndexPath(oldIndex)?.accessoryType = UITableViewCellAccessoryType.None
@@ -500,16 +513,17 @@ class DepartmentTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
+    /*
+     Navigation to and from the page.
+     */
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if doneButton === sender{
             let selectedIndexPath = tableView.indexPathForSelectedRow
             department = departmentTitles[(selectedIndexPath?.section)!][(selectedIndexPath?.row)! + 1]
         }
     }
-    
-
 }
 
 

@@ -17,11 +17,15 @@ import UIKit
 class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     // MARK: Properties
+    /*
+     Features of the new device page.
+     */
     
+    // Array that defines how the page should be built.
     var labels = [["Device Info","Model","Type","Nickname","Notes", "Capital"],["Location Info","City","Building","Department","Company"]]
     
+    // Connects buttons, text fields, and labels to code.
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
     
     @IBOutlet weak var modNum: UITextField!
     @IBOutlet weak var nickname: UITextField!
@@ -49,45 +53,43 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     var POLIndex: Int!
     var capital: Bool!
     
+    // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Handles the text fields inputs.
         self.notes.delegate = self
         self.modNum.delegate = self
         self.nickname.delegate = self
-        
+        // Initializes the Captuvo scanner.
         Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
         
         checkValidEntries()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    // Function from Apple to handle memory.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - UITextFieldDelegate
+    /*
+     Defines how the program should react to changes in the text fields.
+     */
+    
+    // Hide the keyboard.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        // Hide the keyboard.
         textField.resignFirstResponder()
         return true
     }
-    /*
-    func textFieldDidBeginEditing(textField: UITextField) {
-        // Disable the Save button while editing
-        saveButton.enabled = false
-    }
-    */
+    
+    // Checks all fields for valid entries.
     func textFieldDidEndEditing(textField: UITextField) {
         checkValidEntries()
     }
     
+    // Checks all fields for valid entries and decides if the save button should be enabled.
     func checkValidEntries(){
         let mod = modNum.text ?? ""
         
@@ -100,23 +102,31 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     }
     
     // MARK: - Table view data source
-
+    /*
+     Defines how the table should be built
+     */
+    
+    // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return labels.count
     }
-
+    
+    // Defines the number of rows in a section.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return labels[section].count - 1
     }
     
+    // Defines the labels for each section.
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return labels[section][0]
     }
 
     // MARK: - Navigation
-
+    /*
+     Navigation to and from the page.
+     */
+    
+    // Prepares data to be sent to a different page by creating a session object with the defined parameters.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let model = modNum.text
         let nick = nickname.text
@@ -134,8 +144,12 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
         }
     }
     
-    // MARK: Actions
+    // MARK: - Actions
+    /*
+     Action functions.
+     */
     
+    // Handles when a page that was navigated to returns back to the table.
     @IBAction func unwindToLawsonTable(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? CityTableViewController{
             city = sourceViewController.city
@@ -161,15 +175,21 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     }
     
     // MARK: - Captuvo
+    /*
+     Functions to for the Captuvo scanner.
+     */
     
+    // Starts the decoder.
     func captuvoConnected() {
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
     }
     
+    // Stops the decoder.
     func captuvoDisconnected() {
         Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
     }
     
+    // Decides where data from the scanner belongs.
     func decoderDataReceived(data: String!) {
         modNum.text = data
     }

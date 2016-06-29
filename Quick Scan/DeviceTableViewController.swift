@@ -17,20 +17,24 @@ import MessageUI
 
 class DeviceTableViewController: UITableViewController, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
     
-    // MARK: Properties
-    
+    // MARK: - Properties
+    /*
+     Features of the device table.
+     */
     var pol: POL!
     var pols: [POL]!
     var POLIndex: Int!
     var sesIndex: Int!
     var fileName: String! = ""
     var cursub: [Int]! = []
+    // Connects the submit and done buttons to code.
     @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
+    // Loads the table.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Function to decide the file name for converting to .csv.
         fileName = pols[POLIndex].sessions[sesIndex].nickname
         if fileName == ""{
             fileName = pols[POLIndex].po
@@ -39,7 +43,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             fileName = fileName + "_" + pols[POLIndex].po
         }
         
-        
+        // Function to decide what the navigation title will be.
         if pols[POLIndex].sessions[sesIndex].nickname != ""{
             navigationItem.title = pols[POLIndex].sessions[sesIndex].nickname
         }
@@ -47,6 +51,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             navigationItem.title = pols[POLIndex].lawNum
         }
         
+        // Checks value of needQuickUpdate() and sets the submit button to either enabled or disabled.
         if needQuickUpdate() == true{
             submitButton.enabled = true
         }
@@ -62,66 +67,59 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    // Function from Apple to handle memory.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
-
+    /*
+     Defines how the table should be built
+     */
+    
+    // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
+    // Defines the number of cells in the table.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pols[POLIndex].sessions[sesIndex].devices.count
     }
 
+    // Builds the cells for the table.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "DeviceTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeviceTableViewCell
         
-        // let device = session.devices[indexPath.row]
         let device = pols[POLIndex].sessions[sesIndex].devices[indexPath.row]
         
-        
         cell.serialLabel.text = device.serialNum
-        // cell.typeLabel.text = device.type
         cell.photoImageView.image = device.photo
-        
-        if device.submit{
-            cell.assetLabel.text = device.assetTag
-        }
-        else{
-            cell.assetLabel.text = device.assetTag
-        }
+        cell.assetLabel.text = device.assetTag
         
         return cell
     }
-
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-
-    // Override to support editing the table view.
+    
+    // Allows for editing the table.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            // session.devices.removeAtIndex(indexPath.row)
             pols[POLIndex].sessions[sesIndex].devices.removeAtIndex(indexPath.row)
             
             savePOLs()
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     
     // MARK: - NSCoding
+    /*
+     Functions for saving.
+     */
     
+    // Will save the changes to the current device array.
     func savePOLs(){
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
         if !isSuccessfulSave{
@@ -133,7 +131,11 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     // MARK: - Navigation
-
+    /*
+     Navigation to and from the page.
+     */
+    
+    // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail"{
             let nav = segue.destinationViewController as! DeviceInfoViewController
@@ -149,7 +151,11 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     
     // MARK: - Actions
+    /*
+     Action functions.
+     */
     
+    // Handles when a page that was navigated to returns back to the table.
     @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.sourceViewController as? NewDevice, device = sourceViewController.device{
             // Add new device
@@ -165,13 +171,20 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         }
         savePOLs()
     }
-    
+
+    /*
+     Converts all devices that need submission in the Session in to their .csv format.
+     Functionally complete but tweaking exact output info.
+     This function DOES change the submission status of each device that it converts!
+     */
     func convertCSV(devices: [Device]) -> NSString{
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
-            let mystring = "devType,department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,"
-            var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
+            // let mystring = "devType,department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,"
+            let mystring = "Device Type,Status,Asset Tag,Serial Number,Department,Building/Location,Company,City,Floor,Warranty Expiration Date,PO Number,Procure All Number,Model,Capital/Non Capital,Notes\n"
+            // var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             // var contentsOfFile = "idLawsonRequisitionNo,idPurchaseOrder,poStatus,poNickname,poQuoteNo,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devSerial,devAssetTag,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,devNotes,scanTimeIn,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
+            var contentsOfFile = mystring
             var i = 0
             let pol = pols[POLIndex]
             let ses = pol.sessions[sesIndex]
@@ -187,15 +200,22 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                     let serial = devices[i].serialNum.uppercaseString
                     let notes = ses.notes.uppercaseString
                     let po = pol.po.uppercaseString
-                    let nickname = pol.nickname.uppercaseString + "-" + ses.nickname.uppercaseString
-                    let time = devices[i].time.description.uppercaseString
                     let model = ses.model.uppercaseString
                     let type = ses.type.uppercaseString
-                    let capital = ses.capital.description.uppercaseString
                     let status = "In Use"
                     let floor = "1"
+                    var capital: String
+                    if ses.capital {
+                        capital = "Capital"
+                    }
+                    else{
+                        capital = "Non Capital"
+                    }
+                    var time = devices[i].time
+                    time = time.dateByAddingTimeInterval(60*60*24*365*3)
+                    let warranty = time.description
                     
-                    contentsOfFile = contentsOfFile + type + "," + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + nickname + "," + notes + "," + time + "," + model  + "," + capital +  "," + status +  "," + floor +  "\n"
+                    contentsOfFile = contentsOfFile + type + "," + status + "," + asset + "," + serial + "," + department + "," + building + "," + company + "," + city + "," + floor + "," + warranty + "," + po + "," + law + "," + model + "," + capital + "," + notes + "\n"
                 }
                 i += 1
             }
@@ -220,6 +240,11 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         return "Failed to read!"
     }
     
+    /*
+     Connects submit button to code.
+     Was originally implemented to display a popup with a list of choices on how to react.
+     Old code is left incase design plans change.
+     */
     @IBAction func actionSheet(sender: AnyObject) {
         self.needUpdate()
         self.emailCSV()
@@ -264,6 +289,12 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         */
     }
 
+    /*
+     Goes through every device in the array and checks to see if it has been submitted or not.
+     If not submitted already it will store index of the object in the cursub array.
+     Function will return a boolean value to decide if the DB needs an update.
+     This function DOES NOT change the submission status of any of the devices!
+     */
     func needUpdate() -> Bool{
         let curdevs = pols[POLIndex].sessions[sesIndex].devices
         let devcount = curdevs.count
@@ -288,6 +319,10 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         return tf
     }
     
+    /*
+     Similar to needUpdate() but it only runs until it finds one device that needs an update.
+     Does NOT store any indexes to cursub or change any submission statuses!
+     */
     func needQuickUpdate() -> Bool {
         let curdevs = pols[POLIndex].sessions[sesIndex].devices
         var i = 0
@@ -301,7 +336,15 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     // MARK: - Upload
+    /*
+     Functions that are releated to submitting data.
+     */
     
+    
+    /*
+     Function to post data to a server.
+     Implementation incomplete!
+     */
     @IBAction func postToServer(sender: AnyObject) {
         let url: NSURL = NSURL(string: "http://192.168.1.202")!
         let request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
@@ -336,7 +379,10 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         */
     }
     
-    
+    /*
+     Function to pull up the email page using the email composer defined by 
+     configuredMailComposeViewController().
+     */
     func emailCSV(){
         let emailViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail(){
@@ -344,8 +390,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         }
     }
     
-    
-    
+    //Configures an email view with auto filled in information.
     func configuredMailComposeViewController() -> MFMailComposeViewController{
         let contents = convertCSV(pols[POLIndex].sessions[sesIndex].devices)
         let data = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
@@ -357,10 +402,14 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         emailController.setMessageBody("Data for \n" + "Lawson Number: " + pols[POLIndex].lawNum + "\n PO Number: " + pols[POLIndex].po, isHTML: false)
         emailController.addAttachmentData(data!, mimeType: "text/csv", fileName: fileName + ".csv")
         
-        
         return emailController
     }
     
+    /*
+     Handles the mail view closing.
+     If the mail view returns 2 (email sent) as its result cursub is set to an empty array and the view is dismissed.
+     If the mail view returns any other result cursub will be indexed and all devices will have that were being submitted will have their submission status returned to false.
+     */
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         if result.rawValue != 2{
             var i = 0

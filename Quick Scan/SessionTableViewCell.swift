@@ -16,10 +16,14 @@ import UIKit
 
 class SessionTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+    /*
+     Features of the type table view controller.
+     */
+    
+    // Connects the labels on the cell to code.
     @IBOutlet weak var lawNum: UILabel!
     @IBOutlet weak var nickname: UILabel!
-    
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

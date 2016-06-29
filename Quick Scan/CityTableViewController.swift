@@ -17,14 +17,18 @@ import UIKit
 class CityTableViewController: UITableViewController {
     
     // MARK: - Properties
+    /*
+     Features of the type table view controller.
+     */
     
-    var cityTitles = ["Baton Rouge, La", "Carencro, La","Crowley, La","Denham Springs, La","Donaldsville, La","Dutchtown, La","Gamercy, La","Gonzales, La","Lafayette, La","Monroe, La","Napoleonville, La","New Orleans, La","New Roads, La","Praireville, La","West Monroe, La"]
-    
+    // An array of strings that are the different cities.
+    var cityTitles = ["Baton Rouge La", "Carencro La","Crowley La","Denham Springs La","Donaldsville La","Dutchtown La","Gamercy La","Gonzales La","Lafayette La","Monroe La","Napoleonville La","New Orleans La","New Roads La","Praireville La","West Monroe La"]
+    // Connection to the done button.
     @IBOutlet weak var doneButton: UIBarButtonItem!
     var city: String!
     var oldIndex: NSIndexPath!
     
-    
+    // Loads the table.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,38 +39,44 @@ class CityTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    // Function from Apple to handle memory.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
-
+    /*
+     Defines how the table should be built
+     */
+    
+    // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
+    // Defines the number of rows in the table.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return cityTitles.count
     }
 
-    
+    // Function to build the cells.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "LocationTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-
         cell.textLabel?.text = cityTitles[indexPath.row]
         if oldIndex == nil{
             doneButton.enabled = false
         }
-        
         return cell
     }
     
-    // MARK: Actions
+    // MARK: - Actions
+    /*
+     Action functions.
+     */
     
+    //  Adds checkmark to the selected cell and removes checkmark from last selected if needed.
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if oldIndex != nil{
             tableView.cellForRowAtIndexPath(oldIndex)?.accessoryType = UITableViewCellAccessoryType.None
@@ -77,7 +87,11 @@ class CityTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
+    /*
+     Navigation to and from the page.
+     */
     
+    // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if doneButton === sender{
             let selectedIndexPath = tableView.indexPathForSelectedRow

@@ -10,58 +10,67 @@
     Description: Used to create the Type List.
  
     Completion Status: Complete!
-*/
+ */
 
 import UIKit
 
 class TypeTableViewController: UITableViewController {
     
     // MARK: - Properties
+    /*
+     Features of the type table view controller.
+     */
     
+    // An array of strings that are the different types.
     var typeTitles = ["Desktops","Monitors","Thin Client","Printers","Mobile Carts","Laptops","Phones","Other"]
-    
-    @IBOutlet weak var doneButton: UIBarButtonItem!
-    
     var type: String!
     var oldIndex: NSIndexPath!
+    // Connection to the done button.
+    @IBOutlet weak var doneButton: UIBarButtonItem!
 
+    // Loads the table.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
 
+    // Function from Apple to handle memory.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
+    /*
+     Defines how the table should be built.
+     */
 
+    // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
+    // Defines the number of rows in the table.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return typeTitles.count
     }
     
+    // Function to build the cells.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "TypeCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        
         cell.textLabel?.text = typeTitles[indexPath.row]
         if oldIndex == nil{
             doneButton.enabled = false
         }
-        
         return cell
     }
     
-    // MARK: = Actions
+    // MARK: - Actions
+    /*
+     Action functions.
+     */
     
+    //  Adds checkmark to the selected cell and removes checkmark from last selected if needed.
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if oldIndex != nil{
             tableView.cellForRowAtIndexPath(oldIndex)?.accessoryType = UITableViewCellAccessoryType.None
@@ -72,8 +81,11 @@ class TypeTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    /*
+     Navigation to and from the page.
+     */
+    
+    // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if doneButton === sender{
             let selectedIndexPath = tableView.indexPathForSelectedRow
@@ -81,6 +93,28 @@ class TypeTableViewController: UITableViewController {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
