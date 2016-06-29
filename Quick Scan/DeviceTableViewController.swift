@@ -21,7 +21,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     /*
      Features of the device table.
      */
-    var pol: POL!
+    // var pol: POL!
     var pols: [POL]!
     var POLIndex: Int!
     var sesIndex: Int!
@@ -139,13 +139,11 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetail"{
             let nav = segue.destinationViewController as! DeviceInfoViewController
-            // let deviceInfo = deviceInfoViewController.topViewController as! DeviceInfoViewController
-             if let selectedViewCell = sender as? DeviceTableViewCell{
-                let indexPath = tableView.indexPathForCell(selectedViewCell)!
-                // let selectedDevice = session.devices[indexPath.row]
-                let selectedDevice = pols[POLIndex].sessions[sesIndex].devices[indexPath.row]
-                nav.device = selectedDevice
-            }
+            let selectedIndexPath = tableView.indexPathForSelectedRow
+            nav.pols = pols
+            nav.POLIndex = POLIndex
+            nav.sesIndex = sesIndex
+            nav.devIndex = selectedIndexPath?.row
         }
     }
     

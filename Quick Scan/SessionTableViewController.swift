@@ -126,7 +126,6 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             let nav = segue.destinationViewController as! UINavigationController
             let svc = nav.topViewController as! DeviceTableViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
-            svc.pol = pols[POLIndex]
             svc.pols = pols
             svc.POLIndex = POLIndex
             svc.sesIndex = selectedIndexPath?.row
