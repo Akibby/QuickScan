@@ -42,13 +42,6 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             fileName = fileName + "_" + pols[POLIndex].po
         }
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-        
         if needQuickUpdate() == true{
             submitButton.enabled = true
         }

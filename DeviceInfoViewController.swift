@@ -52,8 +52,8 @@ class DeviceInfoViewController: UIViewController {
         poLabel.text = pol.po
         lawLabel.text = pol.lawNum
         cityLabel.text = session.city
-        buildLabel.text = session.bldg
-        deptLabel.text = session.dept
+        buildLabel.text = shortenBuilding(session.bldg)
+        deptLabel.text = shortenDepartment(session.dept)
         compLabel.text = session.comp
         notesLabel.text = session.notes
         if session.capital{
@@ -86,4 +86,70 @@ class DeviceInfoViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
+    
+    // MARK: - Actions
+    /*
+     
+     */
+    
+    func shortenBuilding(building: String) -> String{
+        var bldg = building
+        let range = bldg.startIndex..<bldg.startIndex.advancedBy(6)
+        bldg.removeRange(range)
+        
+        return bldg
+    }
+    
+    func shortenDepartment(department: String) -> String{
+        var dept = department
+        let range = dept.startIndex..<dept.startIndex.advancedBy(5)
+        dept.removeRange(range)
+        
+        return dept
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

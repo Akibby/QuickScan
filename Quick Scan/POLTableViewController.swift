@@ -79,6 +79,8 @@ class POLTableViewController: UITableViewController {
     // Allows for editing the table.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
+            pols.removeAtIndex(indexPath.row)
+            savePOLs()
             // Delete the row from the data source
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
