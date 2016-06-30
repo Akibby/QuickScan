@@ -23,10 +23,7 @@ class CompanyTableViewController: UITableViewController {
     
     // An array of strings that are the different companies.
     var companyTitles = ["Assisi Village","Assumption","Calais Health","Calais Health LLC","Calais House","Chateau Louise","FMOL Health System","Franciscan Legal","Heart Hospital of Acadiana","Monroe Health Services","Monroe MRI","Ollie Steele","OLOL College","OLOL Foundation","Our Lady of Lourdes","Our Lady of the Lake RMC","PACE","Specialty Hospital","St Francis Ambulatory","St Francis Ins Agency","St Francis PET Imaging","St Patricks","St. Bernard","St. Elizabeth","St. Elizabeth Physicians","St. Francis Medical Center","St. Francis North","Vendor Computer","Villa St. Francis"]
-    // Connection to the done button.
-    @IBOutlet weak var doneButton: UIBarButtonItem!
     var company: String!
-    var oldIndex: NSIndexPath!
     
     // Loads the table.
     override func viewDidLoad() {
@@ -67,25 +64,7 @@ class CompanyTableViewController: UITableViewController {
         let cellIdentifier = "LocationTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         cell.textLabel?.text = companyTitles[indexPath.row]
-        if oldIndex == nil{
-            doneButton.enabled = false
-        }
         return cell
-    }
-    
-    // MARK: - Actions
-    /*
-     Action functions.
-     */
-    
-    //  Adds checkmark to the selected cell and removes checkmark from last selected if needed.
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if oldIndex != nil{
-            tableView.cellForRowAtIndexPath(oldIndex)?.accessoryType = UITableViewCellAccessoryType.None
-        }
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        doneButton.enabled = true
-        oldIndex = indexPath
     }
     
 
@@ -96,10 +75,8 @@ class CompanyTableViewController: UITableViewController {
     
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if doneButton === sender{
-            let selectedIndexPath = tableView.indexPathForSelectedRow
-            company = companyTitles[(selectedIndexPath?.row)!]
-        }
+        let selectedIndexPath = tableView.indexPathForSelectedRow
+        company = companyTitles[(selectedIndexPath?.row)!]
     }
 }
 

@@ -24,9 +24,6 @@ class TypeTableViewController: UITableViewController {
     // An array of strings that are the different types.
     var typeTitles = ["Desktops","Monitors","Thin Client","Printers","Mobile Carts","Laptops","Phones","Other"]
     var type: String!
-    var oldIndex: NSIndexPath!
-    // Connection to the done button.
-    @IBOutlet weak var doneButton: UIBarButtonItem!
 
     // Loads the table.
     override func viewDidLoad() {
@@ -59,25 +56,7 @@ class TypeTableViewController: UITableViewController {
         let cellIdentifier = "TypeCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         cell.textLabel?.text = typeTitles[indexPath.row]
-        if oldIndex == nil{
-            doneButton.enabled = false
-        }
         return cell
-    }
-    
-    // MARK: - Actions
-    /*
-     Action functions.
-     */
-    
-    //  Adds checkmark to the selected cell and removes checkmark from last selected if needed.
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if oldIndex != nil{
-            tableView.cellForRowAtIndexPath(oldIndex)?.accessoryType = UITableViewCellAccessoryType.None
-        }
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        doneButton.enabled = true
-        oldIndex = indexPath
     }
     
     // MARK: - Navigation
@@ -87,10 +66,8 @@ class TypeTableViewController: UITableViewController {
     
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if doneButton === sender{
-            let selectedIndexPath = tableView.indexPathForSelectedRow
-            type = typeTitles[(selectedIndexPath?.row)!]
-        }
+        let selectedIndexPath = tableView.indexPathForSelectedRow
+        type = typeTitles[(selectedIndexPath?.row)!]
     }
 }
 

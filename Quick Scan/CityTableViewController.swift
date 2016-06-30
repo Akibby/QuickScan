@@ -23,10 +23,7 @@ class CityTableViewController: UITableViewController {
     
     // An array of strings that are the different cities.
     var cityTitles = ["Baton Rouge La", "Carencro La","Crowley La","Denham Springs La","Donaldsville La","Dutchtown La","Gamercy La","Gonzales La","Lafayette La","Monroe La","Napoleonville La","New Orleans La","New Roads La","Praireville La","West Monroe La"]
-    // Connection to the done button.
-    @IBOutlet weak var doneButton: UIBarButtonItem!
     var city: String!
-    var oldIndex: NSIndexPath!
     
     // Loads the table.
     override func viewDidLoad() {
@@ -65,25 +62,7 @@ class CityTableViewController: UITableViewController {
         let cellIdentifier = "LocationTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         cell.textLabel?.text = cityTitles[indexPath.row]
-        if oldIndex == nil{
-            doneButton.enabled = false
-        }
         return cell
-    }
-    
-    // MARK: - Actions
-    /*
-     Action functions.
-     */
-    
-    //  Adds checkmark to the selected cell and removes checkmark from last selected if needed.
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if oldIndex != nil{
-            tableView.cellForRowAtIndexPath(oldIndex)?.accessoryType = UITableViewCellAccessoryType.None
-        }
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        doneButton.enabled = true
-        oldIndex = indexPath
     }
     
     // MARK: - Navigation
@@ -93,10 +72,8 @@ class CityTableViewController: UITableViewController {
     
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if doneButton === sender{
-            let selectedIndexPath = tableView.indexPathForSelectedRow
-            city = cityTitles[(selectedIndexPath?.row)!]
-        }
+        let selectedIndexPath = tableView.indexPathForSelectedRow
+        city = cityTitles[(selectedIndexPath?.row)!]
     }
 }
 

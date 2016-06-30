@@ -446,10 +446,7 @@ class DepartmentTableViewController: UITableViewController {
         "COLL-Therapeutic Massage-601-8407",
         "COLL-Vice Pres Acadm Affr-601-8102",
         "COLL-VP Support Serv-601-8113"]]
-    // Connection to the done button.
-    @IBOutlet weak var doneButton: UIBarButtonItem!
     var department: String!
-    var oldIndex: NSIndexPath!
 
     // Loads the table.
     override func viewDidLoad() {
@@ -487,29 +484,11 @@ class DepartmentTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         cell.textLabel?.text = departmentTitles[indexPath.section][indexPath.row + 1]
-        if oldIndex == nil{
-            doneButton.enabled = false
-        }
         return cell
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return departmentTitles[section][0]
-    }
-    
-    // MARK: - Actions
-    /*
-     Action functions.
-     */
-    
-    //  Adds checkmark to the selected cell and removes checkmark from last selected if needed.
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if oldIndex != nil {
-            tableView.cellForRowAtIndexPath(oldIndex)?.accessoryType = UITableViewCellAccessoryType.None
-        }
-        tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        doneButton.enabled = true
-        oldIndex = indexPath
     }
     
     // MARK: - Navigation
@@ -519,10 +498,8 @@ class DepartmentTableViewController: UITableViewController {
     
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if doneButton === sender{
-            let selectedIndexPath = tableView.indexPathForSelectedRow
-            department = departmentTitles[(selectedIndexPath?.section)!][(selectedIndexPath?.row)! + 1]
-        }
+        let selectedIndexPath = tableView.indexPathForSelectedRow
+        department = departmentTitles[(selectedIndexPath?.section)!][(selectedIndexPath?.row)! + 1]
     }
 }
 
