@@ -655,13 +655,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="563-Fv-YKH" userLabel="Type">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="563-Fv-YKH" userLabel="Type">
                                                     <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="563-Fv-YKH" firstAttribute="leading" secondItem="RKy-1E-CrY" secondAttribute="leadingMargin" id="4tl-6G-t7D"/>
+                                                <constraint firstItem="563-Fv-YKH" firstAttribute="trailing" secondItem="RKy-1E-CrY" secondAttribute="trailingMargin" id="hTY-ef-ycN"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="xij-Mz-qcF" kind="show" identifier="SelectType" id="gNW-u8-FdF"/>
@@ -700,13 +704,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTd-WE-gCQ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="hTd-WE-gCQ">
                                                     <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hTd-WE-gCQ" firstAttribute="leading" secondItem="bGg-U6-n9E" secondAttribute="leadingMargin" id="cQ3-9V-rHU"/>
+                                                <constraint firstItem="hTd-WE-gCQ" firstAttribute="trailing" secondItem="bGg-U6-n9E" secondAttribute="trailingMargin" id="t7z-1D-fbf"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="7dB-Lf-FBR" kind="show" identifier="SelectCity" id="Gld-aH-Fcr"/>
@@ -719,13 +727,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Building" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfh-2X-lhH">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Building" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="vfh-2X-lhH">
                                                     <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vfh-2X-lhH" firstAttribute="trailing" secondItem="5r5-dS-JzM" secondAttribute="trailingMargin" id="24w-4o-Xip"/>
+                                                <constraint firstItem="vfh-2X-lhH" firstAttribute="leading" secondItem="5r5-dS-JzM" secondAttribute="leadingMargin" id="6YW-v6-f2x"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="AYs-5X-Cen" kind="show" identifier="SelectBuilding" id="RcI-lw-z1u"/>
@@ -738,13 +750,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRf-bq-2ve">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="aRf-bq-2ve">
                                                     <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aRf-bq-2ve" firstAttribute="trailing" secondItem="gDC-RN-TAu" secondAttribute="trailingMargin" id="87O-ae-gFe"/>
+                                                <constraint firstItem="aRf-bq-2ve" firstAttribute="leading" secondItem="gDC-RN-TAu" secondAttribute="leadingMargin" id="iX2-do-DOJ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="f7v-pT-aYn" kind="show" identifier="SelectDeptartment" id="W48-sk-fTB"/>
@@ -757,13 +773,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Company" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEF-LW-4Lh">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Company" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="xEF-LW-4Lh">
                                                     <rect key="frame" x="8" y="11" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xEF-LW-4Lh" firstAttribute="trailing" secondItem="wXg-9x-XYI" secondAttribute="trailingMargin" id="fYK-8Q-Iuk"/>
+                                                <constraint firstItem="xEF-LW-4Lh" firstAttribute="leading" secondItem="wXg-9x-XYI" secondAttribute="leadingMargin" id="tBc-j8-BKS"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="f61-x6-ogj" kind="show" identifier="SelectCompany" id="8UN-dt-t7t"/>

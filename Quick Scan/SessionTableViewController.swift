@@ -176,8 +176,9 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     func convertCSV(sessions: [Session]) -> NSString{
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
-            let mystring = "department,building,company,city,idLawsonRequisitionNo,poQuoteNo,devAssetTag,devSerial,poNickname,devNotes,scanTimeIn,devModel,devType,"
-            var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
+            let mystring = "Device Type,Status,Asset Tag,Serial Number,Department,Building/Location,Company,City,Floor,Warranty Expiration Date,PO Number,Procure All Number,Model,Capital/Non Capital,Notes\n"
+            var contentsOfFile = mystring
+//            var contentsOfFile = mystring + "idPurchaseOrder,poStatus,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devDescription,devClass,devManufacturer,devManufacturerPartNo,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             // var contentsOfFile = "idLawsonRequisitionNo,idPurchaseOrder,poStatus,poNickname,poQuoteNo,poOrderDate,poRecievedDate,Lawson_idLawsonRequisitionNo,idDevice,devSerial,devAssetTag,devDescription,devType,devClass,devManufacturer,devManufacturerPartNo,devModel,devWarrantyDuratoinYears,devWarrantyExpiration,devServiceTag,devMonitorSizeInches,devNotes,scanTimeIn,PurchaseOrder_idPurchaseOrder,PurchaseOrder_Lawson_idLawsonRequisitionNo\n"
             
             var i = 0
@@ -193,7 +194,6 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
                             let dev = devs[j]
                             let asset = dev.assetTag.uppercaseString
                             let serial = dev.serialNum.uppercaseString
-                            let time = dev.time.description.uppercaseString
                             let department = ses.dept.uppercaseString
                             let building = ses.bldg.uppercaseString
                             let company = ses.comp.uppercaseString
@@ -201,12 +201,23 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
                             let law = pol.lawNum.uppercaseString
                             let notes = ses.notes.uppercaseString
                             let po = pol.po.uppercaseString
-                            let nickname = pol.nickname.uppercaseString + "-" + ses.nickname.uppercaseString
                             let model = ses.model.uppercaseString
                             let type = ses.type.uppercaseString
-                            let capital = ses.capital.description.uppercaseString
+                            let status = "In Use"
+                            let floor = "1"
+                            var capital: String
+                            if ses.capital {
+                                capital = "Capital"
+                            }
+                            else{
+                                capital = "Non Capital"
+                            }
+                            var time = devs[i].time
+                            time = time.dateByAddingTimeInterval(60*60*24*365*3)
+                            let warranty = time.description
                             
-                            contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + nickname + "," + notes + "," + time + "," + model + "," + type + "," + capital + "\n"
+                            contentsOfFile = contentsOfFile + type + "," + status + "," + asset + "," + serial + "," + department + "," + building + "," + company + ",\"" + city + "\"," + floor + "," + warranty + "," + po + "," + law + "," + model + "," + capital + "," + notes + "\n"
+//                            contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + nickname + "," + notes + "," + time + "," + model + "," + type + "," + capital + "\n"
                             
                             pols[POLIndex].sessions[i].devices[j].submit = true
                         }

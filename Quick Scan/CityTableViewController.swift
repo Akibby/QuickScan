@@ -22,7 +22,7 @@ class CityTableViewController: UITableViewController {
      */
     
     // An array of strings that are the different cities.
-    var cityTitles = ["Baton Rouge La", "Carencro La","Crowley La","Denham Springs La","Donaldsville La","Dutchtown La","Gamercy La","Gonzales La","Lafayette La","Monroe La","Napoleonville La","New Orleans La","New Roads La","Praireville La","West Monroe La"]
+    var cityTitles = ["Baton Rouge, La", "Carencro, La","Crowley, La","Denham Springs, La","Donaldsville, La","Dutchtown, La","Gamercy, La","Gonzales, La","Lafayette, La","Monroe, La","Napoleonville, La","New Orleans, La","New Roads, La","Praireville, La","West Monroe, La"]
     var city: String!
     
     // Loads the table.

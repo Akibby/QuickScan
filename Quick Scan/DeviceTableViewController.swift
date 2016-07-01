@@ -213,7 +213,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                     time = time.dateByAddingTimeInterval(60*60*24*365*3)
                     let warranty = time.description
                     
-                    contentsOfFile = contentsOfFile + type + "," + status + "," + asset + "," + serial + "," + department + "," + building + "," + company + "," + city + "," + floor + "," + warranty + "," + po + "," + law + "," + model + "," + capital + "," + notes + "\n"
+                    contentsOfFile = contentsOfFile + type + "," + status + "," + asset + "," + serial + "," + department + "," + building + "," + company + ",\"" + city + "\"," + floor + "," + warranty + "," + po + "," + law + "," + model + "," + capital + "," + notes + "\n"
                 }
                 i += 1
             }
