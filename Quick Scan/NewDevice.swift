@@ -27,6 +27,8 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     @IBOutlet weak var serialField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var batteryLabel: UILabel!
+    
+    
     var lawNum: String!
     var poNum: String!
     var notes: String!
@@ -34,13 +36,17 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     var building: String!
     var department: String!
     var company: String!
+    var pols: [POL]!
+    var POLIndex: Int!
+    var sesIndex: Int!
+    var devsAdded: Int!
     
-    var device: Device?
+    var device: Device!
+    var newDevices: [Device] = []
 
     // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Handle the text field's inputs
         assetField.delegate = self
         serialField.delegate = self
@@ -69,22 +75,21 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         return true
     }
     
-    // Disable the save button while the field is empty
-    func checkValidAsset(){
-        let text = assetField.text ?? ""
-        saveButton.enabled = !text.isEmpty
-    }
-    
-    // Disable the save button while the field is empty
-    func checkValidSerial(){
-        let text = serialField.text ?? ""
-        saveButton.enabled = !text.isEmpty
+    // Disables the save button while the serial and asset fields are empty.
+    func checkValidEntries(){
+        let serialText = serialField.text ?? ""
+        let assetText = assetField.text ?? ""
+        if !serialText.isEmpty && !assetText.isEmpty{
+            saveButton.enabled = true
+        }
+        else{
+            saveButton.enabled = false
+        }
     }
     
     // Checks for a valid serial and asset tag when the text field finishes editing.
     func textFieldDidEndEditing(textField: UITextField) {
-        checkValidSerial()
-        checkValidAsset()
+        checkValidEntries()
     }
     
     /*
@@ -92,6 +97,28 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         saveButton.enabled = false
     }
     */
+    
+    // MARK: - Actions
+    /*
+     
+     */
+    
+    // Saves new Device and clears feilds for next.
+    @IBAction func saveDevice(sender: AnyObject) {
+        textFieldShouldReturn(assetField)
+        textFieldShouldReturn(serialField)
+        let date = NSDate()
+        let asset = assetField.text ?? ""
+        let serial = serialField.text ?? ""
+        let photo = UIImage(named: "No Photo Selected")
+        device = Device(assetTag: asset, serialNum: serial, photo: photo, submit: false, time: date)!
+        newDevices.append(device)
+        devsAdded = newDevices.count
+        assetField.text = ""
+        serialField.text = ""
+    }
+    
+    
     
     // MARK: - Navigation
     /*
@@ -101,18 +128,6 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     // Function the cancel button calls to close the page.
     @IBAction func cancel(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    // Creates a device object to be passed to the DeviceTableViewController.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if saveButton === sender{
-            let date = NSDate()
-            let asset = assetField.text ?? ""
-            let serial = serialField.text ?? ""
-            let photo = UIImage(named: "No Photo Selected")
-            
-            device = Device(assetTag: asset, serialNum: serial, photo: photo, submit: false, time: date)
-        }
     }
     
     // MARK: - Captuvo

@@ -10,7 +10,7 @@
     Description: Displays the array of Sessions contained within the selected POL.
  
     Completion Status: Partially Complete!
-*/
+ */
 
 import UIKit
 import MessageUI

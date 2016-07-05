@@ -10,7 +10,7 @@
     Description: Displays the array of Devices contained within the selected Session.
  
     Completion Status: Partially Complete!
-*/
+ */
 
 import UIKit
 import MessageUI
@@ -34,6 +34,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     // Loads the table.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Function to decide the file name for converting to .csv.
         fileName = pols[POLIndex].sessions[sesIndex].nickname
         if fileName == ""{
@@ -141,9 +142,16 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             let nav = segue.destinationViewController as! DeviceInfoViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
             nav.pols = pols
+            print(pols.count.description)
             nav.POLIndex = POLIndex
             nav.sesIndex = sesIndex
             nav.devIndex = selectedIndexPath?.row
+        }
+        if segue.identifier == "AddNew"{
+            let nav = segue.destinationViewController as! NewDevice
+            nav.pols = pols
+            nav.POLIndex = POLIndex
+            nav.sesIndex = sesIndex
         }
     }
     
@@ -155,11 +163,17 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     // Handles when a page that was navigated to returns back to the table.
     @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? NewDevice, device = sourceViewController.device{
-            // Add new device
-            let newIndexPath = NSIndexPath(forRow: pols[POLIndex].sessions[sesIndex].devices.count, inSection: 0)
-            pols[POLIndex].sessions[sesIndex].devices.append(device)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        // Updates table with all new devices added.
+        if let sourceViewController = sender.sourceViewController as? NewDevice{
+            var newDevices = sourceViewController.newDevices
+            var newIndexPath: NSIndexPath
+            var i = 0
+            while i < newDevices.count {
+                pols[POLIndex].sessions[sesIndex].devices.append(newDevices[i])
+                newIndexPath = NSIndexPath(forRow: tableView.numberOfRowsInSection(0), inSection: 0)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+                i += 1
+            }
         }
         if needQuickUpdate() == true{
             submitButton.enabled = true
