@@ -110,12 +110,14 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         let date = NSDate()
         let asset = assetField.text ?? ""
         let serial = serialField.text ?? ""
-        let photo = UIImage(named: "No Photo Selected")
+        let photoName = pols[POLIndex].sessions[sesIndex].type
+        let photo = UIImage(named: photoName)
         device = Device(assetTag: asset, serialNum: serial, photo: photo, submit: false, time: date)!
         newDevices.append(device)
         devsAdded = newDevices.count
         assetField.text = ""
         serialField.text = ""
+        saveButton.enabled = false
     }
     
     
