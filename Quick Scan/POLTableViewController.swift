@@ -130,12 +130,10 @@ class POLTableViewController: UITableViewController {
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "POLSelected"{
-            let nav = segue.destinationViewController as! UINavigationController
-            let svc = nav.topViewController as! SessionTableViewController
+            let nav = segue.destinationViewController as! SessionTableViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
-            
-            svc.pols = pols
-            svc.POLIndex = selectedIndexPath!.row
+            nav.pols = pols
+            nav.POLIndex = selectedIndexPath!.row
         }
     }
     

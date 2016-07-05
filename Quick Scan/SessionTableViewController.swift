@@ -116,12 +116,11 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SessionSelected"{
-            let nav = segue.destinationViewController as! UINavigationController
-            let svc = nav.topViewController as! DeviceTableViewController
+            let nav = segue.destinationViewController as! DeviceTableViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
-            svc.pols = pols
-            svc.POLIndex = POLIndex
-            svc.sesIndex = selectedIndexPath?.row
+            nav.pols = pols
+            nav.POLIndex = POLIndex
+            nav.sesIndex = selectedIndexPath?.row
         }
         if segue.identifier == "NewSession"{
             let nav = segue.destinationViewController as! NewSession
