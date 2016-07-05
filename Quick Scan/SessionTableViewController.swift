@@ -185,7 +185,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
             
             while i < sessions.count {
                 if sessions[i].submit == false{
-                    let ses = pol.sessions[i]
+                    let ses = pols[POLIndex].sessions[i]
                     let devs = ses.devices
                     var j = 0
                     while j < devs.count{
@@ -211,13 +211,11 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
                             else{
                                 capital = "Non Capital"
                             }
-                            var time = devs[i].time
+                            var time = devs[j].time
                             time = time.dateByAddingTimeInterval(60*60*24*365*3)
                             let warranty = time.description
-                            
                             contentsOfFile = contentsOfFile + type + "," + status + "," + asset + "," + serial + "," + department + "," + building + "," + company + ",\"" + city + "\"," + floor + "," + warranty + "," + po + "," + law + "," + model + "," + capital + "," + notes + "\n"
 //                            contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + nickname + "," + notes + "," + time + "," + model + "," + type + "," + capital + "\n"
-                            
                             pols[POLIndex].sessions[i].devices[j].submit = true
                         }
                         j += 1
@@ -277,9 +275,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
                     j += 1
                 }
                 tf = true
-                i += 1
             }
-            
             i += 1
         }
         return tf
