@@ -56,6 +56,15 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
         self.notes.delegate = self
         self.modNum.delegate = self
         self.nickname.delegate = self
+        
+        if pols[POLIndex].sessions.count > 0{
+            let template = pols[POLIndex].sessions[0]
+            cityLabel.text = template.city
+            buildingLabel.text = template.bldg
+            departmentLabel.text = template.dept
+            companyLabel.text = template.comp
+        }
+        
         // Initializes the Captuvo scanner.
         Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
