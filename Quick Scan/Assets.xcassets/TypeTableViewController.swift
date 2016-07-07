@@ -56,6 +56,7 @@ class TypeTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "TypeCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        cell.textLabel?.adjustsFontSizeToFitWidth.description
         cell.textLabel?.text = typeTitles[indexPath.row]
         return cell
     }

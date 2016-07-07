@@ -62,13 +62,23 @@ class BuildingTableViewController: UITableViewController {
     // Function to build the cells.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel?.text = buildingTitles[indexPath.section][indexPath.row + 1]
+        let bldg = shortenBuilding(buildingTitles[indexPath.section][indexPath.row + 1])
+        cell.textLabel?.text = bldg
         return cell
     }
     
     // Creates the headers for the sections.
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return buildingTitles[section][0]
+    }
+    
+    // Shortens the text of the building
+    func shortenBuilding(building: String) -> String{
+        var bldg = building
+        let range = bldg.startIndex..<bldg.startIndex.advancedBy(6)
+        bldg.removeRange(range)
+        
+        return bldg
     }
     
     // MARK: - Navigation

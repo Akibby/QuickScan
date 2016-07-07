@@ -27,6 +27,8 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     @IBOutlet weak var serialField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var batteryLabel: UILabel!
+    @IBOutlet weak var scanButton: UIButton!
+    
     let formatter = NSDateFormatter()
     var lawNum: String!
     var poNum: String!
@@ -41,10 +43,17 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     var devsAdded: Int!
     var device: Device!
     var newDevices: [Device] = []
+    var isScanning = false
 
     // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
+        if Captuvo.sharedCaptuvoDevice().isDecoderRunning(){
+            scanButton.enabled = true
+        }
+        else{
+            scanButton.enabled = false
+        }
         // Handle the text field's inputs
         assetField.delegate = self
         serialField.delegate = self
@@ -120,6 +129,18 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         saveButton.enabled = false
     }
     
+    @IBAction func scan(sender: UIButton) {
+        if isScanning{
+            Captuvo.sharedCaptuvoDevice().stopDecoderScanning()
+            isScanning = false
+        }
+        else{
+            Captuvo.sharedCaptuvoDevice().startDecoderScanning()
+            isScanning = true
+        }
+    }
+    
+    
     // MARK: - Navigation
     /*
      Navigation from the page.
@@ -148,6 +169,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     // Handles data recieved from the scanner and decides which field it belongs in.
     func decoderDataReceived(data: String!) {
+        isScanning = false
         if assetField.text != ""{
             serialField.text = data
             saveButton.enabled = true
@@ -160,6 +182,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     // Updates label to indicate the scanner is connected and ready.
     func decoderReady() {
         batteryLabel.text = "Scanner is Ready"
+        scanButton.enabled = true
     }
     
 }

@@ -166,6 +166,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
         // Updates table with all new devices added.
         if let sourceViewController = sender.sourceViewController as? NewDevice{
+            Captuvo.sharedCaptuvoDevice().stopDecoderScanning()
             var newDevices = sourceViewController.newDevices
             var newIndexPath: NSIndexPath
             var i = 0

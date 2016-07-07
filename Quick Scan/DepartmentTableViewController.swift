@@ -483,12 +483,22 @@ class DepartmentTableViewController: UITableViewController {
     // Function to build the cells.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel?.text = departmentTitles[indexPath.section][indexPath.row + 1]
+        let dept = shortenDepartment(departmentTitles[indexPath.section][indexPath.row + 1])
+        cell.textLabel?.text = dept
         return cell
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return departmentTitles[section][0]
+    }
+    
+    // Shortens department name
+    func shortenDepartment(department: String) -> String{
+        var dept = department
+        let range = dept.startIndex..<dept.startIndex.advancedBy(5)
+        dept.removeRange(range)
+        
+        return dept
     }
     
     // MARK: - Navigation
