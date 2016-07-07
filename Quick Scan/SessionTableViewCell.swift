@@ -24,6 +24,9 @@ class SessionTableViewCell: UITableViewCell {
     // Connects the labels on the cell to code.
     @IBOutlet weak var lawNum: UILabel!
     @IBOutlet weak var nickname: UILabel!
+    @IBOutlet weak var photoImageView: UIImageView!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -76,9 +76,13 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         let cellIdentifier = "ScanSessionCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SessionTableViewCell
         let session = pols[POLIndex].sessions[indexPath.row]
-        
+        let model = session.model
+        let type = session.type
+        let image = UIImage(named: type)
+        print(type)
         cell.nickname.text = session.nickname
-        cell.lawNum.text = session.model + " - " + session.type
+        cell.lawNum.text = model + " - " + type
+        cell.photoImageView.image = image
         
         return cell
     }

@@ -22,10 +22,10 @@ class DeviceTableViewCell: UITableViewCell {
      */
     
     // Connects the labels on the cell to code.
-    @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var serialLabel: UILabel!
     @IBOutlet weak var assetLabel: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!
+    
     
 
     override func awakeFromNib() {

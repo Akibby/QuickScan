@@ -95,9 +95,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "DeviceTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeviceTableViewCell
-        
         let device = pols[POLIndex].sessions[sesIndex].devices[indexPath.row]
-        
         cell.serialLabel.text = device.serialNum
         cell.photoImageView.image = device.photo
         cell.assetLabel.text = device.assetTag

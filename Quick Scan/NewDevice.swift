@@ -48,11 +48,16 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
+        scanButton.layer.cornerRadius = 2
+        scanButton.layer.borderWidth = 1
         if Captuvo.sharedCaptuvoDevice().isDecoderRunning(){
             scanButton.enabled = true
+            scanButton.layer.borderColor = scanButton.tintColor.CGColor
+            batteryLabel.text = "Scanner is Ready"
         }
         else{
             scanButton.enabled = false
+            scanButton.layer.borderColor = UIColor.lightGrayColor().CGColor
         }
         // Handle the text field's inputs
         assetField.delegate = self
@@ -159,12 +164,16 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     // Starts the decoder.
     func captuvoConnected() {
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
+        scanButton.enabled = true
+        scanButton.layer.borderColor = scanButton.tintColor.CGColor
     }
     
     // Stops the decoder and updates label to indicate scanner is not connected.
     func captuvoDisconnected() {
         Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
         batteryLabel.text = "Searching for Scanner"
+        scanButton.enabled = false
+        scanButton.layer.borderColor = UIColor.lightGrayColor().CGColor
     }
     
     // Handles data recieved from the scanner and decides which field it belongs in.
@@ -183,6 +192,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     func decoderReady() {
         batteryLabel.text = "Scanner is Ready"
         scanButton.enabled = true
+        scanButton.layer.borderColor = scanButton.tintColor.CGColor
     }
     
 }
