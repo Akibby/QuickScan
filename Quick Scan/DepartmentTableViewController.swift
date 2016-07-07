@@ -502,27 +502,3 @@ class DepartmentTableViewController: UITableViewController {
         department = departmentTitles[(selectedIndexPath?.section)!][(selectedIndexPath?.row)! + 1]
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

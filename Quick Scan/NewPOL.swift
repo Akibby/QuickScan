@@ -65,7 +65,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     func checkValidEntries(){
         let law = lawNum.text ?? ""
         let po = poNum.text ?? ""
-        if (!law.isEmpty && po.characters.count > 7){
+        if (!law.isEmpty && po.characters.count >= 7){
             saveButton.enabled = true
         }
         else{
@@ -112,7 +112,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if saveButton === sender{
             let law = lawNum.text ?? ""
-            let po = correctPO(poNum.text!)
+            let po = poNum.text ?? ""
             let nick = nickName.text ?? ""
             
             pol = POL(lawNum: law, po: po, nickname: nick, sessions: [Session]())

@@ -145,25 +145,20 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     
     // Handles when a page that was navigated to returns back to the table.
     @IBAction func unwindToSessionList(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? NewSession, session = sourceViewController.session{
-            let newIndexPath = NSIndexPath(forRow: pols[POLIndex].sessions.count, inSection: 0)
-            pols[POLIndex].sessions.append(session)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-        }
-        else if let sourceViewController = sender.sourceViewController as? DeviceTableViewController{
+        if let sourceViewController = sender.sourceViewController as? DeviceTableViewController{
+            if sourceViewController.newSes{
+                let newIndexPath = NSIndexPath(forRow: sourceViewController.sesIndex, inSection: 0)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .None)
+            }
             if sourceViewController.needQuickUpdate(){
                 pols[POLIndex].sessions[sourceViewController.sesIndex].submit = false
+                submitButton.enabled = true
             }
             else{
                 pols[POLIndex].sessions[sourceViewController.sesIndex].submit = true
+                submitButton.enabled = false
             }
-        }
-        savePOLs()
-        if needQuickUpdate() == true{
-            submitButton.enabled = true
-        }
-        else{
-            submitButton.enabled = false
+            savePOLs()
         }
     }
     
@@ -199,6 +194,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
                             let city = ses.city.uppercaseString
                             let law = pol.lawNum.uppercaseString
                             let notes = ses.notes.uppercaseString
+                            let warranty = devs[j].time
                             let po = pol.po.uppercaseString
                             let model = ses.model.uppercaseString
                             let type = ses.type.uppercaseString
@@ -211,9 +207,6 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
                             else{
                                 capital = "Non Capital"
                             }
-                            var time = devs[j].time
-                            time = time.dateByAddingTimeInterval(60*60*24*365*3)
-                            let warranty = time.description
                             contentsOfFile = contentsOfFile + type + "," + status + "," + asset + "," + serial + "," + department + "," + building + "," + company + ",\"" + city + "\"," + floor + "," + warranty + "," + po + "," + law + "," + model + "," + capital + "," + notes + "\n"
 //                            contentsOfFile = contentsOfFile + department + "," + building + "," + company + ",\"" + city + "\"," + law + "," + po + "," + asset + "," + serial + "," + nickname + "," + notes + "," + time + "," + model + "," + type + "," + capital + "\n"
                             pols[POLIndex].sessions[i].devices[j].submit = true
@@ -360,56 +353,10 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         }
         else{
             controller.dismissViewControllerAnimated(true, completion: nil)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.performSegueWithIdentifier("unwindToPOLList", sender: nil)
         }
         cursub = []
         curdevsub = []
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -33,7 +33,6 @@ class DeviceInfoViewController: UIViewController {
     @IBOutlet weak var capitalLabel: UILabel!
     @IBOutlet weak var notesLabel: UILabel!
     
-    
     // Initailizes an empty device and session to be passed to the page.
     var pols: [POL]!
     var POLIndex: Int!
@@ -109,47 +108,3 @@ class DeviceInfoViewController: UIViewController {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

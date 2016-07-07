@@ -32,14 +32,10 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     @IBOutlet weak var notes: UITextField!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var capSwitch: UISwitch!
-    
-    
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var buildingLabel: UILabel!
     @IBOutlet weak var departmentLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
-    
-    
     
     var city: String!
     var building: String!
@@ -141,6 +137,14 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
         
         if saveButton === sender{
             session = Session(model: model!, nickname: nick!, notes: note!, type: type!, capital: capital, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices, submit: true)
+            pols[POLIndex].sessions.append(session!)
+        }
+        if segue.identifier == "NewSession"{
+            let nav = segue.destinationViewController as! DeviceTableViewController
+            nav.pols = pols
+            nav.POLIndex = POLIndex
+            nav.sesIndex =  pols[POLIndex].sessions.count - 1
+            nav.newSes = true
         }
     }
     
@@ -194,31 +198,3 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
         modNum.text = data
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

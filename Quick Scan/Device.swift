@@ -25,7 +25,7 @@ class Device: NSObject, NSCoding {
     var serialNum: String
     var photo: UIImage?
     var submit: Bool
-    var time: NSDate
+    var time: String
     
     
     // MARK: - Archiving Paths
@@ -55,7 +55,7 @@ class Device: NSObject, NSCoding {
      Function to create the Device Object.
      */
     
-    init?(assetTag: String, serialNum: String, photo: UIImage?, submit: Bool, time: NSDate){
+    init?(assetTag: String, serialNum: String, photo: UIImage?, submit: Bool, time: String){
         
         // Initialize stored properties
         self.assetTag = assetTag
@@ -89,7 +89,7 @@ class Device: NSObject, NSCoding {
         let serialNum = aDecoder.decodeObjectForKey(PropertyKey.serialNumKey) as! String
         let photo = aDecoder.decodeObjectForKey(PropertyKey.photoKey) as? UIImage
         let submit = aDecoder.decodeObjectForKey(PropertyKey.submitKey) as! Bool
-        let time = aDecoder.decodeObjectForKey(PropertyKey.timeKey) as! NSDate
+        let time = aDecoder.decodeObjectForKey(PropertyKey.timeKey) as! String
         
         // Must call init
         self.init(assetTag: assetTag, serialNum: serialNum, photo: photo, submit: submit, time: time)

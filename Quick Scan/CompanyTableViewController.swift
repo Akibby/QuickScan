@@ -79,20 +79,3 @@ class CompanyTableViewController: UITableViewController {
         company = companyTitles[(selectedIndexPath?.row)!]
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

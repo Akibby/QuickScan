@@ -27,6 +27,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     var sesIndex: Int!
     var fileName: String! = ""
     var cursub: [Int]! = []
+    var newSes = false
     // Connects the submit and done buttons to code.
     @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var doneButton: UIBarButtonItem!
@@ -34,7 +35,8 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     // Loads the table.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        savePOLs()
+        print("Loading devices for session " + pols[POLIndex].sessions[sesIndex].model)
         // Function to decide the file name for converting to .csv.
         fileName = pols[POLIndex].sessions[sesIndex].nickname
         if fileName == ""{
@@ -142,7 +144,6 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             let nav = segue.destinationViewController as! DeviceInfoViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
             nav.pols = pols
-            print(pols.count.description)
             nav.POLIndex = POLIndex
             nav.sesIndex = sesIndex
             nav.devIndex = selectedIndexPath?.row
@@ -211,6 +212,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                     let asset = devices[i].assetTag.uppercaseString
                     let serial = devices[i].serialNum.uppercaseString
                     let notes = ses.notes.uppercaseString
+                    let warranty = devices[i].time
                     let po = pol.po.uppercaseString
                     let model = ses.model.uppercaseString
                     let type = ses.type.uppercaseString
@@ -223,10 +225,6 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
                     else{
                         capital = "Non Capital"
                     }
-                    var time = devices[i].time
-                    time = time.dateByAddingTimeInterval(60*60*24*365*3)
-                    let warranty = time.description
-                    
                     contentsOfFile = contentsOfFile + type + "," + status + "," + asset + "," + serial + "," + department + "," + building + "," + company + ",\"" + city + "\"," + floor + "," + warranty + "," + po + "," + law + "," + model + "," + capital + "," + notes + "\n"
                 }
                 i += 1
@@ -431,31 +429,12 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             }
         }
         else{
+            print("Closing email page!")
             controller.dismissViewControllerAnimated(true, completion: nil)
-            // self.dismissViewControllerAnimated(true, completion: nil)
+            print("Closing device list!")
             self.performSegueWithIdentifier("unwindToSessionList", sender: nil)
         }
         cursub = []
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

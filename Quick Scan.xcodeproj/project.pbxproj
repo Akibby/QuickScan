@@ -166,11 +166,11 @@
 				D9FA84EE1CF8A616009C5ECC /* AppDelegate.swift */,
 				D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */,
 				D9FA85121CF8ECAB009C5ECC /* DeviceTableViewController.swift */,
+				D9DF8AD01D1990C60059B57D /* POLTableViewController.swift */,
+				D9E59EC11D09E5BA00B87C3E /* SessionTableViewController.swift */,
 				D9FA84F01CF8A616009C5ECC /* NewDevice.swift */,
 				D9DF8AD41D19D16B0059B57D /* NewPOL.swift */,
 				D9A4D3B61D08584700931AB6 /* NewSession.swift */,
-				D9DF8AD01D1990C60059B57D /* POLTableViewController.swift */,
-				D9E59EC11D09E5BA00B87C3E /* SessionTableViewController.swift */,
 				D9FA84F71CF8A616009C5ECC /* LaunchScreen.storyboard */,
 				D9FA84F21CF8A616009C5ECC /* Main.storyboard */,
 				D9FA84F51CF8A616009C5ECC /* Assets.xcassets */,
@@ -180,6 +180,7 @@
 			);
 			path = "Quick Scan";
 			sourceTree = "<group>";
+			wrapsLines = 1;
 		};
 		D9FA85021CF8A616009C5ECC /* Quick ScanTests */ = {
 			isa = PBXGroup;

@@ -22,6 +22,7 @@ class TypeTableViewController: UITableViewController {
      */
     
     // An array of strings that are the different types.
+//    Add Scanners ??
     var typeTitles = ["Desktops","Monitors","Thin Client","Printers","Mobile Carts","Laptops","Phones","Other"]
     var type: String!
 
@@ -70,52 +71,3 @@ class TypeTableViewController: UITableViewController {
         type = typeTitles[(selectedIndexPath?.row)!]
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

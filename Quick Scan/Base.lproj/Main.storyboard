@@ -403,11 +403,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="POLCell" rowHeight="76" id="ljv-Kg-ELb" customClass="POLTableViewCell" customModule="Quick_Scan" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="POLCell" rowHeight="76" id="ljv-Kg-ELb" customClass="POLTableViewCell" customModule="Quick_Scan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ljv-Kg-ELb" id="uFK-dQ-CrU">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="76"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="76"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jyE-5X-wq9">
@@ -475,10 +475,10 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aAp-Ry-HxX">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PO" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aAp-Ry-HxX">
                                         <rect key="frame" x="0.0" y="116" width="560" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzO-3E-F6U">
                                         <rect key="frame" x="0.0" y="154" width="135" height="21"/>
@@ -486,15 +486,15 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mZK-Mi-BHw">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nickname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mZK-Mi-BHw">
                                         <rect key="frame" x="0.0" y="183" width="560" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Z3-Rr-DGv">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lawson" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Z3-Rr-DGv">
                                         <rect key="frame" x="0.0" y="49" width="560" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -550,11 +550,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScanSessionCell" rowHeight="95" id="1Sx-SV-pvR" customClass="SessionTableViewCell" customModule="Quick_Scan" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ScanSessionCell" rowHeight="95" id="1Sx-SV-pvR" customClass="SessionTableViewCell" customModule="Quick_Scan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="95"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Sx-SV-pvR" id="hys-8h-lj9">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="95"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iko-J3-6C1">
@@ -584,9 +584,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Scanning Sessions" id="lRR-wW-Ce0">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="9vg-7S-11I">
+                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="9vg-7S-11I">
                             <connections>
-                                <segue destination="GC2-gF-qdF" kind="unwind" unwindAction="unwindToPOLList:" id="eZW-eq-thZ"/>
+                                <segue destination="GC2-gF-qdF" kind="unwind" identifier="unwindToPOLList" unwindAction="unwindToPOLList:" id="eZW-eq-thZ"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -647,7 +647,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nickname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oyy-wS-bMi">
                                                     <rect key="frame" x="8" y="0.0" width="592" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="yes" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -662,7 +662,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-VR-eZ4">
                                                     <rect key="frame" x="8" y="0.0" width="592" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="yes" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -821,9 +821,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="New Order" id="3yv-Cb-bvF">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="kl3-i6-Cwc">
+                        <barButtonItem key="rightBarButtonItem" title="Start" style="done" id="kl3-i6-Cwc" userLabel="Start Button">
                             <connections>
-                                <segue destination="3zv-pI-keD" kind="unwind" unwindAction="unwindToSessionList:" id="skv-5S-mUe"/>
+                                <segue destination="aHu-Jd-Bj9" kind="show" identifier="NewSession" id="RJG-ZH-k4j"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -841,7 +841,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lac-Xl-vwn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="3zv-pI-keD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="812" y="451"/>
         </scene>
@@ -1044,4 +1043,7 @@
     <resources>
         <image name="Other" width="540" height="540"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="RJG-ZH-k4j"/>
+    </inferredMetricsTieBreakers>
 </document>

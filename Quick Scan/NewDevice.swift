@@ -27,8 +27,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     @IBOutlet weak var serialField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var batteryLabel: UILabel!
-    
-    
+    let formatter = NSDateFormatter()
     var lawNum: String!
     var poNum: String!
     var notes: String!
@@ -40,7 +39,6 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     var POLIndex: Int!
     var sesIndex: Int!
     var devsAdded: Int!
-    
     var device: Device!
     var newDevices: [Device] = []
 
@@ -51,6 +49,8 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         assetField.delegate = self
         serialField.delegate = self
         saveButton.enabled = false
+        // Set format for the date.
+        formatter.dateFormat = "MM/dd/yyyy"
         // Initializes the scanner.
         Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
@@ -105,22 +105,20 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     // Saves new Device and clears feilds for next.
     @IBAction func saveDevice(sender: AnyObject) {
-        textFieldShouldReturn(assetField)
-        textFieldShouldReturn(serialField)
-        let date = NSDate()
+        let date = formatter.stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24*365*3))
         let asset = assetField.text ?? ""
         let serial = serialField.text ?? ""
         let photoName = pols[POLIndex].sessions[sesIndex].type
         let photo = UIImage(named: photoName)
-        device = Device(assetTag: asset, serialNum: serial, photo: photo, submit: false, time: date)!
-        newDevices.append(device)
-        devsAdded = newDevices.count
+        if !asset.isEmpty && !serial.isEmpty{
+            device = Device(assetTag: asset, serialNum: serial, photo: photo, submit: false, time: date)!
+            newDevices.append(device)
+            devsAdded = newDevices.count
+        }
         assetField.text = ""
         serialField.text = ""
         saveButton.enabled = false
     }
-    
-    
     
     // MARK: - Navigation
     /*
@@ -165,28 +163,3 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
