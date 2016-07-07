@@ -367,7 +367,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="center" horizontalHuggingPriority="10" horizontalCompressionResistancePriority="250" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV1-MG-veK">
                                         <rect key="frame" x="0.0" y="0.0" width="77" height="37"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <state key="normal" title="Scan"/>
                                         <connections>
                                             <action selector="scan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8yQ-l1-cFf"/>

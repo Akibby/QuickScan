@@ -23,7 +23,7 @@ class TypeTableViewController: UITableViewController {
     
     // An array of strings that are the different types.
 //    Add Scanners ??
-    var typeTitles = ["Desktops","Monitors","Thin Client","Printers","Mobile Carts","Laptops","Phones","Other"]
+    var typeTitles = ["Desktops","Monitors","Thin Client","Printers","Scanners","Mobile Carts","Laptops","Phones","Routers","Switches","UPS","Other"]
     var type: String!
 
     // Loads the table.
