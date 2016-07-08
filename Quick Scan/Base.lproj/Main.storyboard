@@ -246,13 +246,13 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Other" translatesAutoresizingMaskIntoConstraints="NO" id="2zU-TY-YCu">
                                             <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Asset Tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLX-s5-UaE">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Asset Tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="DLX-s5-UaE">
                                             <rect key="frame" x="74" y="8" width="493" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Serial Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fb5-Em-Eor">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Serial Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="fb5-Em-Eor">
                                             <rect key="frame" x="74" y="37" width="493" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -363,10 +363,10 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tcL-By-b6T">
-                                <rect key="frame" x="262" y="268" width="77" height="37"/>
+                                <rect key="frame" x="262" y="268" width="75" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="center" horizontalHuggingPriority="10" horizontalCompressionResistancePriority="250" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zV1-MG-veK">
-                                        <rect key="frame" x="0.0" y="0.0" width="77" height="37"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="45"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <state key="normal" title="Scan"/>
                                         <connections>
@@ -455,14 +455,14 @@
                     <navigationItem key="navigationItem" title="PO/Lawson Numbers" id="10h-Jf-RDz">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gxL-GN-3LX">
                             <connections>
-                                <segue destination="SDu-ra-WmP" kind="show" id="Tb2-iZ-BGc"/>
+                                <segue destination="SDu-ra-WmP" kind="show" identifier="NewPOL" id="Tb2-iZ-BGc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdg-cc-8vD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="-1136"/>
+            <point key="canvasLocation" x="-146" y="-700"/>
         </scene>
         <!--New PO/Law-->
         <scene sceneID="FS8-gH-d9y">
@@ -540,7 +540,7 @@
                     <navigationItem key="navigationItem" title="New PO/Law" id="VhD-fS-Mba">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="16q-3q-9St">
                             <connections>
-                                <segue destination="hPQ-fs-btt" kind="unwind" unwindAction="unwindToPOLList:" id="16L-Ij-OFg"/>
+                                <segue destination="2LL-da-mD4" kind="show" identifier="NewPOL" id="JWk-Ol-564"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -553,9 +553,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odo-9K-LSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="hPQ-fs-btt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1562" y="-1136"/>
+            <point key="canvasLocation" x="812" y="-1136"/>
         </scene>
         <!--Scanning Sessions-->
         <scene sceneID="iC8-HF-9bk">
@@ -570,19 +569,19 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Sx-SV-pvR" id="hys-8h-lj9">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="65.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Other" translatesAutoresizingMaskIntoConstraints="NO" id="vYk-lD-nnP">
                                             <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iko-J3-6C1">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="iko-J3-6C1">
                                             <rect key="frame" x="74" y="8" width="493" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lawNum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hw0-L6-EkW">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lawNum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Hw0-L6-EkW">
                                             <rect key="frame" x="74" y="37" width="493" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -606,7 +605,7 @@
                     <navigationItem key="navigationItem" title="Scanning Sessions" id="lRR-wW-Ce0">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="9vg-7S-11I">
                             <connections>
-                                <segue destination="GC2-gF-qdF" kind="unwind" identifier="unwindToPOLList" unwindAction="unwindToPOLList:" id="eZW-eq-thZ"/>
+                                <segue destination="GC2-gF-qdF" kind="unwind" unwindAction="unwindToPOLList:" id="yfW-AX-jGc"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -1057,7 +1056,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TRn-cu-TeL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="22" y="-1136"/>
+            <point key="canvasLocation" x="-146" y="-1504"/>
         </scene>
     </scenes>
     <resources>
@@ -1065,5 +1064,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hJu-uP-4Lg"/>
+        <segue reference="xaq-u1-nLU"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -96,9 +96,9 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         let cellIdentifier = "DeviceTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeviceTableViewCell
         let device = pols[POLIndex].sessions[sesIndex].devices[indexPath.row]
-        cell.serialLabel.text = device.serialNum
+        cell.serialLabel.text = "Serial - " + device.serialNum
         cell.photoImageView.image = device.photo
-        cell.assetLabel.text = device.assetTag
+        cell.assetLabel.text = "Asset - " + device.assetTag
         
         return cell
     }

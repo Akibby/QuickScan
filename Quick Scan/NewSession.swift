@@ -133,18 +133,17 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     
     // Prepares data to be sent to a different page by creating a session object with the defined parameters.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let model = modNum.text
-        let nick = nickname.text
-        let note = notes.text
-        let city = cityLabel.text
-        let building = buildingLabel.text
-        let department = departmentLabel.text
-        let company = companyLabel.text
-        let devices = [Device]()
-        let type = typeLabel.text
-        let capital = capSwitch.on
-        
         if saveButton === sender{
+            let model = modNum.text
+            let nick = nickname.text
+            let note = notes.text
+            let city = cityLabel.text
+            let building = buildingLabel.text
+            let department = departmentLabel.text
+            let company = companyLabel.text
+            let devices = [Device]()
+            let type = typeLabel.text
+            let capital = capSwitch.on
             session = Session(model: model!, nickname: nick!, notes: note!, type: type!, capital: capital, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices, submit: true)
             pols[POLIndex].sessions.append(session!)
         }

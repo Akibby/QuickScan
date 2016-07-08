@@ -21,7 +21,7 @@ class POLTableViewController: UITableViewController {
      Features of the device table.
      */
     var pols: [POL]!
-
+    
     // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,20 +130,41 @@ class POLTableViewController: UITableViewController {
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "POLSelected"{
+            savePOLs()
             let nav = segue.destinationViewController as! SessionTableViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
             nav.pols = pols
             nav.POLIndex = selectedIndexPath!.row
         }
+        if segue.identifier == "NewPOL"{
+            let nav = segue.destinationViewController as! NewPOL
+            nav.pols = pols
+        }
     }
     
     // Handles when a page that was navigated to returns back to the table.
     @IBAction func unwindToPOLList(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? NewPOL, pol = sourceViewController.pol {
-            let newIndexPath = NSIndexPath(forRow: pols.count, inSection: 0)
-            pols.append(pol)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        if let sourceViewController = sender.sourceViewController as? SessionTableViewController{
+            pols = sourceViewController.pols
+            if sourceViewController.newPOL{
+                let newIndexPath = NSIndexPath(forRow: pols.count - 1, inSection: 0)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .None)
+            }
         }
         savePOLs()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

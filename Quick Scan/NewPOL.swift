@@ -26,7 +26,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var poNum: UITextField!
     @IBOutlet weak var nickName: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
+    var pols: [POL]!
     var pol: POL?
     
     // Loads the page.
@@ -110,13 +110,18 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     
     // Creates new POL to be passed on to POLTableViewController.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let law = lawNum.text ?? ""
+        let po = poNum.text ?? ""
+        let nick = nickName.text ?? ""
         if saveButton === sender{
-            let law = lawNum.text ?? ""
-            let po = poNum.text ?? ""
-            let nick = nickName.text ?? ""
-            
             pol = POL(lawNum: law, po: po, nickname: nick, sessions: [Session]())
+            pols.append(pol!)
+        }
+        if segue.identifier == "NewPOL"{
+            let nav = segue.destinationViewController as! SessionTableViewController
+            nav.pols = pols
+            nav.POLIndex = pols.count - 1
+            nav.newPOL = true
         }
     }
-
 }

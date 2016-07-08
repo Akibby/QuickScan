@@ -48,7 +48,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
-        scanButton.layer.cornerRadius = 2
+        scanButton.layer.cornerRadius = 10
         scanButton.layer.borderWidth = 1
         if Captuvo.sharedCaptuvoDevice().isDecoderRunning(){
             scanButton.enabled = true

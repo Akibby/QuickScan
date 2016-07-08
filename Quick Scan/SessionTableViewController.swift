@@ -27,12 +27,13 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
     var fileName: String! = ""
     var cursub = [Int]()
     var curdevsub = [[Int]]()
+    var newPOL = false
     @IBOutlet weak var submitButton: UIBarButtonItem!
 
     // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        savePOLs()
         // Decides a file name for the csv.
         fileName = pols[POLIndex].nickname
         if fileName == ""{
@@ -79,7 +80,6 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         let model = session.model
         let type = session.type
         let image = UIImage(named: type)
-        print(type)
         cell.nickname.text = session.nickname
         cell.lawNum.text = model + " - " + type
         cell.photoImageView.image = image
