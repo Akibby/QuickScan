@@ -8,8 +8,8 @@
 
 /*
     Description: Allows for the creation of new POL Objects (POL: PO-Lawson).
- 
-    Completion Status: Complete!
+    Completion Status: Complete
+    Last Update v1.0
 */
 
 import UIKit
@@ -26,6 +26,8 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var poNum: UITextField!
     @IBOutlet weak var nickName: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    // Initializes variables.
     var pols: [POL]!
     var pol: POL?
     
@@ -33,10 +35,11 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Handle the text field's inputs
         lawNum.delegate = self
         poNum.delegate = self
         nickName.delegate = self
-        
+        // Checks text feilds and enables or disables saveButton
         checkValidEntries()
     }
 
@@ -47,9 +50,6 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - UITextFieldDelegate
-    /*
-     Defines how the program should react to changes in the text fields.
-     */
     
     // Hide the keyboard.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -57,6 +57,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    // Checks for valid entries after you finish typing in the text feilds.
     func textFieldDidEndEditing(textField: UITextField){
         checkValidEntries()
     }
@@ -65,7 +66,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     func checkValidEntries(){
         let law = lawNum.text ?? ""
         let po = poNum.text ?? ""
-        if (!law.isEmpty && po.characters.count >= 7){
+        if (!law.isEmpty && !po.isEmpty){
             saveButton.enabled = true
         }
         else{
@@ -73,40 +74,7 @@ class NewPOL: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: - Actions
-    
-    // Edits the PO to place two - if they are missing.
-    func correctPO(po: String) -> String{
-        var temp1 = po
-        var temp2 = po
-        var temp3 = po
-        let dash = "-"
-        if !po.containsString(dash){
-            let suffix1 = temp1.endIndex.advancedBy(-4)..<temp1.endIndex
-            let suffix2 = temp2.endIndex.advancedBy(-3)..<temp2.endIndex
-            
-            temp1.removeRange(suffix1)
-            temp2.removeRange(suffix2)
-            
-            let prefix2 = temp2.startIndex..<temp2.startIndex.advancedBy(4)
-            let prefix3 = temp3.startIndex..<temp3.startIndex.advancedBy(5)
-            
-            temp2.removeRange(prefix2)
-            temp3.removeRange(prefix3)
-            
-            let fixedpo = temp1 + dash + temp2 + dash + temp3
-            return fixedpo
-        }
-        else{
-            return po
-        }
-    }
-    
     // MARK: - Navigation
-    /*
-     Navigation from the page.
-     */
-    
     
     // Creates new POL to be passed on to POLTableViewController.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

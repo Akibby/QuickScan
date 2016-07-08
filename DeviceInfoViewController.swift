@@ -8,19 +8,17 @@
 
 /*
     Description: Displays information about a specific device.
- 
-    Completion Status: Incomplete!
+    Completion Status: Complete!
+    Last Update v1.0
 */
 
 import UIKit
 
 class DeviceInfoViewController: UIViewController {
     
-    // MARK: - Attributes
-    /*
-     Connects the labels on the page to code.
-     */
+    // MARK: - Properties
     
+    // Ties the labels on the page to code.
     @IBOutlet weak var serialLabel: UILabel!
     @IBOutlet weak var assetLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
@@ -33,7 +31,7 @@ class DeviceInfoViewController: UIViewController {
     @IBOutlet weak var capitalLabel: UILabel!
     @IBOutlet weak var notesLabel: UILabel!
     
-    // Initailizes an empty device and session to be passed to the page.
+    // Passes the pol array and the indexes to the page.
     var pols: [POL]!
     var POLIndex: Int!
     var sesIndex: Int!
@@ -69,28 +67,9 @@ class DeviceInfoViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    // MARK: - Navigation
-    /*
-     Functions to handle navigation from the page.
-     */
-    
-    // Dismisses the page when cancel is passed.
-    @IBAction func cancel(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    // Function to prepare data to be sent to a new page.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    
     // MARK: - Actions
-    /*
-     
-     */
     
+    // Shortens the building text by remove the prefix
     func shortenBuilding(building: String) -> String{
         var bldg = building
         let range = bldg.startIndex..<bldg.startIndex.advancedBy(6)
@@ -99,6 +78,7 @@ class DeviceInfoViewController: UIViewController {
         return bldg
     }
     
+    // Shortens the department text by remove the prefix
     func shortenDepartment(department: String) -> String{
         var dept = department
         let range = dept.startIndex..<dept.startIndex.advancedBy(5)
@@ -106,5 +86,4 @@ class DeviceInfoViewController: UIViewController {
         
         return dept
     }
-    
 }

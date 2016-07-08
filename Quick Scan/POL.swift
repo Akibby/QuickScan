@@ -8,8 +8,8 @@
 
 /*
     Description: The POL (POL: PO-Lawson) Object.
- 
     Completion Status: Complete!
+    Last Update v1.0
 */
 
 import UIKit

@@ -8,8 +8,8 @@
 
 /*
     Description: Allows for creation of a new Session Object. The new Session will be added to the Session Array for the selected POL.
- 
     Completion Status: Complete!
+    Last Update v1.0
 */
 
 import UIKit
@@ -17,16 +17,12 @@ import UIKit
 class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     // MARK: Properties
-    /*
-     Features of the new device page.
-     */
     
     // Array that defines how the page should be built.
     var labels = [["Device Info","Model","Type","Nickname","Notes", "Capital"],["Location Info","City","Building","Department","Company"]]
     
     // Connects buttons, text fields, and labels to code.
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
     @IBOutlet weak var modNum: UITextField!
     @IBOutlet weak var nickname: UITextField!
     @IBOutlet weak var notes: UITextField!
@@ -37,6 +33,7 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     @IBOutlet weak var departmentLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
     
+    // Initializes variables.
     var city: String!
     var building: String!
     var department: String!
@@ -52,11 +49,12 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Handles the text fields inputs.
         self.notes.delegate = self
         self.modNum.delegate = self
         self.nickname.delegate = self
-        
+        // Checks for other sessions in POL and grabs their location info if one is available.
         if pols[POLIndex].sessions.count > 0{
             let template = pols[POLIndex].sessions[0]
             cityLabel.text = template.city
@@ -64,11 +62,10 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
             departmentLabel.text = template.dept
             companyLabel.text = template.comp
         }
-        
         // Initializes the Captuvo scanner.
         Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
-        
+        // Checks entries to see if start button should be enabled.
         checkValidEntries()
     }
 
@@ -79,9 +76,6 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     }
     
     // MARK: - UITextFieldDelegate
-    /*
-     Defines how the program should react to changes in the text fields.
-     */
     
     // Hide the keyboard.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -107,9 +101,6 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     }
     
     // MARK: - Table view data source
-    /*
-     Defines how the table should be built
-     */
     
     // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -127,9 +118,6 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     }
 
     // MARK: - Navigation
-    /*
-     Navigation to and from the page.
-     */
     
     // Prepares data to be sent to a different page by creating a session object with the defined parameters.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -155,11 +143,6 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
             nav.newSes = true
         }
     }
-    
-    // MARK: - Actions
-    /*
-     Action functions.
-     */
     
     // Handles when a page that was navigated to returns back to the table.
     @IBAction func unwindToLawsonTable(sender: UIStoryboardSegue){
@@ -187,9 +170,6 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     }
     
     // MARK: - Captuvo
-    /*
-     Functions to for the Captuvo scanner.
-     */
     
     // Starts the decoder.
     func captuvoConnected() {

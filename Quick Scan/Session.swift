@@ -8,8 +8,8 @@
 
 /*
     Description: The Session Object.
- 
     Completion Status: Complete!
+    Last Update v1.0
 */
 
 import UIKit

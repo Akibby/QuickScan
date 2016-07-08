@@ -8,8 +8,8 @@
 
 /*
     Description: Used to create the Department List.
- 
     Completion Status: Complete!
+    Last Update v1.0
 */
 
 import UIKit
@@ -17,9 +17,6 @@ import UIKit
 class DepartmentTableViewController: UITableViewController {
     
     // MARK: - Properties
-    /*
-     Features of the type table view controller.
-     */
     
     // An array of arrays of strings that are the different departments sorted by type.
     var departmentTitles = [[ "FMOLHS",
@@ -451,12 +448,6 @@ class DepartmentTableViewController: UITableViewController {
     // Loads the table.
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     // Function from Apple to handle memory.
@@ -466,9 +457,6 @@ class DepartmentTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    /*
-     Defines how the table should be built
-     */
     
     // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -488,6 +476,7 @@ class DepartmentTableViewController: UITableViewController {
         return cell
     }
     
+    // Creates the headers for the sections.
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return departmentTitles[section][0]
     }
@@ -502,9 +491,6 @@ class DepartmentTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-    /*
-     Navigation to and from the page.
-     */
     
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

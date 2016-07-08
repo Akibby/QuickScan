@@ -8,8 +8,8 @@
 
 /*
     Description: Used to create the City List.
- 
     Completion Status: Complete!
+    Last Update v1.0
 */
 
 import UIKit
@@ -17,9 +17,6 @@ import UIKit
 class CityTableViewController: UITableViewController {
     
     // MARK: - Properties
-    /*
-     Features of the type table view controller.
-     */
     
     // An array of strings that are the different cities.
     var cityTitles = ["Baton Rouge, La", "Carencro, La","Crowley, La","Denham Springs, La","Donaldsville, La","Dutchtown, La","Gamercy, La","Gonzales, La","Lafayette, La","Monroe, La","Napoleonville, La","New Orleans, La","New Roads, La","Praireville, La","West Monroe, La"]
@@ -28,12 +25,6 @@ class CityTableViewController: UITableViewController {
     // Loads the table.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     // Function from Apple to handle memory.
@@ -43,9 +34,6 @@ class CityTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    /*
-     Defines how the table should be built
-     */
     
     // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -66,9 +54,6 @@ class CityTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-    /*
-     Navigation to and from the page.
-     */
     
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

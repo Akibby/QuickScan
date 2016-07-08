@@ -264,7 +264,7 @@
                                     <outlet property="assetLabel" destination="DLX-s5-UaE" id="yXU-rs-f4P"/>
                                     <outlet property="photoImageView" destination="2zU-TY-YCu" id="jJW-SS-7s1"/>
                                     <outlet property="serialLabel" destination="fb5-Em-Eor" id="CGD-GU-hgL"/>
-                                    <segue destination="mai-3P-NsV" kind="show" identifier="ShowDetail" id="iYO-rl-ON3"/>
+                                    <segue destination="mai-3P-NsV" kind="show" identifier="DeviceSelected" id="iYO-rl-ON3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -282,19 +282,18 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="q7Q-Wq-p3R">
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="AddNew" id="4LP-Vg-Amx"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="NewDevice" id="4LP-Vg-Amx"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="action" id="7lg-26-dkK">
                                 <connections>
-                                    <action selector="actionSheet:" destination="aHu-Jd-Bj9" id="HAh-1s-D92"/>
+                                    <action selector="submitPressed:" destination="aHu-Jd-Bj9" id="xxa-r8-l6Z"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <keyCommands/>
                     <connections>
-                        <outlet property="doneButton" destination="hWA-iG-InE" id="O6a-aU-h52"/>
                         <outlet property="submitButton" destination="7lg-26-dkK" id="2zJ-E0-Yhj"/>
                     </connections>
                 </tableViewController>
@@ -391,7 +390,7 @@
                                 <segue destination="OjP-ec-X7Z" kind="unwind" unwindAction="unwindToDeviceList:" id="zVh-kb-7Gj"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Se9-2N-BhQ">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="Se9-2N-BhQ">
                             <connections>
                                 <action selector="saveDevice:" destination="BYZ-38-t0r" id="dEN-jg-Vqc"/>
                             </connections>
@@ -538,7 +537,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="New PO/Law" id="VhD-fS-Mba">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="16q-3q-9St">
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="16q-3q-9St">
                             <connections>
                                 <segue destination="2LL-da-mD4" kind="show" identifier="NewPOL" id="JWk-Ol-564"/>
                             </connections>
@@ -1064,6 +1063,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hJu-uP-4Lg"/>
-        <segue reference="xaq-u1-nLU"/>
+        <segue reference="JWk-Ol-564"/>
     </inferredMetricsTieBreakers>
 </document>

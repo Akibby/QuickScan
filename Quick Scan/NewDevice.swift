@@ -8,8 +8,8 @@
 
 /*
     Description: Allows for the creation of a new Device object and appends it to the Device Array for the Selected Session.
- 
     Completion Status: Complete!
+    Last Update v1.0
 */
 
 import UIKit
@@ -18,17 +18,15 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     
     // MARK: - Properties
-    /*
-     Features of the new device page.
-     */
     
-    // Connects the text fields to code.
+    // Connects the text fields and buttons to code.
     @IBOutlet weak var assetField: UITextField!
     @IBOutlet weak var serialField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var batteryLabel: UILabel!
     @IBOutlet weak var scanButton: UIButton!
     
+    // Initializes variables.
     let formatter = NSDateFormatter()
     var lawNum: String!
     var poNum: String!
@@ -48,6 +46,8 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     // Loads the page.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Gives scan button its border and colors it.
         scanButton.layer.cornerRadius = 10
         scanButton.layer.borderWidth = 1
         if Captuvo.sharedCaptuvoDevice().isDecoderRunning(){
@@ -79,9 +79,6 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     
     // MARK: - UITextFieldDelegate
-    /*
-     Defines how the program should react to changes in the text fields.
-     */
     
     // Hide the keyboard.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -106,16 +103,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         checkValidEntries()
     }
     
-    /*
-    func textFieldDidBeginEditing(textField: UITextField) {
-        saveButton.enabled = false
-    }
-    */
-    
     // MARK: - Actions
-    /*
-     
-     */
     
     // Saves new Device and clears feilds for next.
     @IBAction func saveDevice(sender: AnyObject) {
@@ -134,6 +122,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         saveButton.enabled = false
     }
     
+    // Called by scan button to enable and disable the Captuvo scanner.
     @IBAction func scan(sender: UIButton) {
         if isScanning{
             Captuvo.sharedCaptuvoDevice().stopDecoderScanning()
@@ -145,35 +134,28 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         }
     }
     
-    
-    // MARK: - Navigation
-    /*
-     Navigation from the page.
-     */
-    
-    // Function the cancel button calls to close the page.
-    @IBAction func cancel(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     // MARK: - Captuvo
-    /*
-     Functions to for the Captuvo scanner.
-     */
     
-    // Starts the decoder.
+    // Starts the decoder updates screen to indicate scanner is connected.
     func captuvoConnected() {
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
         scanButton.enabled = true
         scanButton.layer.borderColor = scanButton.tintColor.CGColor
     }
     
-    // Stops the decoder and updates label to indicate scanner is not connected.
+    // Stops the decoder and updates screen to indicate scanner is not connected.
     func captuvoDisconnected() {
         Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
         batteryLabel.text = "Searching for Scanner"
         scanButton.enabled = false
         scanButton.layer.borderColor = UIColor.lightGrayColor().CGColor
+    }
+    
+    // Updates label to indicate the scanner is connected and ready.
+    func decoderReady() {
+        batteryLabel.text = "Scanner is Ready"
+        scanButton.enabled = true
+        scanButton.layer.borderColor = scanButton.tintColor.CGColor
     }
     
     // Handles data recieved from the scanner and decides which field it belongs in.
@@ -187,12 +169,4 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
             assetField.text = data
         }
     }
-    
-    // Updates label to indicate the scanner is connected and ready.
-    func decoderReady() {
-        batteryLabel.text = "Scanner is Ready"
-        scanButton.enabled = true
-        scanButton.layer.borderColor = scanButton.tintColor.CGColor
-    }
-    
 }

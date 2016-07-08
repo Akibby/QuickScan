@@ -8,8 +8,8 @@
 
 /*
     Description: Used to create the Type List.
- 
     Completion Status: Complete!
+    Last Update v1.0
  */
 
 import UIKit
@@ -17,12 +17,8 @@ import UIKit
 class TypeTableViewController: UITableViewController {
     
     // MARK: - Properties
-    /*
-     Features of the type table view controller.
-     */
     
     // An array of strings that are the different types.
-//    Add Scanners ??
     var typeTitles = ["Desktops","Monitors","Thin Client","Printers","Scanners","Mobile Carts","Laptops","Phones","Routers","Switches","UPS","Other"]
     var type: String!
 
@@ -38,10 +34,7 @@ class TypeTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    /*
-     Defines how the table should be built.
-     */
-
+    
     // Defines the number of sections in the table.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -62,9 +55,6 @@ class TypeTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-    /*
-     Navigation to and from the page.
-     */
     
     // Prepares data to be sent to a different page.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
