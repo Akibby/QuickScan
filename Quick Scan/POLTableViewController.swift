@@ -154,17 +154,3 @@ class POLTableViewController: UITableViewController {
         savePOLs()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
