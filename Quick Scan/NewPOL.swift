@@ -8,7 +8,7 @@
 
 /*
     Description: Allows for the creation of new POL Objects (POL: PO-Lawson).
-    Completion Status: Complete
+    Completion Status: Complete!
     Last Update v1.0
 */
 

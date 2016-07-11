@@ -8,8 +8,8 @@
 
 /*
     Description: This file is used to bridge the Captuvo SDK with Quick Scan so the scanner can be utilized by the app.
- 
     Completion Status: Complete!
+    Last Update v1.0
 */
 
 #ifndef Quick_Scan_Bridging_Header_h
