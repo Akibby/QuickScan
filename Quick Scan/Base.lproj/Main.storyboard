@@ -604,7 +604,7 @@
                     <navigationItem key="navigationItem" title="Scanning Sessions" id="lRR-wW-Ce0">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="9vg-7S-11I">
                             <connections>
-                                <segue destination="GC2-gF-qdF" kind="unwind" unwindAction="unwindToPOLList:" id="yfW-AX-jGc"/>
+                                <segue destination="GC2-gF-qdF" kind="unwind" identifier="unwindToPOLList" unwindAction="unwindToPOLList:" id="yfW-AX-jGc"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
