@@ -77,6 +77,18 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - NSCoding
+    
+    // Will save the changes to the devices array.
+    func savePOLs(){
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
+        if !isSuccessfulSave{
+            print("Failed to save device!")
+        }
+        else{
+            print("Device saved!")
+        }
+    }
     
     // MARK: - UITextFieldDelegate
     
@@ -120,6 +132,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         assetField.text = ""
         serialField.text = ""
         saveButton.enabled = false
+        savePOLs()
     }
     
     // Called by scan button to enable and disable the Captuvo scanner.
