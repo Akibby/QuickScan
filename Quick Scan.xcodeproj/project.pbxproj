@@ -55,7 +55,7 @@
 		D937FAD21D061BDD008598DC /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		D937FAD41D070500008598DC /* CityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewController.swift; sourceTree = "<group>"; };
 		D9A4D3B61D08584700931AB6 /* NewSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSession.swift; sourceTree = "<group>"; };
-		D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceInfoViewController.swift; path = ../DeviceInfoViewController.swift; sourceTree = "<group>"; };
+		D9D4C9A21CFCCA2E000591D5 /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D9D4C9A61CFCDB92000591D5 /* Captuvo */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Captuvo; sourceTree = "<group>"; };
 		D9D4C9A91CFCDEB1000591D5 /* libCaptuvoSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCaptuvoSDK.a; path = Captuvo/libCaptuvoSDK.a; sourceTree = "<group>"; };
 		D9D4C9AB1CFCDF45000591D5 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
