@@ -303,8 +303,11 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         let contents = convertCSV(pols[POLIndex].sessions[sesIndex].devices)
         let data = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         let emailController = MFMailComposeViewController()
+        let serviceEmail = "svc_LakeReceiving@fmolhs.org"
+        
         emailController.canResignFirstResponder()
         emailController.mailComposeDelegate = self
+        emailController.setToRecipients([serviceEmail])
         emailController.setSubject(fileName + " CSV File")
         emailController.setMessageBody("Data for \n" + "Lawson Number: " + pols[POLIndex].lawNum + "\n PO Number: " + pols[POLIndex].po, isHTML: false)
         emailController.addAttachmentData(data!, mimeType: "text/csv", fileName: fileName + ".csv")
