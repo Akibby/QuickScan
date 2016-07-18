@@ -8,7 +8,7 @@
 
 /*
     Description: Displays the array of Sessions contained within the selected POL.
-    Completion Status: Partially Complete! (Needs service email address.)
+    Completion Status: Complete!
     Last Update v1.0
  */
 

@@ -8,7 +8,7 @@
 
 /*
     Description: Displays the array of Devices contained within the selected Session.
-    Completion Status: Partially Complete! (Needs service email address.)
+    Completion Status: Complete!
     Last Update v1.0
  */
 
