@@ -40,10 +40,10 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         
         // Checks value of needQuickUpdate() and sets the submit button to either enabled or disabled.
         if needQuickUpdate(){
-            submitButton.enabled = true
+            submitButton.isEnabled = true
         }
         else{
-            submitButton.enabled = false
+            submitButton.isEnabled = false
         }
     }
     
@@ -56,19 +56,19 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     // MARK: - Table view data source
     
     // Defines the number of sections in the table.
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     // Defines the number of cells in the table.
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pols[POLIndex].sessions[sesIndex].devices.count
     }
 
     // Builds the cells for the table.
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "DeviceTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeviceTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DeviceTableViewCell
         let device = pols[POLIndex].sessions[sesIndex].devices[indexPath.row]
         cell.serialLabel.text = "Serial - " + device.serialNum
         cell.photoImageView.image = device.photo
@@ -78,13 +78,13 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     // Allows for deleting from the table.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            pols[POLIndex].sessions[sesIndex].devices.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            pols[POLIndex].sessions[sesIndex].devices.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             savePOLs()
             if !needQuickUpdate(){
-                submitButton.enabled = false
+                submitButton.isEnabled = false
             }
         }
     }
@@ -93,7 +93,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     
     // Will save the changes to the current device array.
     func savePOLs(){
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path)
         if !isSuccessfulSave{
             print("Failed to save session!")
         }
@@ -105,15 +105,15 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     // MARK: - Navigation
     
     // Prepares data to be sent to a different page.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "NewDevice"{
-            let nav = segue.destinationViewController as! NewDevice
+            let nav = segue.destination as! NewDevice
             nav.pols = pols
             nav.POLIndex = POLIndex
             nav.sesIndex = sesIndex
         }
         else if segue.identifier == "DeviceSelected"{
-            let nav = segue.destinationViewController as! DeviceInfoViewController
+            let nav = segue.destination as! DeviceInfoViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
             nav.pols = pols
             nav.POLIndex = POLIndex
@@ -123,22 +123,22 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     // Adds new devices upon returning from NewDevice.swift
-    @IBAction func unwindToDeviceList(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? NewDevice{
+    @IBAction func unwindToDeviceList(_ sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? NewDevice{
             Captuvo.sharedCaptuvoDevice().stopDecoderScanning()
             var newDevices = sourceViewController.newDevices
-            var newIndexPath: NSIndexPath
+            var newIndexPath: IndexPath
             var i = 0
             while i < newDevices.count {
                 pols[POLIndex].sessions[sesIndex].devices.append(newDevices[i])
-                newIndexPath = NSIndexPath(forRow: tableView.numberOfRowsInSection(0), inSection: 0)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+                newIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+                tableView.insertRows(at: [newIndexPath], with: .bottom)
                 i += 1
-                submitButton.enabled = true
+                submitButton.isEnabled = true
             }
         }
         if !needQuickUpdate(){
-            submitButton.enabled = false
+            submitButton.isEnabled = false
         }
         savePOLs()
     }
@@ -213,7 +213,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     }
     
     // Function called by pressing the submit button.
-    @IBAction func submitPressed(sender: AnyObject) {
+    @IBAction func submitPressed(_ sender: AnyObject) {
         self.needUpdate()
         self.emailCSV()
     }
@@ -222,9 +222,9 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
      Converts all devices that need submission in the Session in to their .csv format.
      This function DOES change the submission status of each device that it converts!
      */
-    func convertCSV(devices: [Device]) -> NSString{
-        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first{
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent(fileName)
+    func convertCSV(_ devices: [Device]) -> NSString{
+        if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first{
+            let path = URL(fileURLWithPath: dir).appendingPathComponent(fileName)
             let mystring = "Device Type,Status,Asset Tag,Serial Number,Department,Building/Location,Company,City,Floor,Warranty Expiration Date,PO Number,Procure All Number,Model,Capital/Non Capital,Notes\n"
             var contentsOfFile = mystring
             var i = 0
@@ -232,18 +232,18 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             let ses = pol.sessions[sesIndex]
             while i < devices.count {
                 if devices[i].submit == false{
-                    let department = ses.dept.uppercaseString
-                    let building = ses.bldg.uppercaseString
-                    let company = ses.comp.uppercaseString
-                    let city = ses.city.uppercaseString
-                    let law = pol.lawNum.uppercaseString
-                    let asset = devices[i].assetTag.uppercaseString
-                    let serial = devices[i].serialNum.uppercaseString
-                    let notes = ses.notes.uppercaseString
+                    let department = ses.dept.uppercased()
+                    let building = ses.bldg.uppercased()
+                    let company = ses.comp.uppercased()
+                    let city = ses.city.uppercased()
+                    let law = pol.lawNum.uppercased()
+                    let asset = devices[i].assetTag.uppercased()
+                    let serial = devices[i].serialNum.uppercased()
+                    let notes = ses.notes.uppercased()
                     let warranty = devices[i].time
-                    let po = pol.po.uppercaseString
-                    let model = ses.model.uppercaseString
-                    let type = ses.type.uppercaseString
+                    let po = pol.po.uppercased()
+                    let model = ses.model.uppercased()
+                    let type = ses.type.uppercased()
                     let status = "In Use"
                     let floor = "1"
                     var capital: String
@@ -260,7 +260,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             }
             savePOLs()
             do {
-                try contentsOfFile.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
+                try contentsOfFile.write(to: path, atomically: false, encoding: String.Encoding.utf8)
                 print("File created!")
             }
             catch{
@@ -268,7 +268,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
             }
             
             do {
-                let readFile = try NSString(contentsOfURL: path, encoding: NSUTF8StringEncoding)
+                let readFile = try NSString(contentsOf: path, encoding: String.Encoding.utf8.rawValue)
                 print("File read!")
                 return readFile
             }
@@ -294,18 +294,18 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
     func emailCSV(){
         let emailViewController = configuredMailComposeViewController()
         if MFMailComposeViewController.canSendMail(){
-            self.presentViewController(emailViewController, animated: true, completion: nil)
+            self.present(emailViewController, animated: true, completion: nil)
         }
     }
     
     // Configures an email view with auto filled in information.
     func configuredMailComposeViewController() -> MFMailComposeViewController{
         let contents = convertCSV(pols[POLIndex].sessions[sesIndex].devices)
-        let data = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        let data = contents.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)
         let emailController = MFMailComposeViewController()
         let serviceEmail = "svc_LakeReceiving@fmolhs.org"
         
-        emailController.canResignFirstResponder()
+        emailController.canResignFirstResponder
         emailController.mailComposeDelegate = self
         emailController.setToRecipients([serviceEmail])
         emailController.setSubject(fileName + " CSV File")
@@ -320,16 +320,16 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
      If the mail view returns 2 (email sent) as its result cursub is set to an empty array and the view is dismissed.
      If the mail view returns any other result the devices will be unsubmitted.
      */
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         if result.rawValue != 2{
             unsubmit()
-            controller.dismissViewControllerAnimated(true, completion: nil)
+            controller.dismiss(animated: true, completion: nil)
         }
         else{
             print("Closing email page!")
-            controller.dismissViewControllerAnimated(true, completion: nil)
+            controller.dismiss(animated: true, completion: nil)
             print("Closing device list!")
-            self.performSegueWithIdentifier("unwindToSessionList", sender: nil)
+            self.performSegue(withIdentifier: "unwindToSessionList", sender: nil)
         }
         cursub = []
     }

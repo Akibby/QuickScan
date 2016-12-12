@@ -38,8 +38,8 @@ class Session: NSObject {
      Where the Session Object has its properties stored.
      */
     
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("session")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("session")
     
     // MARK: - Types
     /*
@@ -84,32 +84,32 @@ class Session: NSObject {
      Encoding, decoding, and initialization of Device Objects.
      */
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(notes, forKey: PropertyKey.notesKey)
-        aCoder.encodeObject(city, forKey: PropertyKey.cityKey)
-        aCoder.encodeObject(bldg, forKey: PropertyKey.buildingKey)
-        aCoder.encodeObject(dept, forKey: PropertyKey.departmentKey)
-        aCoder.encodeObject(comp, forKey: PropertyKey.companyKey)
-        aCoder.encodeObject(devices, forKey: PropertyKey.deviceKey)
-        aCoder.encodeObject(nickname, forKey: PropertyKey.nicknameKey)
-        aCoder.encodeObject(model, forKey:  PropertyKey.modelKey)
-        aCoder.encodeObject(capital, forKey: PropertyKey.capitalKey)
-        aCoder.encodeObject(type, forKey: PropertyKey.typeKey)
-        aCoder.encodeObject(submit, forKey: PropertyKey.submitKey)
+    func encodeWithCoder(_ aCoder: NSCoder) {
+        aCoder.encode(notes, forKey: PropertyKey.notesKey)
+        aCoder.encode(city, forKey: PropertyKey.cityKey)
+        aCoder.encode(bldg, forKey: PropertyKey.buildingKey)
+        aCoder.encode(dept, forKey: PropertyKey.departmentKey)
+        aCoder.encode(comp, forKey: PropertyKey.companyKey)
+        aCoder.encode(devices, forKey: PropertyKey.deviceKey)
+        aCoder.encode(nickname, forKey: PropertyKey.nicknameKey)
+        aCoder.encode(model, forKey:  PropertyKey.modelKey)
+        aCoder.encode(capital, forKey: PropertyKey.capitalKey)
+        aCoder.encode(type, forKey: PropertyKey.typeKey)
+        aCoder.encode(submit, forKey: PropertyKey.submitKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let notes = aDecoder.decodeObjectForKey(PropertyKey.notesKey) as! String
-        let city = aDecoder.decodeObjectForKey(PropertyKey.cityKey) as! String
-        let bldg = aDecoder.decodeObjectForKey(PropertyKey.buildingKey) as! String
-        let dept = aDecoder.decodeObjectForKey(PropertyKey.departmentKey) as! String
-        let comp = aDecoder.decodeObjectForKey(PropertyKey.companyKey) as! String
-        let devices = aDecoder.decodeObjectForKey(PropertyKey.deviceKey) as! [Device]
-        let nickname = aDecoder.decodeObjectForKey(PropertyKey.nicknameKey) as! String
-        let model = aDecoder.decodeObjectForKey(PropertyKey.modelKey) as! String
-        let capital = aDecoder.decodeObjectForKey(PropertyKey.capitalKey) as! Bool
-        let type = aDecoder.decodeObjectForKey(PropertyKey.typeKey) as! String
-        let submit = aDecoder.decodeObjectForKey(PropertyKey.submitKey) as! Bool
+        let notes = aDecoder.decodeObject(forKey: PropertyKey.notesKey) as! String
+        let city = aDecoder.decodeObject(forKey: PropertyKey.cityKey) as! String
+        let bldg = aDecoder.decodeObject(forKey: PropertyKey.buildingKey) as! String
+        let dept = aDecoder.decodeObject(forKey: PropertyKey.departmentKey) as! String
+        let comp = aDecoder.decodeObject(forKey: PropertyKey.companyKey) as! String
+        let devices = aDecoder.decodeObject(forKey: PropertyKey.deviceKey) as! [Device]
+        let nickname = aDecoder.decodeObject(forKey: PropertyKey.nicknameKey) as! String
+        let model = aDecoder.decodeObject(forKey: PropertyKey.modelKey) as! String
+        let capital = aDecoder.decodeObject(forKey: PropertyKey.capitalKey) as! Bool
+        let type = aDecoder.decodeObject(forKey: PropertyKey.typeKey) as! String
+        let submit = aDecoder.decodeObject(forKey: PropertyKey.submitKey) as! Bool
         
         // Must call init
         self.init(model: model, nickname: nickname, notes: notes, type: type, capital: capital, dept: dept, bldg: bldg, comp: comp, city: city, devices: (devices), submit: submit)

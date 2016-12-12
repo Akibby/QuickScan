@@ -70,19 +70,19 @@ class DeviceInfoViewController: UIViewController {
     // MARK: - Actions
     
     // Shortens the building text by remove the prefix
-    func shortenBuilding(building: String) -> String{
+    func shortenBuilding(_ building: String) -> String{
         var bldg = building
-        let range = bldg.startIndex..<bldg.startIndex.advancedBy(6)
-        bldg.removeRange(range)
+        let range = bldg.startIndex..<bldg.characters.index(bldg.startIndex, offsetBy: 6)
+        bldg.removeSubrange(range)
         
         return bldg
     }
     
     // Shortens the department text by remove the prefix
-    func shortenDepartment(department: String) -> String{
+    func shortenDepartment(_ department: String) -> String{
         var dept = department
-        let range = dept.startIndex..<dept.startIndex.advancedBy(5)
-        dept.removeRange(range)
+        let range = dept.startIndex..<dept.characters.index(dept.startIndex, offsetBy: 5)
+        dept.removeSubrange(range)
         
         return dept
     }

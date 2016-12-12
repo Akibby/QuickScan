@@ -33,8 +33,8 @@ class Device: NSObject, NSCoding {
      Where the Device Object has its properties stored.
      */
     
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("devices")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("devices")
     
     
     // MARK: - Types
@@ -76,20 +76,20 @@ class Device: NSObject, NSCoding {
      Encoding, decoding, and initialization of Device Objects.
      */
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(assetTag, forKey: PropertyKey.assetTagKey)
-        aCoder.encodeObject(serialNum, forKey: PropertyKey.serialNumKey)
-        aCoder.encodeObject(photo, forKey: PropertyKey.photoKey)
-        aCoder.encodeObject(submit, forKey: PropertyKey.submitKey)
-        aCoder.encodeObject(time, forKey: PropertyKey.timeKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(assetTag, forKey: PropertyKey.assetTagKey)
+        aCoder.encode(serialNum, forKey: PropertyKey.serialNumKey)
+        aCoder.encode(photo, forKey: PropertyKey.photoKey)
+        aCoder.encode(submit, forKey: PropertyKey.submitKey)
+        aCoder.encode(time, forKey: PropertyKey.timeKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let assetTag = aDecoder.decodeObjectForKey(PropertyKey.assetTagKey) as! String
-        let serialNum = aDecoder.decodeObjectForKey(PropertyKey.serialNumKey) as! String
-        let photo = aDecoder.decodeObjectForKey(PropertyKey.photoKey) as? UIImage
-        let submit = aDecoder.decodeObjectForKey(PropertyKey.submitKey) as! Bool
-        let time = aDecoder.decodeObjectForKey(PropertyKey.timeKey) as! String
+        let assetTag = aDecoder.decodeObject(forKey: PropertyKey.assetTagKey) as! String
+        let serialNum = aDecoder.decodeObject(forKey: PropertyKey.serialNumKey) as! String
+        let photo = aDecoder.decodeObject(forKey: PropertyKey.photoKey) as? UIImage
+        let submit = aDecoder.decodeObject(forKey: PropertyKey.submitKey) as! Bool
+        let time = aDecoder.decodeObject(forKey: PropertyKey.timeKey) as! String
         
         // Must call init
         self.init(assetTag: assetTag, serialNum: serialNum, photo: photo, submit: submit, time: time)

@@ -36,19 +36,19 @@ class TypeTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     // Defines the number of sections in the table.
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     // Defines the number of rows in the table.
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return typeTitles.count
     }
     
     // Function to build the cells.
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "TypeCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         cell.textLabel?.adjustsFontSizeToFitWidth.description
         cell.textLabel?.text = typeTitles[indexPath.row]
         return cell
@@ -57,7 +57,7 @@ class TypeTableViewController: UITableViewController {
     // MARK: - Navigation
     
     // Prepares data to be sent to a different page.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let selectedIndexPath = tableView.indexPathForSelectedRow
         type = typeTitles[(selectedIndexPath?.row)!]
     }

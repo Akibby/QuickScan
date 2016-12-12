@@ -63,7 +63,7 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
             companyLabel.text = template.comp
         }
         // Initializes the Captuvo scanner.
-        Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
+        Captuvo.sharedCaptuvoDevice().addDelegate(self)
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
         // Checks entries to see if start button should be enabled.
         checkValidEntries()
@@ -78,13 +78,13 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     // MARK: - UITextFieldDelegate
     
     // Hide the keyboard.
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     // Checks all fields for valid entries.
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         checkValidEntries()
     }
     
@@ -93,35 +93,36 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
         let mod = modNum.text ?? ""
         
         if (!mod.isEmpty && typeLabel.text != "Type" && cityLabel.text! != "City" && buildingLabel.text != "Building" && departmentLabel.text != "Department" && companyLabel.text != "Company"){
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         }
         else{
-            saveButton.enabled = false
+            saveButton.isEnabled = false
         }
     }
     
     // MARK: - Table view data source
     
     // Defines the number of sections in the table.
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return labels.count
     }
     
     // Defines the number of rows in a section.
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return labels[section].count - 1
     }
     
     // Defines the labels for each section.
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return labels[section][0]
     }
 
     // MARK: - Navigation
     
     // Prepares data to be sent to a different page by creating a session object with the defined parameters.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if saveButton === sender{
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //if saveButton == sender{
+        if sender as AnyObject === saveButton! {
             let model = modNum.text
             let nick = nickname.text
             let note = notes.text
@@ -131,12 +132,12 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
             let company = companyLabel.text
             let devices = [Device]()
             let type = typeLabel.text
-            let capital = capSwitch.on
+            let capital = capSwitch.isOn
             session = Session(model: model!, nickname: nick!, notes: note!, type: type!, capital: capital, dept: department!, bldg: building!, comp: company!, city: city!, devices: devices, submit: true)
             pols[POLIndex].sessions.append(session!)
         }
         if segue.identifier == "NewSession"{
-            let nav = segue.destinationViewController as! DeviceTableViewController
+            let nav = segue.destination as! DeviceTableViewController
             nav.pols = pols
             nav.POLIndex = POLIndex
             nav.sesIndex =  pols[POLIndex].sessions.count - 1
@@ -145,24 +146,24 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     }
     
     // Handles when a page that was navigated to returns back to the table.
-    @IBAction func unwindToLawsonTable(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? CityTableViewController{
+    @IBAction func unwindToLawsonTable(_ sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? CityTableViewController{
             city = sourceViewController.city
             cityLabel.text = city
         }
-        if let sourceViewController = sender.sourceViewController as? BuildingTableViewController{
+        if let sourceViewController = sender.source as? BuildingTableViewController{
             building = sourceViewController.building
             buildingLabel.text = building
         }
-        if let sourceViewController = sender.sourceViewController as? DepartmentTableViewController{
+        if let sourceViewController = sender.source as? DepartmentTableViewController{
             department = sourceViewController.department
             departmentLabel.text = department
         }
-        if let sourceViewController = sender.sourceViewController as? CompanyTableViewController{
+        if let sourceViewController = sender.source as? CompanyTableViewController{
             company = sourceViewController.company
             companyLabel.text = company
         }
-        if let sourceViewController = sender.sourceViewController as? TypeTableViewController{
+        if let sourceViewController = sender.source as? TypeTableViewController{
             type = sourceViewController.type
             typeLabel.text = type
         }
@@ -182,7 +183,7 @@ class NewSession: UITableViewController, UITextFieldDelegate, CaptuvoEventsProto
     }
     
     // Decides where data from the scanner belongs.
-    func decoderDataReceived(data: String!) {
+    func decoderDataReceived(_ data: String!) {
         modNum.text = data
     }
 }

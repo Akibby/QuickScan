@@ -27,7 +27,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     @IBOutlet weak var scanButton: UIButton!
     
     // Initializes variables.
-    let formatter = NSDateFormatter()
+    let formatter = DateFormatter()
     var lawNum: String!
     var poNum: String!
     var notes: String!
@@ -51,22 +51,22 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         scanButton.layer.cornerRadius = 10
         scanButton.layer.borderWidth = 1
         if Captuvo.sharedCaptuvoDevice().isDecoderRunning(){
-            scanButton.enabled = true
-            scanButton.layer.borderColor = scanButton.tintColor.CGColor
+            scanButton.isEnabled = true
+            scanButton.layer.borderColor = scanButton.tintColor.cgColor
             batteryLabel.text = "Scanner is Ready"
         }
         else{
-            scanButton.enabled = false
-            scanButton.layer.borderColor = UIColor.lightGrayColor().CGColor
+            scanButton.isEnabled = false
+            scanButton.layer.borderColor = UIColor.lightGray.cgColor
         }
         // Handle the text field's inputs
         assetField.delegate = self
         serialField.delegate = self
-        saveButton.enabled = false
+        saveButton.isEnabled = false
         // Set format for the date.
         formatter.dateFormat = "MM/dd/yyyy"
         // Initializes the scanner.
-        Captuvo.sharedCaptuvoDevice().addCaptuvoDelegate(self)
+        Captuvo.sharedCaptuvoDevice().addDelegate(self)
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
         
     }
@@ -81,7 +81,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     
     // Will save the changes to the devices array.
     func savePOLs(){
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path)
         if !isSuccessfulSave{
             print("Failed to save device!")
         }
@@ -93,7 +93,7 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     // MARK: - UITextFieldDelegate
     
     // Hide the keyboard.
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -103,23 +103,23 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         let serialText = serialField.text ?? ""
         let assetText = assetField.text ?? ""
         if !serialText.isEmpty && !assetText.isEmpty{
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         }
         else{
-            saveButton.enabled = false
+            saveButton.isEnabled = false
         }
     }
     
     // Checks for a valid serial and asset tag when the text field finishes editing.
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         checkValidEntries()
     }
     
     // MARK: - Actions
     
     // Saves new Device and clears feilds for next.
-    @IBAction func saveDevice(sender: AnyObject) {
-        let date = formatter.stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24*365*3))
+    @IBAction func saveDevice(_ sender: AnyObject) {
+        let date = formatter.string(from: Date().addingTimeInterval(60*60*24*365*3))
         let asset = assetField.text ?? ""
         let serial = serialField.text ?? ""
         let photoName = pols[POLIndex].sessions[sesIndex].type
@@ -131,12 +131,12 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
         }
         assetField.text = ""
         serialField.text = ""
-        saveButton.enabled = false
+        saveButton.isEnabled = false
         savePOLs()
     }
     
     // Called by scan button to enable and disable the Captuvo scanner.
-    @IBAction func scan(sender: UIButton) {
+    @IBAction func scan(_ sender: UIButton) {
         if isScanning{
             Captuvo.sharedCaptuvoDevice().stopDecoderScanning()
             isScanning = false
@@ -152,31 +152,31 @@ class NewDevice: UIViewController, UITextFieldDelegate, CaptuvoEventsProtocol {
     // Starts the decoder updates screen to indicate scanner is connected.
     func captuvoConnected() {
         Captuvo.sharedCaptuvoDevice().startDecoderHardware()
-        scanButton.enabled = true
-        scanButton.layer.borderColor = scanButton.tintColor.CGColor
+        scanButton.isEnabled = true
+        scanButton.layer.borderColor = scanButton.tintColor.cgColor
     }
     
     // Stops the decoder and updates screen to indicate scanner is not connected.
     func captuvoDisconnected() {
         Captuvo.sharedCaptuvoDevice().stopDecoderHardware()
         batteryLabel.text = "Searching for Scanner"
-        scanButton.enabled = false
-        scanButton.layer.borderColor = UIColor.lightGrayColor().CGColor
+        scanButton.isEnabled = false
+        scanButton.layer.borderColor = UIColor.lightGray.cgColor
     }
     
     // Updates label to indicate the scanner is connected and ready.
     func decoderReady() {
         batteryLabel.text = "Scanner is Ready"
-        scanButton.enabled = true
-        scanButton.layer.borderColor = scanButton.tintColor.CGColor
+        scanButton.isEnabled = true
+        scanButton.layer.borderColor = scanButton.tintColor.cgColor
     }
     
     // Handles data recieved from the scanner and decides which field it belongs in.
-    func decoderDataReceived(data: String!) {
+    func decoderDataReceived(_ data: String!) {
         isScanning = false
         if assetField.text != ""{
             serialField.text = data
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         }
         else{
             assetField.text = data

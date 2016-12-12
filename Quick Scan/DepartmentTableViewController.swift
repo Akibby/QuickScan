@@ -459,33 +459,33 @@ class DepartmentTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     // Defines the number of sections in the table.
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return departmentTitles.count
     }
     
     // Defines the number of rows in a section.
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return departmentTitles[section].count - 1
     }
 
     // Function to build the cells.
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
         let dept = shortenDepartment(departmentTitles[indexPath.section][indexPath.row + 1])
         cell.textLabel?.text = dept
         return cell
     }
     
     // Creates the headers for the sections.
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return departmentTitles[section][0]
     }
     
     // Shortens department name
-    func shortenDepartment(department: String) -> String{
+    func shortenDepartment(_ department: String) -> String{
         var dept = department
-        let range = dept.startIndex..<dept.startIndex.advancedBy(5)
-        dept.removeRange(range)
+        let range = dept.startIndex..<dept.characters.index(dept.startIndex, offsetBy: 5)
+        dept.removeSubrange(range)
         
         return dept
     }
@@ -493,7 +493,7 @@ class DepartmentTableViewController: UITableViewController {
     // MARK: - Navigation
     
     // Prepares data to be sent to a different page.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let selectedIndexPath = tableView.indexPathForSelectedRow
         department = departmentTitles[(selectedIndexPath?.section)!][(selectedIndexPath?.row)! + 1]
     }

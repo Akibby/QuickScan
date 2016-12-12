@@ -43,19 +43,19 @@ class POLTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     // Defines the number of sections in the table.
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     // Defines the number of cells in the table.
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pols.count
     }
 
     // Builds the cells for the table.
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "POLCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! POLTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! POLTableViewCell
         let pol = pols[indexPath.row]
         cell.nickname.text = pol.nickname
         cell.POL.text = pol.lawNum + " - " + pol.po
@@ -64,10 +64,10 @@ class POLTableViewController: UITableViewController {
     }
 
     // Allows for deleting from the table.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            pols.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            pols.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             savePOLs()
         }
     }
@@ -76,7 +76,7 @@ class POLTableViewController: UITableViewController {
     
     // Will save the changes to the POL array.
     func savePOLs(){
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path!)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(pols, toFile: POL.ArchiveURL.path)
         if !isSuccessfulSave{
             print("Failed to save session!")
         }
@@ -87,33 +87,33 @@ class POLTableViewController: UITableViewController {
     
     // Loads any saved POL array.
     func loadPOLs() -> [POL]?{
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(POL.ArchiveURL.path!) as? [POL]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: POL.ArchiveURL.path) as? [POL]
     }
     
     // MARK: - Navigation
     
     // Prepares data to be sent to a different page.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "POLSelected"{
             savePOLs()
-            let nav = segue.destinationViewController as! SessionTableViewController
+            let nav = segue.destination as! SessionTableViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow
             nav.pols = pols
             nav.POLIndex = selectedIndexPath!.row
         }
         if segue.identifier == "NewPOL"{
-            let nav = segue.destinationViewController as! NewPOL
+            let nav = segue.destination as! NewPOL
             nav.pols = pols
         }
     }
     
     // Handles when a page that was navigated to returns back to the table.
-    @IBAction func unwindToPOLList(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.sourceViewController as? SessionTableViewController{
+    @IBAction func unwindToPOLList(_ sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? SessionTableViewController{
             pols = sourceViewController.pols
             if sourceViewController.newPOL{
-                let newIndexPath = NSIndexPath(forRow: pols.count - 1, inSection: 0)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .None)
+                let newIndexPath = IndexPath(row: pols.count - 1, section: 0)
+                tableView.insertRows(at: [newIndexPath], with: .none)
             }
         }
         savePOLs()

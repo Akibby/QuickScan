@@ -38,32 +38,32 @@ class BuildingTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     // Defines the number of sections in the table.
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return buildingTitles.count
     }
 
     // Defines the number of rows in a section.
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return buildingTitles[section].count - 1
     }
 
     // Function to build the cells.
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
         let bldg = shortenBuilding(buildingTitles[indexPath.section][indexPath.row + 1])
         cell.textLabel?.text = bldg
         return cell
     }
     
     // Creates the headers for the sections.
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return buildingTitles[section][0]
     }
     
     // MARK: - Navigation
     
     // Prepares data to be sent to a different page.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let selectedIndexPath = tableView.indexPathForSelectedRow
         building = buildingTitles[(selectedIndexPath?.section)!][(selectedIndexPath?.row)! + 1]
     }
@@ -71,10 +71,10 @@ class BuildingTableViewController: UITableViewController {
     // MARK: - Actions
     
     // Shortens the text of the building
-    func shortenBuilding(building: String) -> String{
+    func shortenBuilding(_ building: String) -> String{
         var bldg = building
-        let range = bldg.startIndex..<bldg.startIndex.advancedBy(6)
-        bldg.removeRange(range)
+        let range = bldg.startIndex..<bldg.characters.index(bldg.startIndex, offsetBy: 6)
+        bldg.removeSubrange(range)
         
         return bldg
     }

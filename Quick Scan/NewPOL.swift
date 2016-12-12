@@ -52,13 +52,13 @@ class NewPOL: UIViewController, UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     
     // Hide the keyboard.
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     // Checks for valid entries after you finish typing in the text feilds.
-    func textFieldDidEndEditing(textField: UITextField){
+    func textFieldDidEndEditing(_ textField: UITextField){
         checkValidEntries()
     }
     
@@ -67,26 +67,27 @@ class NewPOL: UIViewController, UITextFieldDelegate {
         let law = lawNum.text ?? ""
         let po = poNum.text ?? ""
         if (!law.isEmpty && !po.isEmpty){
-            saveButton.enabled = true
+            saveButton.isEnabled = true
         }
         else{
-            saveButton.enabled = false
+            saveButton.isEnabled = false
         }
     }
     
     // MARK: - Navigation
     
     // Creates new POL to be passed on to POLTableViewController.
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let law = lawNum.text ?? ""
         let po = poNum.text ?? ""
         let nick = nickName.text ?? ""
-        if saveButton === sender{
+        // if saveButton == sender as! UIBarButtonItem!{
+        if sender as AnyObject === saveButton {
             pol = POL(lawNum: law, po: po, nickname: nick, sessions: [Session]())
             pols.append(pol!)
         }
         if segue.identifier == "NewPOL"{
-            let nav = segue.destinationViewController as! SessionTableViewController
+            let nav = segue.destination as! SessionTableViewController
             nav.pols = pols
             nav.POLIndex = pols.count - 1
             nav.newPOL = true

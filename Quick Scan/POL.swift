@@ -32,8 +32,8 @@ class POL: NSObject {
      Where the POL Object has its properties stored.
      */
     
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("pol")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("pol")
     
     // MARK: - Types
     /*
@@ -64,18 +64,18 @@ class POL: NSObject {
      Encoding, decoding, and initialization of POL Objects.
      */
     
-    func encodeWithCoder(aCoder: NSCoder){
-        aCoder.encodeObject(lawNum, forKey: PropertyKey.lawKey)
-        aCoder.encodeObject(po, forKey: PropertyKey.poKey)
-        aCoder.encodeObject(nickname, forKey: PropertyKey.nicknameKey)
-        aCoder.encodeObject(sessions, forKey: PropertyKey.sessionsKey)
+    func encodeWithCoder(_ aCoder: NSCoder){
+        aCoder.encode(lawNum, forKey: PropertyKey.lawKey)
+        aCoder.encode(po, forKey: PropertyKey.poKey)
+        aCoder.encode(nickname, forKey: PropertyKey.nicknameKey)
+        aCoder.encode(sessions, forKey: PropertyKey.sessionsKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder){
-        let lawNum = aDecoder.decodeObjectForKey(PropertyKey.lawKey) as! String
-        let po = aDecoder.decodeObjectForKey(PropertyKey.poKey) as! String
-        let nickname = aDecoder.decodeObjectForKey(PropertyKey.nicknameKey) as! String
-        let sessions = aDecoder.decodeObjectForKey(PropertyKey.sessionsKey) as! [Session]
+        let lawNum = aDecoder.decodeObject(forKey: PropertyKey.lawKey) as! String
+        let po = aDecoder.decodeObject(forKey: PropertyKey.poKey) as! String
+        let nickname = aDecoder.decodeObject(forKey: PropertyKey.nicknameKey) as! String
+        let sessions = aDecoder.decodeObject(forKey: PropertyKey.sessionsKey) as! [Session]
         
         self.init(lawNum: lawNum, po: po, nickname: nickname, sessions: sessions)
     }
