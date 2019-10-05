@@ -319,7 +319,7 @@ class SessionTableViewController: UITableViewController, MFMailComposeViewContro
         let contents = convertCSV(pols[POLIndex].sessions)
         let data = contents.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)
         let emailController = MFMailComposeViewController()
-        let serviceEmail = "svc_LakeReceiving@fmolhs.org"
+        let serviceEmail = "******@fmolhs.org"
         
         emailController.canResignFirstResponder
         emailController.mailComposeDelegate = self

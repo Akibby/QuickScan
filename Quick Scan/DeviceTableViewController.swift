@@ -303,7 +303,7 @@ class DeviceTableViewController: UITableViewController, MFMailComposeViewControl
         let contents = convertCSV(pols[POLIndex].sessions[sesIndex].devices)
         let data = contents.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)
         let emailController = MFMailComposeViewController()
-        let serviceEmail = "svc_LakeReceiving@fmolhs.org"
+        let serviceEmail = "******@fmolhs.org"
         
         emailController.canResignFirstResponder
         emailController.mailComposeDelegate = self
